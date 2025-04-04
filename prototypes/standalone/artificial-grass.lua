@@ -97,7 +97,7 @@ data:extend
                 recipe = "compost-from-spoilage"
             }
         },
-        prerequisites = { "basic-gardening", "advanced-material-processing" },
+        prerequisites = { "basic-gardening", "automation-2" },
         unit =
         {
             count = 100,

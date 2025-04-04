@@ -81,7 +81,7 @@ local function create_seed_item(tree_type, tree_name, order_index)
         pick_sound = item_sounds.wood_inventory_pickup,
         drop_sound = item_sounds.wood_inventory_move,
         stack_size = 10,
-        weight = 10 * kg, -- Assumes 'kg' is defined elsewhere; adjust if necessary
+        weight = 10 * kg,
         fuel_category = "chemical",
         fuel_value = "100kJ"
     }

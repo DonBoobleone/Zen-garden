@@ -236,8 +236,11 @@ data:extend(
         {
             type = "recipe",
             name = "water-the-plants",
-            icon = "__zen-garden__/graphics/icons/water-the-plants.png",
-            icon_size = 64,
+            icons =
+            {
+                { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
+                { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64,  scale = 0.5,  shift = { 16, 16 } }
+            },
             category = "gardening",
             energy_required = 60,
             ingredients = {
