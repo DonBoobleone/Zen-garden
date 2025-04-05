@@ -1,5 +1,5 @@
 local zen_utils = require("__zen-garden__/prototypes/zen-tree-utils")
-local tree = zen_utils.tree
+local tree_definitions = zen_utils.tree_definitions
 local colors = zen_utils.colors
 local create_zen_garden_graphics = zen_utils.create_zen_garden_graphics
 
@@ -50,24 +50,23 @@ end
 function generate_gear_trees()
     local positions = {}
 
-    -- Inner ring: Radius, 8 trees
+    -- Inner ring: Radius 1.3, 8 trees
     for _, pos in ipairs(generate_ring(1.3, 8)) do
         table.insert(positions, pos)
     end
 
-    -- Middle ring: Radius, 16 trees
+    -- Middle ring: Radius 1.5, 16 trees
     for _, pos in ipairs(generate_ring(1.5, 16)) do
         table.insert(positions, pos)
     end
 
-    -- Outer ring: Radius, 32 trees
+    -- Outer ring: Radius 2.2, 32 trees
     for _, pos in ipairs(generate_ring(2.2, 32)) do
         table.insert(positions, pos)
     end
 
-    -- Teeth: Radius, 16 trees with teeth_size 0.30
+    -- Teeth: Radius 2.8, teeth_size 0.35
     local teeth_size = 0.35
-
     for _, pos in ipairs(generate_teeth(2.8, teeth_size)) do
         table.insert(positions, pos)
     end
@@ -83,7 +82,7 @@ function generate_gear_trees()
     for _, pos in ipairs(stretched_positions) do
         table.insert(gear_trees, {
             position = pos,
-            tree_type = tree.pine,
+            tree_type = tree_definitions["pine"].variation,
             tint = colors.forest_green,
             scale = 0.33
         })
@@ -119,7 +118,7 @@ local shifts = {
     { -3.5, 1.5 },  -- West bottom
 }
 
--- Apply the shifts to each layer, including hr_version if present
+-- Apply the shifts to each layer
 for i, layer in ipairs(pipe_layers) do
     layer.shift = shifts[i]
 end
@@ -137,117 +136,110 @@ for _, layer in ipairs(tree_layers) do
     table.insert(all_layers, layer)
 end
 
-data:extend(
+data:extend({
     {
-        {
-            type = "assembling-machine",
-            name = "gear-garden",
-            icon = "__zen-garden__/graphics/icons/favourite.png",
-            flags = { "placeable-neutral", "placeable-player", "player-creation" },
-            minable = { mining_time = 1, result = "gear-garden" },
-            max_health = 1000,
-            corpse = "assembling-machine-3-remnants",
-            dying_explosion = "assembling-machine-3-explosion",
-            icon_draw_specification = { shift = { 0, -0.3 } },
-            alert_icon_shift = util.by_pixel(0, -12),
-            resistances = {
-                { type = "fire", percent = 99 }
-            },
-            fluid_boxes = {
-                {
-                    production_type = "input",
-                    pipe_covers = pipecoverspictures(),
-                    volume = 500,
-                    pipe_connections =
-                    {
-                        -- North connections (top)
-                        { flow_direction = "input-output", direction = defines.direction.north, position = { -1.5, -3.5 } },
-                        { flow_direction = "input-output", direction = defines.direction.north, position = { 1.5, -3.5 } },
-
-                        -- South connections (bottom)
-                        { flow_direction = "input-output", direction = defines.direction.south, position = { -1.5, 3.5 } },
-                        { flow_direction = "input-output", direction = defines.direction.south, position = { 1.5, 3.5 } },
-
-                        -- East connections (right)
-                        { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, -1.5 } },
-                        { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, 1.5 } },
-
-                        -- West connections (left)
-                        { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, -1.5 } },
-                        { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, 1.5 } }
-                    },
-                    secondary_draw_orders = { north = -1 }
-                }
-            },
-            fixed_recipe = "water-the-plants",
-            show_recipe_icon = false,
-            fluid_boxes_off_when_no_fluid_recipe = false,
-            impact_category = "metal",
-            working_sound = {
-                sound = { filename = "__base__/sound/world/trees/tree-ambient-leaves-1.ogg", volume = 0.55, audible_distance_modifier = 0.5 },
-                fade_in_ticks = 4,
-                fade_out_ticks = 20
-            },
-            collision_box = { { -3.9, -3.9 }, { 3.9, 3.9 } },
-            selection_box = { { -4, -4 }, { 4, 4 } },
-            drawing_box_vertical_extension = 0.2,
-            fast_replaceable_group = "zen-garden",
-            graphics_set =
+        type = "assembling-machine",
+        name = "gear-garden",
+        icon = "__zen-garden__/graphics/icons/favourite.png",
+        flags = { "placeable-neutral", "placeable-player", "player-creation" },
+        minable = { mining_time = 1, result = "gear-garden" },
+        max_health = 1000,
+        corpse = "assembling-machine-3-remnants",
+        dying_explosion = "assembling-machine-3-explosion",
+        icon_draw_specification = { shift = { 0, -0.3 } },
+        alert_icon_shift = util.by_pixel(0, -12),
+        resistances = {
+            { type = "fire", percent = 99 }
+        },
+        fluid_boxes = {
             {
-                animation = { layers = all_layers }
-            },
-            crafting_categories = { "gardening" },
-            crafting_speed = 1,
-            energy_source = {
-                type = "electric",
-                usage_priority = "secondary-input",
-                emissions_per_minute = { pollution = -10 }
-            },
-            energy_usage = "100kW",
-            module_slots = nil,
-            allowed_effects = {}
+                production_type = "input",
+                pipe_covers = pipecoverspictures(),
+                volume = 500,
+                pipe_connections = {
+                    -- North connections (top)
+                    { flow_direction = "input-output", direction = defines.direction.north, position = { -1.5, -3.5 } },
+                    { flow_direction = "input-output", direction = defines.direction.north, position = { 1.5, -3.5 } },
+                    -- South connections (bottom)
+                    { flow_direction = "input-output", direction = defines.direction.south, position = { -1.5, 3.5 } },
+                    { flow_direction = "input-output", direction = defines.direction.south, position = { 1.5, 3.5 } },
+                    -- East connections (right)
+                    { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, -1.5 } },
+                    { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, 1.5 } },
+                    -- West connections (left)
+                    { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, -1.5 } },
+                    { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, 1.5 } }
+                },
+                secondary_draw_orders = { north = -1 }
+            }
         },
-        -- Item
-        {
-            type = "item",
-            name = "gear-garden",
-            icon = "__zen-garden__/graphics/icons/favourite.png",
-            icon_size = 64,
-            subgroup = "advanced-gardening",
-            order = "a[gear-garden]",
-            place_result = "gear-garden",
-            stack_size = 1
+        fixed_recipe = "water-the-plants",
+        show_recipe_icon = false,
+        fluid_boxes_off_when_no_fluid_recipe = false,
+        impact_category = "metal",
+        working_sound = {
+            sound = { filename = "__base__/sound/world/trees/tree-ambient-leaves-1.ogg", volume = 0.55, audible_distance_modifier = 0.5 },
+            fade_in_ticks = 4,
+            fade_out_ticks = 20
         },
-        -- Recipe
-        {
-            type = "recipe",
-            name = "gear-garden",
-            category = "crafting",
-            energy_required = 10,
-            enabled = true,
-            ingredients = {
-                { type = "item", name = "artificial-grass", amount = 32 },
-                { type = "item", name = "tree-seed",   amount = 24 },
-                { type = "item", name = "pipe-to-ground",   amount = 8 },
-            },
-            results = { { type = "item", name = "gear-garden", amount = 1 } }
+        collision_box = { { -3.9, -3.9 }, { 3.9, 3.9 } },
+        selection_box = { { -4, -4 }, { 4, 4 } },
+        drawing_box_vertical_extension = 0.2,
+        fast_replaceable_group = "zen-garden",
+        graphics_set = {
+            animation = { layers = all_layers }
         },
-        -- Hidden Recipe
-        {
-            type = "recipe",
-            name = "water-the-plants",
-            icons =
-            {
-                { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
-                { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64,  scale = 0.5,  shift = { 16, 16 } }
-            },
-            category = "gardening",
-            energy_required = 60,
-            ingredients = {
-                { type = "fluid", name = "water", amount = 120 }
-            },
-            results = {},
-            hidden = true,
-            enabled = true
-        }
-    })
+        crafting_categories = { "gardening" },
+        crafting_speed = 1,
+        energy_source = {
+            type = "electric",
+            usage_priority = "secondary-input",
+            emissions_per_minute = { pollution = -10 }
+        },
+        energy_usage = "100kW",
+        module_slots = nil,
+        allowed_effects = {}
+    },
+    -- Item
+    {
+        type = "item",
+        name = "gear-garden",
+        icon = "__zen-garden__/graphics/icons/favourite.png",
+        icon_size = 64,
+        subgroup = "advanced-gardening",
+        order = "a[gear-garden]",
+        place_result = "gear-garden",
+        stack_size = 1
+    },
+    -- Recipe
+    {
+        type = "recipe",
+        name = "gear-garden",
+        category = "crafting",
+        energy_required = 10,
+        enabled = true,
+        ingredients = {
+            { type = "item", name = "artificial-grass", amount = 32 },
+            { type = "item", name = "tree-seed", amount = 24 },
+            { type = "item", name = "pipe-to-ground", amount = 8 },
+        },
+        results = { { type = "item", name = "gear-garden", amount = 1 } }
+    },
+    -- Hidden Recipe
+    {
+        type = "recipe",
+        name = "water-the-plants",
+        icons = {
+            { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
+            { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.5, shift = { 16, 16 } }
+        },
+        category = "gardening",
+        energy_required = 60,
+        ingredients = {
+            { type = "fluid", name = "water", amount = 120 }
+        },
+        results = {},
+        hidden = true,
+        enabled = true
+    }
+})

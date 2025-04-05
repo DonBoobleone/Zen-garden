@@ -1,17 +1,16 @@
 local zen_utils = require("__zen-garden__/prototypes/zen-tree-utils")
-local tree = zen_utils.tree
+local tree_definitions = zen_utils.tree_definitions
 local colors = zen_utils.colors
 local create_zen_garden_graphics = zen_utils.create_zen_garden_graphics
 
-local dome_layers =
-{
+local dome_layers = {
     filename = "__zen-garden__/graphics/entity/dome.png",
     priority = "extra-high",
     width = 512,
     height = 512,
     frame_count = 1,
     line_length = 1,
-    scale = .6,
+    scale = 0.6,
     shift = util.by_pixel(0, -12)
 }
 
@@ -42,26 +41,23 @@ local shifts = {
     { -3.5, 1.5 },  -- West bottom
 }
 
--- Apply the shifts to each layer, including hr_version if present
+-- Apply the shifts to each layer
 for i, layer in ipairs(pipe_layers) do
     layer.shift = shifts[i]
 end
 
-local zen_trees =
-{
-    { position = { 0.5, -1 },    tree_type = tree.pine, tint = colors.olive_green,  scale = 0.5 },
-    { position = { -0.5, -1 },   tree_type = tree.pine, tint = colors.olive_green,  scale = 0.5 },
-    { position = { 1.5, -0.5 },  tree_type = tree.pine, tint = colors.light_green,  scale = 0.5 },
-    { position = { -1.5, -0.5 }, tree_type = tree.pine, tint = colors.light_green,  scale = 0.5 },
-    { position = { 1.8, 0.5 },   tree_type = tree.pine, tint = colors.forest_green, scale = 0.5 },
-    { position = { -1.8, 0.5 },  tree_type = tree.pine, tint = colors.forest_green, scale = 0.5 },--[[ 
-    { position = { 1.8, 1.8 },   tree_type = tree.pine, tint = colors.olive_green,  scale = 0.5 },
-    { position = { -1.8, 1.8 },  tree_type = tree.pine, tint = colors.olive_green,  scale = 0.5 }, ]]
+local zen_trees = {
+    { position = { 0.5, -1 },    tree_type = tree_definitions["pine"].variation, tint = colors.olive_green,  scale = 0.5 },
+    { position = { -0.5, -1 },   tree_type = tree_definitions["pine"].variation, tint = colors.olive_green,  scale = 0.5 },
+    { position = { 1.5, -0.5 },  tree_type = tree_definitions["pine"].variation, tint = colors.light_green,  scale = 0.5 },
+    { position = { -1.5, -0.5 }, tree_type = tree_definitions["pine"].variation, tint = colors.light_green,  scale = 0.5 },
+    { position = { 1.8, 0.5 },   tree_type = tree_definitions["pine"].variation, tint = colors.forest_green, scale = 0.5 },
+    { position = { -1.8, 0.5 },  tree_type = tree_definitions["pine"].variation, tint = colors.forest_green, scale = 0.5 },
 }
 
 local tree_layers = create_zen_garden_graphics(zen_trees).layers
 
--- Combine the graphics set
+-- Combine the graphics set: pipes first, then trees, then dome
 local all_layers = {}
 for _, layer in ipairs(pipe_layers) do
     table.insert(all_layers, layer)
@@ -71,8 +67,6 @@ for _, layer in ipairs(tree_layers) do
 end
 table.insert(all_layers, dome_layers)
 
--- Zen-Garden
--- Any Surface, Water => Wood, Seed and nutrition recycling included (crafting cost/technology)
 data:extend({
     {
         type = "assembling-machine",
@@ -94,20 +88,16 @@ data:extend({
                 production_type = "input",
                 pipe_covers = pipecoverspictures(),
                 volume = 500,
-                pipe_connections =
-                {
+                pipe_connections = {
                     -- North connections (top)
                     { flow_direction = "input-output", direction = defines.direction.north, position = { -1.5, -3.5 } },
                     { flow_direction = "input-output", direction = defines.direction.north, position = { 1.5, -3.5 } },
-
                     -- South connections (bottom)
                     { flow_direction = "input-output", direction = defines.direction.south, position = { -1.5, 3.5 } },
                     { flow_direction = "input-output", direction = defines.direction.south, position = { 1.5, 3.5 } },
-
                     -- East connections (right)
                     { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, -1.5 } },
                     { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, 1.5 } },
-
                     -- West connections (left)
                     { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, -1.5 } },
                     { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, 1.5 } }
@@ -125,8 +115,7 @@ data:extend({
         collision_box = { { -3.9, -3.9 }, { 3.9, 3.9 } },
         selection_box = { { -4, -4 }, { 4, 4 } },
         drawing_box_vertical_extension = 0.2,
-        graphics_set =
-        {
+        graphics_set = {
             animation = { layers = all_layers }
         },
         crafting_categories = { "advanced-gardening" },
@@ -160,13 +149,12 @@ data:extend({
         category = "crafting",
         energy_required = 10,
         enabled = false,
-        ingredients =
-        {
-            { type = "item", name = "artificial-grass",      amount = 100 }, 
+        ingredients = {
+            { type = "item", name = "artificial-grass", amount = 100 },
             { type = "item", name = "low-density-structure", amount = 50 },
-            { type = "item", name = "tree-seed",             amount = 20 },
-            { type = "item", name = "electric-engine-unit",  amount = 20 },
-            { type = "item", name = "processing-unit",       amount = 20 }
+            { type = "item", name = "tree-seed", amount = 20 },
+            { type = "item", name = "electric-engine-unit", amount = 20 },
+            { type = "item", name = "processing-unit", amount = 20 }
         },
         results = { { type = "item", name = "zen-garden", amount = 1 } }
     },
@@ -184,27 +172,18 @@ data:extend({
         name = "space-gardening",
         icon = "__zen-garden__/graphics/technology/space-garden.png",
         icon_size = 512,
-        effects =
-        {
-            {
-                type = "unlock-recipe",
-                recipe = "zen-garden"
-            },
-            {
-                type = "unlock-recipe",
-                recipe = "zen-wood"
-            }
+        effects = {
+            { type = "unlock-recipe", recipe = "zen-garden" },
+            { type = "unlock-recipe", recipe = "zen-wood" }
         },
         prerequisites = { "composting", "space-science-pack" },
-        unit =
-        {
+        unit = {
             count = 500,
-            ingredients =
-            {
-                { "automation-science-pack",   1 },
-                { "logistic-science-pack",     1 },
-                { "chemical-science-pack",     1 },
-                { "space-science-pack",        1 }
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack", 1 },
+                { "chemical-science-pack", 1 },
+                { "space-science-pack", 1 }
             },
             time = 60
         }

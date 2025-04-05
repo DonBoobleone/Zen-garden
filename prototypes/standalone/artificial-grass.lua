@@ -3,6 +3,18 @@ local item_sounds = require("__base__.prototypes.item_sounds")
 local seconds = 60
 local minutes = 60 * seconds
 
+-- Create artificial-grass based on grass-1
+local artificial_grass = util.table.deepcopy(data.raw["tile"]["grass-1"])
+artificial_grass.name = "artificial-grass"
+artificial_grass.minable = { mining_time = 0.5, result = "artificial-grass" }
+artificial_grass.mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg", volume = 0.8 }
+artificial_grass.map_color = { r = 55 / 255, g = 69 / 255, b = 11 / 255 }
+artificial_grass.is_foundation = true
+artificial_grass.subgroup = "gardening-tiles"
+artificial_grass.order = "a[artificial]-d[utility]-a[grass]"
+
+data:extend({ artificial_grass })
+
 data:extend
 ({
     {
@@ -82,6 +94,32 @@ data:extend
         order = "a[compost]-b[spoilage]"
     },
     {
+        type = "recipe",
+        name = "soil-mixing",
+        category = "crafting",
+        enabled = false,
+        energy_required = 10,
+        icons =
+        {
+            { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.25, shift = { 0, 0 } },
+            { icon = "__space-age__/graphics/icons/nutrients.png",      icon_size = 64,  scale = 0.5,  shift = { 16, 16 } },
+            { icon = "__base__/graphics/icons/landfill.png",      icon_size = 64,  scale = 0.5,  shift = { -16, 16 } }
+        },
+        ingredients =
+        {
+            { type = "item",  name = "artificial-grass", amount = 5 },
+            { type = "item",  name = "landfill", amount = 5 },
+            { type = "item",  name = "nutrients", amount = 50 }
+        },
+        results =
+        {
+            { type = "item", name = "artificial-grass", amount = 10 }
+        },
+        allow_productivity = false,
+        subgroup = "gardening-tiles",
+        order = "a[compost]-c[breeding]"
+    },
+    {
         type = "technology",
         name = "composting",
         icon = "__zen-garden__/graphics/technology/compost.png",
@@ -108,17 +146,35 @@ data:extend
             },
             time = 30
         }
+    },
+    {
+        type = "technology",
+        name = "soil-mixing",
+        icons =
+        {
+            { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.25, shift = { 0, 0 } },
+            { icon = "__space-age__/graphics/icons/nutrients.png",      icon_size = 64,  scale = 0.5,  shift = { 16, 16 } },
+            { icon = "__base__/graphics/icons/landfill.png",      icon_size = 64,  scale = 0.5,  shift = { -16, 16 } }
+        },
+        effects =
+        {
+            {
+                type = "unlock-recipe",
+                recipe = "soil-mixing"
+            }
+        },
+        prerequisites = { "composting", "artificial-soil" },
+        unit = {
+            count = 100,
+            ingredients =
+            {
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1},
+                {"chemical-science-pack", 1},
+                {"space-science-pack", 1},
+                {"agricultural-science-pack", 1}
+            },
+            time = 60
+        }
     }
 })
-
--- Create artificial-grass based on grass-1
-local artificial_grass = util.table.deepcopy(data.raw["tile"]["grass-1"])
-artificial_grass.name = "artificial-grass"
-artificial_grass.minable = { mining_time = 0.5, result = "artificial-grass" }
-artificial_grass.mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg", volume = 0.8 }
-artificial_grass.map_color = { r = 55 / 255, g = 69 / 255, b = 11 / 255 }
-artificial_grass.is_foundation = true
-artificial_grass.subgroup = "gardening-tiles"
-artificial_grass.order = "a[artificial]-d[utility]-a[grass]"
-
-data:extend({ artificial_grass })

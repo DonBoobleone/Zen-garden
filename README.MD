@@ -21,5 +21,10 @@ Recipes:
 - Compost from wood/spoilage
 - Charcoal burning recipe (Optional): Smelt Wooden chests into coal
 
-
 ![Screenshot](screenshot.png)
+
+Planned Features:
+- Startup options for tree types
+- Graphics update, especially for Zen Garden
+- Add Gleba fruit recipe's to Zen Garden (Optional)
+- Move Terrain tiles to landscaping (optional)

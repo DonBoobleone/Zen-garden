@@ -5,5 +5,5 @@
   "author": "Don Boobleone",
   "factorio_version": "2.0",
   "dependencies": ["base >= 2.0", "space-age >= 2.0"],
-  "description": "Ability to create artificial grass-tiles from compost.\nDecoratives with pollution filtering.\nZen-garden - placable on any surface.\nFocuses on 'less is more' principles when dealing with recipes and intermediates.\nWooden-chests can be smelted into coal. (optional)"
+  "description": "Create artificial grass-tiles from compost.\nCraft decoratives with pollution filtering.\nZen-garden - placable on any surface.\nCharcoal burning recipe. (optional)"
 }
