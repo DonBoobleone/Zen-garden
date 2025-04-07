@@ -10,6 +10,10 @@ data:extend
             {
                 type = "unlock-recipe",
                 recipe = "primitive-wood-processing"
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "crude-wood-processing"
             }
         },
         prerequisites = nil,

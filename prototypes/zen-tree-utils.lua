@@ -18,10 +18,10 @@ local colors = {
 }
 
 -- List of all tree types for Zen garden
-local all_tree_types = {"pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood"}
+local all_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood" }
 
 -- Define the order for tree types with juniper first
-local ordered_tree_types = {"juniper"}
+local ordered_tree_types = { "juniper" }
 for _, tree_type in ipairs(all_tree_types) do
     if tree_type ~= "juniper" then
         table.insert(ordered_tree_types, tree_type)
@@ -97,7 +97,7 @@ local tree_definitions = {
 -- Pre-generate tree variations
 for tree_type, def in pairs(tree_definitions) do
     local variation = util.table.deepcopy(data.raw["tree"][def.base_tree].variations[def.variation_index])
-    for _, component in pairs({"leaves", "shadow", "trunk"}) do
+    for _, component in pairs({ "leaves", "shadow", "trunk" }) do
         if variation[component] and variation[component].frame_count then
             variation[component].frame_count = 1
         end
@@ -109,7 +109,7 @@ end
 -- Define constants for seed-related prototypes
 local seconds = 60
 local minutes = 60 * seconds
-local plant_flags = {"placeable-neutral", "placeable-off-grid", "breaths-air"}
+local plant_flags = { "placeable-neutral", "placeable-off-grid", "breaths-air" }
 
 -- Common properties for plant entities
 local plant_overrides = {
@@ -117,18 +117,18 @@ local plant_overrides = {
     flags = plant_flags,
     hidden_in_factoriopedia = false,
     factoriopedia_alternative = nil,
-    map_color = {0.19, 0.39, 0.19, 0.40},
+    map_color = { 0.19, 0.39, 0.19, 0.40 },
     agricultural_tower_tint = {
-        primary = {r = 0.7, g = 1.0, b = 0.2, a = 1},
-        secondary = {r = 0.561, g = 0.613, b = 0.308, a = 1.000}
+        primary = { r = 0.7, g = 1.0, b = 0.2, a = 1 },
+        secondary = { r = 0.561, g = 0.613, b = 0.308, a = 1.000 }
     },
     minable = {
         mining_particle = "wooden-particle",
         mining_time = 0.5,
-        results = {{type = "item", name = "wood", amount = 4}}
+        results = { { type = "item", name = "wood", amount = 4 } }
     },
     growth_ticks = 10 * minutes,
-    surface_conditions = {{property = "pressure", min = 1000, max = 1000}},
+    surface_conditions = { { property = "pressure", min = 1000, max = 1000 } },
     autoplace = {
         probability_expression = 0,
         tile_restriction = {
@@ -146,11 +146,11 @@ local common_recipe_properties = {
     subgroup = "wood-processing",
     enabled = false,
     allow_productivity = true,
-    surface_conditions = {{property = "pressure", min = 1000, max = 1000}},
+    surface_conditions = { { property = "pressure", min = 1000, max = 1000 } },
     auto_recycle = false,
     crafting_machine_tint = {
-        primary = {r = 0.442, g = 0.205, b = 0.090, a = 1.000},
-        secondary = {r = 1.000, g = 0.500, b = 0.000, a = 1.000}
+        primary = { r = 0.442, g = 0.205, b = 0.090, a = 1.000 },
+        secondary = { r = 1.000, g = 0.500, b = 0.000, a = 1.000 }
     }
 }
 
@@ -183,13 +183,13 @@ function create_zen_tree_layers(tree_variation, position, tint, scale, draw_orde
     for _, layer in ipairs(layers) do
         if layer.shift then
             if layer.draw_as_shadow and tree_variation.trunk then
-                local trunk_shift = tree_variation.trunk.shift or {0, 0}
+                local trunk_shift = tree_variation.trunk.shift or { 0, 0 }
                 layer.shift = {
                     (layer.shift[1] - trunk_shift[1]) * scale + position[1],
                     (layer.shift[2] - trunk_shift[2]) * scale + position[2]
                 }
             else
-                layer.shift = {position[1], position[2]}
+                layer.shift = { position[1], position[2] }
             end
             layer.scale = layer.scale * scale
         end
@@ -210,26 +210,38 @@ function create_zen_garden_graphics(tree_table)
             table.insert(all_layers, layer)
         end
     end
-    return {layers = all_layers}
+    return { layers = all_layers }
 end
 
 -- Planting box layer definition
 local planting_box_layer = {
     filename = "__zen-garden__/graphics/entity/planting-box.png",
     priority = "extra-high",
-    width = 256,
-    height = 256,
+    width = 512,
+    height = 512,
     frame_count = 1,
     direction_count = 1,
-    shift = {0, 0.2},
-    scale = 0.36
+    shift = util.by_pixel(0, -12),
+    scale = 0.69
 }
 
 -- Generate Zen tree entity
 function create_zen_tree_entity(tree_type, extra_layers)
     local def = tree_definitions[tree_type]
     local tree_layers = create_single_zen_tree_layers(def.variation, def.tint)
-    extra_layers = extra_layers or {planting_box_layer}
+    extra_layers = extra_layers or { planting_box_layer }
+
+    -- Get the planting box shift
+    local planting_box_shift = planting_box_layer.shift
+
+    -- Add the planting box shift to each tree layer's shift
+    for _, layer in ipairs(tree_layers) do
+        layer.shift = {
+            layer.shift[1] + planting_box_shift[1],
+            layer.shift[2] + planting_box_shift[2]
+        }
+    end
+
     for i, layer in ipairs(extra_layers) do
         table.insert(tree_layers, i, layer)
     end
@@ -238,16 +250,16 @@ function create_zen_tree_entity(tree_type, extra_layers)
         name = "zen-tree-" .. tree_type,
         icon = "__zen-garden__/graphics/icons/zen-garden.png",
         icon_size = 64,
-        flags = {"placeable-neutral", "placeable-player", "player-creation"},
-        minable = {mining_time = 0.2, result = "zen-tree-" .. tree_type},
+        flags = { "placeable-neutral", "placeable-player", "player-creation" },
+        minable = { mining_time = 0.2, result = "zen-tree-" .. tree_type },
         max_health = 100,
         corpse = "small-remnants",
         fast_replaceable_group = "zen-tree",
-        emissions_per_second = {pollution = -0.001},
-        resistances = {{type = "fire", percent = -50}},
-        collision_box = {{-1.2, -1.2}, {1.2, 1.2}},
-        selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
-        animations = {layers = tree_layers}
+        emissions_per_second = { pollution = -0.001 },
+        resistances = { { type = "fire", percent = -50 } },
+        collision_box = { { -1.2, -1.2 }, { 1.2, 1.2 } },
+        selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
+        animations = { layers = tree_layers }
     }
 end
 
@@ -260,8 +272,8 @@ function create_zen_tree_item(tree_type)
         type = "item",
         name = "zen-tree-" .. tree_type,
         icons = {
-            {icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5, shift = {0, 8}},
-            {icon = def.icon, icon_size = 64, scale = 0.65, shift = {0, -14}, tint = def.tint}
+            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5,  shift = { 0, 8 } },
+            { icon = def.icon,                                   icon_size = 64, scale = 0.65, shift = { 0, -14 }, tint = def.tint }
         },
         subgroup = "gardening",
         order = "a[zen-tree]-" .. order_letter .. "[" .. tree_type .. "]",
@@ -280,11 +292,11 @@ function create_zen_tree_recipe(tree_type)
         energy_required = 1,
         enabled = false,
         ingredients = {
-            {type = "item", name = "wooden-chest", amount = 1},
-            {type = "item", name = "artificial-grass", amount = 1},
-            {type = "item", name = def.seed_name, amount = 1}
+            { type = "item", name = "wooden-chest",     amount = 1 },
+            { type = "item", name = "artificial-grass", amount = 1 },
+            { type = "item", name = def.seed_name,      amount = 1 }
         },
-        results = {{type = "item", name = "zen-tree-" .. tree_type, amount = 1}}
+        results = { { type = "item", name = "zen-tree-" .. tree_type, amount = 1 } }
     }
 end
 
@@ -309,14 +321,14 @@ function create_seed_item(tree_type)
     local def = tree_definitions[tree_type]
     local order_index = tree_order_indices[tree_type]
     local order_letter = string.char(string.byte("b") + order_index - 1) -- 'b' for juniper, 'c' for pine, etc.
-    local tint = (def.base_tree == "tree-09") and {r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1} or nil
+    local tint = (def.base_tree == "tree-09") and { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 } or nil
     return {
         type = "item",
         name = "tree-seed-" .. tree_type,
-        localised_name = {"item-name.tree-seed-" .. tree_type},
+        localised_name = { "item-name.tree-seed-" .. tree_type },
         icons = {
-            {icon = "__space-age__/graphics/icons/tree-seed.png", icon_size = 64, scale = 0.5, shift = {0, 0}},
-            {icon = def.icon, icon_size = 64, scale = 0.25, shift = {-8, 8}, tint = tint}
+            { icon = "__space-age__/graphics/icons/tree-seed.png", icon_size = 64, scale = 0.5,  shift = { 0, 0 } },
+            { icon = def.icon,                                     icon_size = 64, scale = 0.25, shift = { -8, 8 }, tint = tint }
         },
         subgroup = "seeds",
         order = order_letter .. "[" .. tree_type .. "]",
@@ -343,12 +355,12 @@ function create_specific_recipe(tree_type)
     recipe.icon = icon
     recipe.order = "a[wood-processing]-" .. order_letter .. "[" .. tree_type .. "]"
     recipe.energy_required = 2
-    recipe.ingredients = {{type = "item", name = "wood", amount = 2}}
+    recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
     -- Use base game tree-seed for juniper, custom seed for other tree types
     if tree_type == "juniper" then
-        recipe.results = {{type = "item", name = "tree-seed", amount = 1}}
+        recipe.results = { { type = "item", name = "tree-seed", amount = 1 } }
     else
-        recipe.results = {{type = "item", name = "tree-seed-" .. tree_type, amount = 1}}
+        recipe.results = { { type = "item", name = "tree-seed-" .. tree_type, amount = 1 } }
     end
     return recipe
 end
@@ -362,19 +374,19 @@ function create_technology(tree_type)
         type = "technology",
         name = tech_name,
         icons = {
-            {icon = def.icon, icon_size = 64, scale = 1, shift = {-16, -16}},
-            {icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.25, shift = {16, 16}}
+            { icon = def.icon,                                            icon_size = 64,  scale = 1,    shift = { -16, -16 } },
+            { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.25, shift = { 16, 16 } }
         },
-        effects = {{type = "unlock-recipe", recipe = recipe_name}},
-        prerequisites = {"tree-seeding"},
+        effects = { { type = "unlock-recipe", recipe = recipe_name } },
+        prerequisites = { "tree-seeding" },
         unit = {
             count = 50,
             ingredients = {
-                {"automation-science-pack", 1},
-                {"logistic-science-pack", 1},
-                {"chemical-science-pack", 1},
-                {"space-science-pack", 1},
-                {"agricultural-science-pack", 1}
+                { "automation-science-pack",   1 },
+                { "logistic-science-pack",     1 },
+                { "chemical-science-pack",     1 },
+                { "space-science-pack",        1 },
+                { "agricultural-science-pack", 1 }
             },
             time = 60
         }

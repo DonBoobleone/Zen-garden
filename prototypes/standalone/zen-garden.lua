@@ -18,7 +18,8 @@ local dome_layers = {
 local pipe_to_ground_pictures = data.raw["pipe-to-ground"]["pipe-to-ground"].pictures
 
 -- Define pipe layers using copies of the appropriate directional sprites
-local pipe_layers = {
+local pipe_layers = 
+{
     util.copy(pipe_to_ground_pictures.north), -- North left
     util.copy(pipe_to_ground_pictures.north), -- North right
     util.copy(pipe_to_ground_pictures.south), -- South left
@@ -152,7 +153,7 @@ data:extend({
         ingredients = {
             { type = "item", name = "artificial-grass", amount = 100 },
             { type = "item", name = "low-density-structure", amount = 50 },
-            { type = "item", name = "tree-seed", amount = 20 },
+            { type = "item", name = "tree-seed", amount = 20 }, -- Alternately use gear garden?
             { type = "item", name = "electric-engine-unit", amount = 20 },
             { type = "item", name = "processing-unit", amount = 20 }
         },

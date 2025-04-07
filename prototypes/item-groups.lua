@@ -15,21 +15,27 @@ data:extend(
     },
     {
         type = "item-subgroup",
-        name = "wood-processing",
+        name = "basic-wood-processing",
         group = "landscaping",
         order = "b"
     },
     {
         type = "item-subgroup",
-        name = "seeds",
+        name = "wood-processing",
         group = "landscaping",
         order = "c"
     },
     {
         type = "item-subgroup",
-        name = "gardening",
+        name = "seeds",
         group = "landscaping",
         order = "d"
+    },
+    {
+        type = "item-subgroup",
+        name = "gardening",
+        group = "landscaping",
+        order = "e"
     },
     {
         type = "item-subgroup",

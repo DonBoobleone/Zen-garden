@@ -123,6 +123,17 @@ for i, layer in ipairs(pipe_layers) do
     layer.shift = shifts[i]
 end
 
+local water_features_layers = {
+    filename = "__zen-garden__/graphics/entity/fountain.png",
+    priority = "extra-high",
+    width = 256,
+    height = 256,
+    frame_count = 1,
+    line_length = 1,
+    scale = 0.4,
+    shift = util.by_pixel(0, 5),
+}
+
 local gear_trees = generate_gear_trees()
 
 local tree_layers = create_zen_garden_graphics(gear_trees).layers
@@ -132,9 +143,11 @@ local all_layers = {}
 for _, layer in ipairs(pipe_layers) do
     table.insert(all_layers, layer)
 end
+table.insert(all_layers, water_features_layers)
 for _, layer in ipairs(tree_layers) do
     table.insert(all_layers, layer)
 end
+
 
 data:extend({
     {
@@ -220,7 +233,7 @@ data:extend({
         enabled = true,
         ingredients = {
             { type = "item", name = "artificial-grass", amount = 32 },
-            { type = "item", name = "tree-seed", amount = 24 },
+            { type = "item", name = "tree-seed", amount = 20 },
             { type = "item", name = "pipe-to-ground", amount = 8 },
         },
         results = { { type = "item", name = "gear-garden", amount = 1 } }
