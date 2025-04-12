@@ -79,7 +79,7 @@ local dome_front = {
     height = 512,
     frame_count = 1,
     line_length = 1,
-    scale = 0.8,
+    scale = 1,
     shift = util.by_pixel(0, dome_shift)
 }
 
@@ -216,7 +216,7 @@ table.insert(zen_all_layers, water_features_layer_shifted)
 adjust_layers_shift(zen_tree_layers, util.by_pixel(0, dome_shift))
 
 for _, layer in ipairs(zen_tree_layers) do table.insert(zen_all_layers, layer) end
--- table.insert(zen_all_layers, dome_front) -- Uncomment if dome_front is needed
+table.insert(zen_all_layers, dome_front)
 for _, layer in ipairs(pipe_layers_front) do table.insert(zen_all_layers, layer) end
 
 -- **Combine Layers for Gear Garden**
