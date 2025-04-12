@@ -37,7 +37,7 @@ for _, seed_name in ipairs(all_seed_names) do
 end
 local primitive_recipe = util.table.deepcopy(zen_utils.common_recipe_properties)
 primitive_recipe.name = "primitive-wood-processing"
-primitive_recipe.icon = "__base__/graphics/icons/tree-01-stump.png"
+primitive_recipe.icon = "__base__/graphics/icons/tree-04-stump.png"
 primitive_recipe.subgroup = "basic-wood-processing"
 primitive_recipe.order = "b[primitive-wood-processing]"
 primitive_recipe.energy_required = 10
