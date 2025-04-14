@@ -214,31 +214,42 @@ function create_zen_garden_graphics(tree_table)
 end
 
 -- Planting box layer definition
+local planting_box_shift = util.by_pixel(0, 12)
+local planting_box_scale = 0.48
+
 local planting_box_layer = {
-    filename = "__zen-garden__/graphics/entity/planting-box.png",
+    filename = "__zen-garden__/graphics/entity/planting-box/planting-box.png",
     priority = "extra-high",
     width = 512,
     height = 512,
     frame_count = 1,
     direction_count = 1,
-    shift = util.by_pixel(0, -12),
-    scale = 0.69
+    shift = planting_box_shift,
+    scale = planting_box_scale
+}
+local planting_box_layer_shadow = {
+    filename = "__zen-garden__/graphics/entity/planting-box/planting-box-shadow.png",
+    priority = "extra-high",
+    width = 512,
+    height = 512,
+    frame_count = 1,
+    direction_count = 1,
+    shift = planting_box_shift,
+    scale = planting_box_scale,
+    draw_as_shadow = true
 }
 
 -- Generate Zen tree entity
 function create_zen_tree_entity(tree_type, extra_layers)
     local def = tree_definitions[tree_type]
     local tree_layers = create_single_zen_tree_layers(def.variation, def.tint)
-    extra_layers = extra_layers or { planting_box_layer }
+    extra_layers = extra_layers or { planting_box_layer_shadow, planting_box_layer }
 
-    -- Get the planting box shift
-    local planting_box_shift = planting_box_layer.shift
-
-    -- Add the planting box shift to each tree layer's shift
+    -- Subtract the planting box shift to each tree layer's shift
     for _, layer in ipairs(tree_layers) do
         layer.shift = {
-            layer.shift[1] + planting_box_shift[1],
-            layer.shift[2] + planting_box_shift[2]
+            layer.shift[1] - planting_box_shift[1],
+            layer.shift[2] - planting_box_shift[2]
         }
     end
 
@@ -267,7 +278,7 @@ end
 function create_zen_tree_item(tree_type)
     local def = tree_definitions[tree_type]
     local order_index = tree_order_indices[tree_type]
-    local order_letter = string.char(string.byte("a") + order_index - 1) -- 'a' for juniper, 'b' for pine, etc.
+    local order_letter = string.char(string.byte("a") + order_index - 1)
     return {
         type = "item",
         name = "zen-tree-" .. tree_type,
@@ -320,7 +331,7 @@ end
 function create_seed_item(tree_type)
     local def = tree_definitions[tree_type]
     local order_index = tree_order_indices[tree_type]
-    local order_letter = string.char(string.byte("b") + order_index - 1) -- 'b' for juniper, 'c' for pine, etc.
+    local order_letter = string.char(string.byte("b") + order_index - 1)
     local tint = (def.base_tree == "tree-09") and { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 } or nil
     return {
         type = "item",
@@ -348,7 +359,7 @@ end
 function create_specific_recipe(tree_type)
     local def = tree_definitions[tree_type]
     local order_index = tree_order_indices[tree_type]
-    local order_letter = string.char(string.byte("a") + order_index - 1) -- 'a' for juniper, 'b' for pine, etc.
+    local order_letter = string.char(string.byte("a") + order_index - 1)
     local icon = (tree_type == "redwood") and "__base__/graphics/icons/tree-09-red.png" or def.icon
     local recipe = util.table.deepcopy(common_recipe_properties)
     recipe.name = "wood-processing-" .. tree_type

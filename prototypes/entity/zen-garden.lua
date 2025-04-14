@@ -59,27 +59,40 @@ for i, layer in ipairs(pipe_layers_back) do layer.shift = pipe_shifts.back[i] en
 for i, layer in ipairs(pipe_layers_front) do layer.shift = pipe_shifts.front[i] end
 
 -- **Dome Layers for Zen Garden**
-local dome_shift = -24 -- Adjust as needed
+local dome_shift = 12
+local dome_scale = 0.98
 
 local dome_back = {
-    filename = "__zen-garden__/graphics/entity/dome-back.png",
+    filename = "__zen-garden__/graphics/entity/dome/dome-back.png",
     priority = "extra-high",
     width = 512,
     height = 512,
     frame_count = 1,
     line_length = 1,
-    scale = 1,
+    scale = dome_scale,
     shift = util.by_pixel(0, dome_shift)
 }
 
-local dome_front = {
-    filename = "__zen-garden__/graphics/entity/dome-front.png",
+local dome_back_shadow = {
+    filename = "__zen-garden__/graphics/entity/dome/dome-back-shadow.png",
     priority = "extra-high",
     width = 512,
     height = 512,
     frame_count = 1,
     line_length = 1,
-    scale = 1,
+    scale = dome_scale,
+    shift = util.by_pixel(0, dome_shift),
+    draw_as_shadow =true
+}
+
+local dome_front = {
+    filename = "__zen-garden__/graphics/entity/dome/dome-front.png",
+    priority = "extra-high",
+    width = 512,
+    height = 512,
+    frame_count = 1,
+    line_length = 1,
+    scale = dome_scale,
     shift = util.by_pixel(0, dome_shift)
 }
 
@@ -91,7 +104,7 @@ local water_features_layer_shifted = {
     frame_count = 1,
     line_length = 1,
     scale = 0.35,
-    shift = util.by_pixel(0, dome_shift)
+    shift = util.by_pixel(0, -2.5 * dome_shift)
 }
 
 -- **Water Features Layer**
@@ -210,10 +223,11 @@ end
 local zen_all_layers = {}
 for _, layer in ipairs(pipe_layers_back) do table.insert(zen_all_layers, layer) end
 table.insert(zen_all_layers, dome_back)
+table.insert(zen_all_layers, dome_back_shadow)
 table.insert(zen_all_layers, water_features_layer_shifted)
 
 -- Apply shift adjustment to Zen Garden layers
-adjust_layers_shift(zen_tree_layers, util.by_pixel(0, dome_shift))
+adjust_layers_shift(zen_tree_layers, util.by_pixel(0, -2.5 * dome_shift))
 
 for _, layer in ipairs(zen_tree_layers) do table.insert(zen_all_layers, layer) end
 table.insert(zen_all_layers, dome_front)
