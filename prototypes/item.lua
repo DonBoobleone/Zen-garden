@@ -8,7 +8,7 @@ data:extend(
         type = "item",
         name = "compost",
         icon = "__zen-garden__/graphics/icons/compost.png",
-        icon_size = 256,
+        icon_size = 64,
         subgroup = "gardening-tiles",
         order = "a[compost]",
         stack_size = 100,

@@ -247,6 +247,7 @@ data:extend({
         type = "assembling-machine",
         name = "zen-garden",
         icon = "__zen-garden__/graphics/icons/zen-garden.png",
+        icon_size = 64,
         flags = { "placeable-neutral", "placeable-player", "player-creation" },
         minable = { mining_time = 1, result = "zen-garden" },
         max_health = 1000,
@@ -289,6 +290,7 @@ data:extend({
         type = "assembling-machine",
         name = "gear-garden",
         icon = "__zen-garden__/graphics/icons/favourite.png",
+        icon_size = 64,
         flags = { "placeable-neutral", "placeable-player", "player-creation" },
         minable = { mining_time = 1, result = "gear-garden" },
         max_health = 1000,
@@ -302,6 +304,7 @@ data:extend({
         fluid_boxes = common_fluid_boxes,
         fixed_recipe = "water-the-plants",
         show_recipe_icon = false,
+        show_recipe_icon_on_map = true,
         fluid_boxes_off_when_no_fluid_recipe = false,
         impact_category = "metal",
         working_sound = {

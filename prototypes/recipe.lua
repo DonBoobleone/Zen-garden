@@ -7,8 +7,8 @@ data:extend(
         enabled = false,
         energy_required = 120,
         icons = {
-            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 256, scale = 0.25, shift = { 0, 0 } },
-            { icon = "__base__/graphics/icons/wood.png",               icon_size = 64,  scale = 0.5,  shift = { 16, 16 } }
+            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
+            { icon = "__base__/graphics/icons/wood.png",          icon_size = 64,  scale = 0.25,  shift = { 8, 8 } }
         },
         ingredients = {
             { type = "item",  name = "wood",  amount = 100 },
@@ -28,8 +28,8 @@ data:extend(
         enabled = false,
         energy_required = 120,
         icons = {
-            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 256, scale = 0.25, shift = { 0, 0 } },
-            { icon = "__space-age__/graphics/icons/spoilage.png",      icon_size = 64,  scale = 0.5,  shift = { 16, 16 } }
+            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
+            { icon = "__space-age__/graphics/icons/spoilage.png", icon_size = 64,  scale = 0.25,  shift = { 8, 8 } }
         },
         ingredients = {
             { type = "item",  name = "spoilage", amount = 200 },
@@ -50,9 +50,9 @@ data:extend(
         energy_required = 10,
         icons =
         {
-            { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.25, shift = { 0, 0 } },
-            { icon = "__space-age__/graphics/icons/nutrients.png",      icon_size = 64,  scale = 0.5,  shift = { 16, 16 } },
-            { icon = "__base__/graphics/icons/landfill.png",      icon_size = 64,  scale = 0.5,  shift = { -16, 16 } }
+            { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.125, shift = { 0, 0 } },
+            { icon = "__space-age__/graphics/icons/nutrients.png",      icon_size = 64,  scale = 0.25,  shift = { 8, 8 } },
+            { icon = "__base__/graphics/icons/landfill.png",      icon_size = 64,  scale = 0.25,  shift = { -8, 8 } }
         },
         ingredients =
         {
@@ -109,8 +109,8 @@ data:extend(
         type = "recipe",
         name = "water-the-plants",
         icons = {
-            { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
-            { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.5, shift = { 16, 16 } }
+            { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64, scale = 0.25, shift = { -4, -4 } },
+            { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.25, shift = { 4, 4 } }
         },
         category = "gardening",
         energy_required = 60,
