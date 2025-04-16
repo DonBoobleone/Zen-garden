@@ -29,10 +29,10 @@ local pipe_shifts = {
         { -3.5, -1.5 }, -- West top
     },
     front = {
-        { -1.5, 3.5 },  -- South left
-        { 1.5,  3.5 },  -- South right
-        { 3.5,  1.5 },  -- East bottom
-        { -3.5, 1.5 },  -- West bottom
+        { -1.5, 3.5 }, -- South left
+        { 1.5,  3.5 }, -- South right
+        { 3.5,  1.5 }, -- East bottom
+        { -3.5, 1.5 }, -- West bottom
     }
 }
 
@@ -82,7 +82,7 @@ local dome_back_shadow = {
     line_length = 1,
     scale = dome_scale,
     shift = util.by_pixel(0, dome_shift),
-    draw_as_shadow =true
+    draw_as_shadow = true
 }
 
 local dome_front = {
@@ -190,7 +190,7 @@ end
 
 -- **Gear Garden Tree Generation**
 local function generate_gear_trees()
-    local ring_positions = generate_tree_rings({1.3, 1.6, 2.1}, {8, 16, 32})
+    local ring_positions = generate_tree_rings({ 1.3, 1.6, 2.1 }, { 8, 16, 32 })
     for _, pos in ipairs(generate_teeth(2.5, 0.38)) do
         table.insert(ring_positions, stretch(pos))
     end
@@ -201,7 +201,7 @@ local gear_tree_layers = create_zen_garden_graphics(generate_gear_trees()).layer
 
 -- **Zen Garden Tree Generation**
 local function generate_zen_trees()
-    local ring_positions = generate_tree_rings({1.3, 1.6, 2.1}, {8, 16, 32})
+    local ring_positions = generate_tree_rings({ 1.3, 1.6, 2.1 }, { 8, 16, 32 })
     return create_tree_table(ring_positions, tree_definitions["pine"].variation, colors.forest_green, 0.33)
 end
 
@@ -282,6 +282,7 @@ data:extend({
             emissions_per_minute = { pollution = -10 }
         },
         energy_usage = "690kW",
+        heating_energy = "300kW",
         module_slots = 4,
         allowed_effects = { "consumption", "speed", "productivity", "pollution", "quality" }
     },
@@ -298,6 +299,14 @@ data:extend({
         dying_explosion = "assembling-machine-3-explosion",
         icon_draw_specification = { shift = { 0, -0.3 } },
         alert_icon_shift = util.by_pixel(0, -12),
+        surface_conditions =
+        {
+            {
+                property = "pressure",
+                min = 1000,
+                max = 1000
+            }
+        },
         resistances = {
             { type = "fire", percent = 99 }
         },

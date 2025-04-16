@@ -111,6 +111,21 @@ local seconds = 60
 local minutes = 60 * seconds
 local plant_flags = { "placeable-neutral", "placeable-off-grid", "breaths-air" }
 
+local tile_restrictions =
+{
+    "grass-1", "grass-2", "grass-3", "grass-4", "artificial-grass",
+    "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
+    "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
+}
+
+-- Alien Biomes Compatibility
+if mods["alien-biomes"] then
+    local tile_restrictions_alien_biomes = alien_biomes.list_tiles(alien_biomes.require_tag(alien_biomes.all_tiles(), {"grass", "dirt"}))
+    for _, tile in pairs(tile_restrictions_alien_biomes) do
+        table.insert(tile_restrictions, tile)
+    end
+end
+
 -- Common properties for plant entities
 local plant_overrides = {
     type = "plant",
@@ -131,11 +146,7 @@ local plant_overrides = {
     surface_conditions = { { property = "pressure", min = 1000, max = 1000 } },
     autoplace = {
         probability_expression = 0,
-        tile_restriction = {
-            "grass-1", "grass-2", "grass-3", "grass-4", "artificial-grass",
-            "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
-            "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
-        }
+        tile_restriction = tile_restrictions
     }
 }
 
