@@ -240,8 +240,8 @@ table.insert(gear_all_layers, water_features_layer)
 for _, layer in ipairs(gear_tree_layers) do table.insert(gear_all_layers, layer) end
 for _, layer in ipairs(pipe_layers_front) do table.insert(gear_all_layers, layer) end
 
--- **Define Entities**
-data:extend({
+local entities =
+{
     -- **Zen Garden Entity**
     {
         type = "assembling-machine",
@@ -339,4 +339,141 @@ data:extend({
         module_slots = nil,
         allowed_effects = {}
     }
-})
+}
+
+local recipes =
+{
+    {
+        type = "recipe",
+        name = "zen-garden",
+        category = "crafting",
+        energy_required = 10,
+        enabled = false,
+        ingredients = {
+            { type = "item", name = "artificial-grass",      amount = 100 },
+            { type = "item", name = "low-density-structure", amount = 50 },
+            { type = "item", name = "tree-seed",             amount = 20 }, -- Alternately use gear garden?
+            { type = "item", name = "electric-engine-unit",  amount = 20 },
+            { type = "item", name = "processing-unit",       amount = 20 }
+        },
+        results = { { type = "item", name = "zen-garden", amount = 1 } }
+    },
+    {
+        type = "recipe",
+        name = "zen-wood",
+        icons = {
+            { icon = "__base__/graphics/icons/wood.png", icon_size = 64, scale = 0.5 }
+        },
+        category = "advanced-gardening",
+        energy_required = 200,
+        ingredients = { { type = "fluid", name = "water", amount = 2000 } },
+        results = { { type = "item", name = "wood", amount = 100 } }
+    },
+    {
+        type = "recipe",
+        name = "gear-garden",
+        category = "crafting",
+        energy_required = 10,
+        enabled = false,
+        ingredients = {
+            { type = "item", name = "artificial-grass", amount = 32 },
+            { type = "item", name = "tree-seed",        amount = 20 },
+            { type = "item", name = "pipe-to-ground",   amount = 8 },
+        },
+        results = { { type = "item", name = "gear-garden", amount = 1 } }
+    },
+    -- Hidden Recipe
+    {
+        type = "recipe",
+        name = "water-the-plants",
+        icons = {
+            { icon = "__base__/graphics/icons/tree-01.png",     icon_size = 64, scale = 0.25, shift = { -4, -4 } },
+            { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.25, shift = { 4, 4 } }
+        },
+        category = "gardening",
+        energy_required = 60,
+        ingredients = {
+            { type = "fluid", name = "water", amount = 120 }
+        },
+        results = {},
+        hidden = true,
+        enabled = false
+    }
+}
+
+local technologies =
+{
+    {
+        type = "technology",
+        name = "gear-gardening",
+        icon = "__zen-garden__/graphics/technology/zen-gardening-2.png",
+        icon_size = 256,
+        effects = {
+            { type = "unlock-recipe", recipe = "gear-garden" },
+            { type = "unlock-recipe", recipe = "water-the-plants" }
+        },
+        prerequisites = { "composting" },
+        unit = {
+            count = 100,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack",   1 },
+            },
+            time = 60
+        }
+    },
+    {
+        type = "technology",
+        name = "space-gardening",
+        icon = "__zen-garden__/graphics/technology/space-garden.png",
+        icon_size = 512,
+        effects = {
+            { type = "unlock-recipe", recipe = "zen-garden" },
+            { type = "unlock-recipe", recipe = "zen-wood" }
+        },
+        prerequisites = { "composting", "space-science-pack" },
+        unit = {
+            count = 500,
+            ingredients = {
+                { "automation-science-pack", 1 },
+                { "logistic-science-pack",   1 },
+                { "chemical-science-pack",   1 },
+                { "space-science-pack",      1 }
+            },
+            time = 60
+        }
+    }
+}
+
+local items =
+{
+    {
+        type = "item",
+        name = "gear-garden",
+        icon = "__zen-garden__/graphics/icons/favourite.png",
+        icon_size = 64,
+        subgroup = "advanced-gardening",
+        order = "a[gear-garden]",
+        place_result = "gear-garden",
+        stack_size = 1,
+        weight = 500 * kg
+    },
+    {
+        type = "item",
+        name = "zen-garden",
+        icon = "__zen-garden__/graphics/icons/zen-garden.png",
+        icon_size = 64,
+        subgroup = "advanced-gardening",
+        order = "a[zen-garden]",
+        place_result = "zen-garden",
+        stack_size = 1,
+        weight = 1000 * kg
+    }
+}
+
+if settings.startup["zen-garden-enabled"].value then
+    data:extend(entities)
+    data:extend(items)
+    data:extend(recipes)
+    data:extend(technologies)
+end

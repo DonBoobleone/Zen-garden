@@ -37,26 +37,5 @@ data:extend(
             condition_size = 1,
             condition = { layers = {} }
         }
-    },
-    {
-        type = "item",
-        name = "gear-garden",
-        icon = "__zen-garden__/graphics/icons/favourite.png",
-        icon_size = 64,
-        subgroup = "advanced-gardening",
-        order = "a[gear-garden]",
-        place_result = "gear-garden",
-        stack_size = 1
-    },
-    {
-        type = "item",
-        name = "zen-garden",
-        icon = "__zen-garden__/graphics/icons/zen-garden.png",
-        icon_size = 64,
-        subgroup = "advanced-gardening",
-        order = "a[zen-garden]",
-        place_result = "zen-garden",
-        stack_size = 1,
-        weight = 1000 * kg
     }
 })

@@ -1,5 +1,6 @@
 data:extend(
 {
+    -- Composting
     {
         type = "recipe",
         name = "compost-from-wood",
@@ -68,57 +69,4 @@ data:extend(
         subgroup = "gardening-tiles",
         order = "a[compost]-c[breeding]"
     },
-    {
-        type = "recipe",
-        name = "gear-garden",
-        category = "crafting",
-        energy_required = 10,
-        enabled = false,
-        ingredients = {
-            { type = "item", name = "artificial-grass", amount = 32 },
-            { type = "item", name = "tree-seed", amount = 20 },
-            { type = "item", name = "pipe-to-ground", amount = 8 },
-        },
-        results = { { type = "item", name = "gear-garden", amount = 1 } }
-    },
-    {
-        type = "recipe",
-        name = "zen-garden",
-        category = "crafting",
-        energy_required = 10,
-        enabled = false,
-        ingredients = {
-            { type = "item", name = "artificial-grass", amount = 100 },
-            { type = "item", name = "low-density-structure", amount = 50 },
-            { type = "item", name = "tree-seed", amount = 20 }, -- Alternately use gear garden?
-            { type = "item", name = "electric-engine-unit", amount = 20 },
-            { type = "item", name = "processing-unit", amount = 20 }
-        },
-        results = { { type = "item", name = "zen-garden", amount = 1 } }
-    },
-    {
-        type = "recipe",
-        name = "zen-wood",
-        category = "advanced-gardening",
-        energy_required = 200,
-        ingredients = { { type = "fluid", name = "water", amount = 2000 } },
-        results = { { type = "item", name = "wood", amount = 100 } }
-    },
-    -- Hidden Recipe
-    {
-        type = "recipe",
-        name = "water-the-plants",
-        icons = {
-            { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64, scale = 0.25, shift = { -4, -4 } },
-            { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.25, shift = { 4, 4 } }
-        },
-        category = "gardening",
-        energy_required = 60,
-        ingredients = {
-            { type = "fluid", name = "water", amount = 120 }
-        },
-        results = {},
-        hidden = true,
-        enabled = false
-    }
 })

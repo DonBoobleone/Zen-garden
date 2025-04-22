@@ -17,8 +17,26 @@ local colors = {
     brown = { r = 153 / 255, g = 102 / 255, b = 51 / 255, a = 1 }
 }
 
+local tile_restrictions = {
+    "grass-1", "grass-2", "grass-3", "grass-4", "artificial-grass",
+    "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
+    "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
+}
+
+-- Alien Biomes Compatibility
+if mods["alien-biomes"] then
+    -- List of chosen tree types from alien biomes
+    local ab_tree_types = { "baobab", "conifer", "mangrove", "oaktapus", "palm", "pear", "scarecrow", "specter",}
+    local ab_tree_data = require("__alien-biomes__/prototypes/entity/tree-data")
+    local ab_tile_restrictions = alien_biomes.list_tiles(alien_biomes.require_tag(alien_biomes.all_tiles(), { "grass", "dirt" }))
+    for _, tile in pairs(ab_tile_restrictions) do
+        table.insert(tile_restrictions, tile)
+    end
+end
+
+
 -- List of all tree types for Zen garden
-local all_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood" }
+local all_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood", "willow" }
 
 -- Define the order for tree types with juniper first
 local ordered_tree_types = { "juniper" }
@@ -34,7 +52,7 @@ for index, tree_type in ipairs(ordered_tree_types) do
     tree_order_indices[tree_type] = index
 end
 
--- Centralized tree definitions
+-- Base game tree definitions
 local tree_definitions = {
     pine = {
         base_tree = "tree-01",
@@ -71,6 +89,13 @@ local tree_definitions = {
         seed_name = "tree-seed-maple",
         icon = "__base__/graphics/icons/tree-05.png"
     },
+    willow = {
+        base_tree = "tree-06",
+        variation_index = 1,
+        tint = colors.pale_green,
+        seed_name = "tree-seed-willow",
+        icon = "__base__/graphics/icons/tree-06.png"
+    },
     oak = {
         base_tree = "tree-07",
         variation_index = 1,
@@ -106,67 +131,8 @@ for tree_type, def in pairs(tree_definitions) do
     def.variation = variation
 end
 
--- Define constants for seed-related prototypes
-local seconds = 60
-local minutes = 60 * seconds
-local plant_flags = { "placeable-neutral", "placeable-off-grid", "breaths-air" }
-
-local tile_restrictions =
-{
-    "grass-1", "grass-2", "grass-3", "grass-4", "artificial-grass",
-    "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
-    "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
-}
-
--- Alien Biomes Compatibility
-if mods["alien-biomes"] then
-    local tile_restrictions_alien_biomes = alien_biomes.list_tiles(alien_biomes.require_tag(alien_biomes.all_tiles(), {"grass", "dirt"}))
-    for _, tile in pairs(tile_restrictions_alien_biomes) do
-        table.insert(tile_restrictions, tile)
-    end
-end
-
--- Common properties for plant entities
-local plant_overrides = {
-    type = "plant",
-    flags = plant_flags,
-    hidden_in_factoriopedia = false,
-    factoriopedia_alternative = nil,
-    map_color = { 0.19, 0.39, 0.19, 0.40 },
-    agricultural_tower_tint = {
-        primary = { r = 0.7, g = 1.0, b = 0.2, a = 1 },
-        secondary = { r = 0.561, g = 0.613, b = 0.308, a = 1.000 }
-    },
-    minable = {
-        mining_particle = "wooden-particle",
-        mining_time = 0.5,
-        results = { { type = "item", name = "wood", amount = 4 } }
-    },
-    growth_ticks = 10 * minutes,
-    surface_conditions = { { property = "pressure", min = 1000, max = 1000 } },
-    autoplace = {
-        probability_expression = 0,
-        tile_restriction = tile_restrictions
-    }
-}
-
--- Common properties for recipes
-local common_recipe_properties = {
-    type = "recipe",
-    category = "organic-or-assembling",
-    subgroup = "wood-processing",
-    enabled = false,
-    allow_productivity = true,
-    surface_conditions = { { property = "pressure", min = 1000, max = 1000 } },
-    auto_recycle = false,
-    crafting_machine_tint = {
-        primary = { r = 0.442, g = 0.205, b = 0.090, a = 1.000 },
-        secondary = { r = 1.000, g = 0.500, b = 0.000, a = 1.000 }
-    }
-}
-
 -- Creates layers for a single tree variation with the specified tint
-function create_single_zen_tree_layers(tree_variation, tint)
+local function create_single_zen_tree_layers(tree_variation, tint)
     local layers = {}
     if tree_variation.shadow then
         local shadow = util.copy(tree_variation.shadow)
@@ -189,7 +155,7 @@ function create_single_zen_tree_layers(tree_variation, tint)
 end
 
 -- Creates layers with position, scale, and draw order adjustments
-function create_zen_tree_layers(tree_variation, position, tint, scale, draw_order)
+local function create_zen_tree_layers(tree_variation, position, tint, scale, draw_order)
     local layers = create_single_zen_tree_layers(tree_variation, tint)
     for _, layer in ipairs(layers) do
         if layer.shift then
@@ -210,7 +176,7 @@ function create_zen_tree_layers(tree_variation, position, tint, scale, draw_orde
 end
 
 -- Creates graphics set for Zen garden
-function create_zen_garden_graphics(tree_table)
+local function create_zen_garden_graphics(tree_table)
     table.sort(tree_table, function(a, b) return a.position[2] < b.position[2] end)
     local all_layers = {}
     for _, tree in ipairs(tree_table) do
@@ -224,212 +190,15 @@ function create_zen_garden_graphics(tree_table)
     return { layers = all_layers }
 end
 
--- Planting box layer definition
-local planting_box_shift = util.by_pixel(0, 12)
-local planting_box_scale = 0.48
-
-local planting_box_layer = {
-    filename = "__zen-garden__/graphics/entity/planting-box/planting-box.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    direction_count = 1,
-    shift = planting_box_shift,
-    scale = planting_box_scale
-}
-local planting_box_layer_shadow = {
-    filename = "__zen-garden__/graphics/entity/planting-box/planting-box-shadow.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    direction_count = 1,
-    shift = planting_box_shift,
-    scale = planting_box_scale,
-    draw_as_shadow = true
-}
-
--- Generate Zen tree entity
-function create_zen_tree_entity(tree_type, extra_layers)
-    local def = tree_definitions[tree_type]
-    local tree_layers = create_single_zen_tree_layers(def.variation, def.tint)
-    extra_layers = extra_layers or { planting_box_layer_shadow, planting_box_layer }
-
-    -- Subtract the planting box shift to each tree layer's shift
-    for _, layer in ipairs(tree_layers) do
-        layer.shift = {
-            layer.shift[1] - planting_box_shift[1],
-            layer.shift[2] - planting_box_shift[2]
-        }
-    end
-
-    for i, layer in ipairs(extra_layers) do
-        table.insert(tree_layers, i, layer)
-    end
-    return {
-        type = "simple-entity-with-owner",
-        name = "zen-tree-" .. tree_type,
-        icon = "__zen-garden__/graphics/icons/zen-garden.png",
-        icon_size = 64,
-        flags = { "placeable-neutral", "placeable-player", "player-creation" },
-        minable = { mining_time = 0.2, result = "zen-tree-" .. tree_type },
-        max_health = 100,
-        corpse = "small-remnants",
-        fast_replaceable_group = "zen-tree",
-        emissions_per_second = { pollution = -0.001 },
-        resistances = { { type = "fire", percent = -50 } },
-        collision_box = { { -1.2, -1.2 }, { 1.2, 1.2 } },
-        selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
-        animations = { layers = tree_layers }
-    }
-end
-
--- Generate Zen tree item
-function create_zen_tree_item(tree_type)
-    local def = tree_definitions[tree_type]
-    local order_index = tree_order_indices[tree_type]
-    local order_letter = string.char(string.byte("a") + order_index - 1)
-    return {
-        type = "item",
-        name = "zen-tree-" .. tree_type,
-        icons = {
-            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5,  shift = { 0, 8 } },
-            { icon = def.icon,                                   icon_size = 64, scale = 0.65, shift = { 0, -14 }, tint = def.tint }
-        },
-        subgroup = "gardening",
-        order = "a[zen-tree]-" .. order_letter .. "[" .. tree_type .. "]",
-        place_result = "zen-tree-" .. tree_type,
-        stack_size = 50
-    }
-end
-
--- Generate Zen tree recipe
-function create_zen_tree_recipe(tree_type)
-    local def = tree_definitions[tree_type]
-    return {
-        type = "recipe",
-        name = "zen-tree-" .. tree_type,
-        category = "crafting",
-        energy_required = 1,
-        enabled = false,
-        ingredients = {
-            { type = "item", name = "wooden-chest",     amount = 1 },
-            { type = "item", name = "artificial-grass", amount = 1 },
-            { type = "item", name = def.seed_name,      amount = 1 }
-        },
-        results = { { type = "item", name = "zen-tree-" .. tree_type, amount = 1 } }
-    }
-end
-
--- Generate seed plant entity
-function create_seed_plant(tree_type)
-    local def = tree_definitions[tree_type]
-    local new_plant = util.table.deepcopy(data.raw["tree"][def.base_tree])
-    new_plant.name = "tree-plant-" .. tree_type
-    new_plant.variation_weights = {}
-    local variation_count = #new_plant.variations
-    for i = 1, variation_count do
-        new_plant.variation_weights[i] = (i <= variation_count - 2) and 1 or 0
-    end
-    for key, value in pairs(plant_overrides) do
-        new_plant[key] = value
-    end
-    return new_plant
-end
-
--- Generate seed item
-function create_seed_item(tree_type)
-    local def = tree_definitions[tree_type]
-    local order_index = tree_order_indices[tree_type]
-    local order_letter = string.char(string.byte("b") + order_index - 1)
-    local tint = (def.base_tree == "tree-09") and { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 } or nil
-    return {
-        type = "item",
-        name = "tree-seed-" .. tree_type,
-        localised_name = { "item-name.tree-seed-" .. tree_type },
-        icons = {
-            { icon = "__space-age__/graphics/icons/tree-seed.png", icon_size = 64, scale = 0.5,  shift = { 0, 0 } },
-            { icon = def.icon,                                     icon_size = 64, scale = 0.25, shift = { -8, 8 }, tint = tint }
-        },
-        subgroup = "seeds",
-        order = order_letter .. "[" .. tree_type .. "]",
-        plant_result = "tree-plant-" .. tree_type,
-        place_result = "tree-plant-" .. tree_type,
-        inventory_move_sound = item_sounds.wood_inventory_move,
-        pick_sound = item_sounds.wood_inventory_pickup,
-        drop_sound = item_sounds.wood_inventory_move,
-        stack_size = 10,
-        weight = 10,
-        fuel_category = "chemical",
-        fuel_value = "100kJ"
-    }
-end
-
--- Generate specific recipe for tree type
-function create_specific_recipe(tree_type)
-    local def = tree_definitions[tree_type]
-    local order_index = tree_order_indices[tree_type]
-    local order_letter = string.char(string.byte("a") + order_index - 1)
-    local icon = (tree_type == "redwood") and "__base__/graphics/icons/tree-09-red.png" or def.icon
-    local recipe = util.table.deepcopy(common_recipe_properties)
-    recipe.name = "wood-processing-" .. tree_type
-    recipe.icon = icon
-    recipe.order = "a[wood-processing]-" .. order_letter .. "[" .. tree_type .. "]"
-    recipe.energy_required = 2
-    recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
-    -- Use base game tree-seed for juniper, custom seed for other tree types
-    if tree_type == "juniper" then
-        recipe.results = { { type = "item", name = "tree-seed", amount = 1 } }
-    else
-        recipe.results = { { type = "item", name = "tree-seed-" .. tree_type, amount = 1 } }
-    end
-    return recipe
-end
-
--- Generate technology for tree type
-function create_technology(tree_type)
-    local def = tree_definitions[tree_type]
-    local tech_name = "tree-seeding-" .. tree_type
-    local recipe_name = "wood-processing-" .. tree_type
-    return {
-        type = "technology",
-        name = tech_name,
-        icons = {
-            { icon = def.icon,                                            icon_size = 64,  scale = 1,    shift = { -16, -16 } },
-            { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.25, shift = { 16, 16 } }
-        },
-        effects = { { type = "unlock-recipe", recipe = recipe_name } },
-        prerequisites = { "tree-seeding" },
-        unit = {
-            count = 50,
-            ingredients = {
-                { "automation-science-pack",   1 },
-                { "logistic-science-pack",     1 },
-                { "chemical-science-pack",     1 },
-                { "space-science-pack",        1 },
-                { "agricultural-science-pack", 1 }
-            },
-            time = 60
-        }
-    }
-end
-
 -- Export utilities
 return {
-    tree = tree_definitions,
     colors = colors,
+    tile_restrictions = tile_restrictions,
     all_tree_types = all_tree_types,
     tree_definitions = tree_definitions,
+    tree_order_indices = tree_order_indices,
+    item_sounds = item_sounds,
     create_single_zen_tree_layers = create_single_zen_tree_layers,
     create_zen_tree_layers = create_zen_tree_layers,
-    create_zen_garden_graphics = create_zen_garden_graphics,
-    create_zen_tree_entity = create_zen_tree_entity,
-    create_zen_tree_item = create_zen_tree_item,
-    create_zen_tree_recipe = create_zen_tree_recipe,
-    create_seed_plant = create_seed_plant,
-    create_seed_item = create_seed_item,
-    create_specific_recipe = create_specific_recipe,
-    create_technology = create_technology,
-    common_recipe_properties = common_recipe_properties
+    create_zen_garden_graphics = create_zen_garden_graphics
 }

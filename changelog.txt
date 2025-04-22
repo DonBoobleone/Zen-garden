@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.4
+Date: 04. 23. 2025
+  Features:
+    - Startup options for seed variations
+    - Startup options for zen-trees
+    - Startup options for zen-garden
+---------------------------------------------------------------------------------------------------
 Version: 0.1.3
 Date: 04. 16. 2025
   Balancing:
