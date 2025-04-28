@@ -13,7 +13,14 @@ data:extend(
         setting_type = "startup",
         default_value = true,
         order = "b",
-        localised_description = {"", "Requires 'zen-seeds-enabled' to be true."}
+    },
+    {
+        type = "bool-setting",
+        name = "force-basic-zen-tree-recipe",
+        setting_type = "startup",
+        default_value = false,
+        order = "c",
+        localised_description = {"", "Will be forced if 'Zen-seeds' are disabled.."}
     },
     {
         type = "bool-setting",

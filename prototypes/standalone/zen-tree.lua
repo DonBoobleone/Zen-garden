@@ -1,7 +1,100 @@
 local util = require("util")
-local zen_utils = require("__zen-garden__/prototypes/zen-tree-utils")
-local all_tree_types = zen_utils.base_tree_types
-local tree_definitions = zen_utils.tree_definitions
+
+-- Define base tree types
+local base_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood", "willow" }
+
+-- Define ordered tree types with juniper first
+local ordered_tree_types = { "juniper" }
+for _, tree_type in ipairs(base_tree_types) do
+    if tree_type ~= "juniper" then
+        table.insert(ordered_tree_types, tree_type)
+    end
+end
+
+-- Create tree order indices
+local tree_order_indices = {}
+for index, tree_type in ipairs(ordered_tree_types) do
+    tree_order_indices[tree_type] = index
+end
+
+-- Define tree definitions with hardcoded tints and icons
+local tree_definitions = {
+    pine = {
+        base_tree = "tree-01",
+        variation_index = 1,
+        tint = { r = 131 / 255, g = 242 / 255, b = 90 / 255, a = 1 },  -- forest_green
+        seed_name = "tree-seed-pine",
+        icons = {{icon = "__base__/graphics/icons/tree-01.png", icon_size = 64}}
+    },
+    birch = {
+        base_tree = "tree-02",
+        variation_index = 1,
+        tint = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },  -- pale_green
+        seed_name = "tree-seed-birch",
+        icons = {{icon = "__base__/graphics/icons/tree-02.png", icon_size = 64}}
+    },
+    acacia = {
+        base_tree = "tree-03",
+        variation_index = 1,
+        tint = { r = 156 / 255, g = 255 / 255, b = 224 / 255, a = 1 },  -- olive_green
+        seed_name = "tree-seed-acacia",
+        icons = {{icon = "__base__/graphics/icons/tree-03.png", icon_size = 64}}
+    },
+    elm = {
+        base_tree = "tree-04",
+        variation_index = 1,
+        tint = { r = 107 / 255, g = 224 / 255, b = 108 / 255, a = 1 },  -- deep_green
+        seed_name = "tree-seed-elm",
+        icons = {{icon = "__base__/graphics/icons/tree-04.png", icon_size = 64}}
+    },
+    maple = {
+        base_tree = "tree-05",
+        variation_index = 1,
+        tint = { r = 255 / 255, g = 153 / 255, b = 51 / 255, a = 1 },  -- orange
+        seed_name = "tree-seed-maple",
+        icons = {{icon = "__base__/graphics/icons/tree-05.png", icon_size = 64}}
+    },
+    willow = {
+        base_tree = "tree-06",
+        variation_index = 1,
+        tint = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },  -- pale_green
+        seed_name = "tree-seed-willow",
+        icons = {{icon = "__base__/graphics/icons/tree-06.png", icon_size = 64}}
+    },
+    oak = {
+        base_tree = "tree-07",
+        variation_index = 1,
+        tint = { r = 153 / 255, g = 102 / 255, b = 51 / 255, a = 1 },  -- brown
+        seed_name = "tree-seed-oak",
+        icons = {{icon = "__base__/graphics/icons/tree-07.png", icon_size = 64}}
+    },
+    juniper = {
+        base_tree = "tree-08",
+        variation_index = 1,
+        tint = { r = 192 / 255, g = 255 / 255, b = 97 / 255, a = 1 },  -- lime_green
+        seed_name = "tree-seed",  -- Exception: uses generic seed
+        icons = {{icon = "__base__/graphics/icons/tree-08.png", icon_size = 64}}
+    },
+    redwood = {
+        base_tree = "tree-09",
+        variation_index = 4,
+        tint = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 },  -- red
+        seed_name = "tree-seed-redwood",
+        icons = {{icon = "__base__/graphics/icons/tree-09.png", icon_size = 64, tint = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 }}}
+    }
+}
+
+-- Generate tree variations
+for tree_type, def in pairs(tree_definitions) do
+    local variation = util.table.deepcopy(data.raw["tree"][def.base_tree].variations[def.variation_index])
+    for _, component in pairs({ "leaves", "shadow", "trunk" }) do
+        if variation[component] and variation[component].frame_count then
+            variation[component].frame_count = 1
+        end
+    end
+    variation.normal = nil
+    def.variation = variation
+end
 
 -- Define planting box layers
 local planting_box_shift = util.by_pixel(0, 12)
@@ -87,7 +180,7 @@ end
 -- Generate Zen tree item
 local function create_zen_tree_item(tree_type)
     local def = tree_definitions[tree_type]
-    local order_index = zen_utils.tree_order_indices[tree_type]
+    local order_index = tree_order_indices[tree_type]
     local order_letter = string.char(string.byte("a") + order_index - 1)
     -- Copy the first icon layer and adjust its properties
     local tree_icon = util.copy(def.icons[1])
@@ -130,16 +223,15 @@ end
 local new_entities = {}
 local new_items = {}
 local new_recipes = {}
-for _, tree_type in ipairs(all_tree_types) do
+for _, tree_type in ipairs(base_tree_types) do
     table.insert(new_entities, create_zen_tree_entity(tree_type))
     table.insert(new_items, create_zen_tree_item(tree_type))
     table.insert(new_recipes, create_zen_tree_recipe(tree_type))
 end
 
-
 -- Technology effects unlocks a zen-tree for each seed
 local effects = {}
-for _, tree_type in ipairs(all_tree_types) do
+for _, tree_type in ipairs(base_tree_types) do
     table.insert(effects, { type = "unlock-recipe", recipe = "zen-tree-" .. tree_type })
 end
 table.insert(effects, { type = "unlock-recipe", recipe = "primitive-wood-processing" })

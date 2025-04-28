@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.6
+Date: 04. 14. 2025
+  Bugfixes:
+    - Added incompatibility with 'Quality Seeds'
+  Features:
+    - Alien Biomes compatibility: More Zen-trees
+    - Startup option: Easy Zen tree recipes: All zen tree recipes will use generic tree-seed, forced to True if Zen-seed is disabled.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.5
 Date: 04. 28. 2025
   Bugfixes:

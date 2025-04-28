@@ -1,9 +1,9 @@
 {
   "name": "zen-garden",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "title": "Zen Garden",
   "author": "Don Boobleone",
   "factorio_version": "2.0",
-  "dependencies": ["base >= 2.0", "space-age >= 2.0", "? alien-biomes"],
+  "dependencies": ["base >= 2.0", "space-age >= 2.0", "? alien-biomes", "! quality-seeds"],
   "description": "Create artificial grass-tiles from compost.\nPlant any tree with a fresh seed selection. (optional)\nCraft decoratives with pollution filtering. (optional)\nZen-garden - Wood production on any surface. (optional)\nCharcoal burning recipe. (optional)"
 }
