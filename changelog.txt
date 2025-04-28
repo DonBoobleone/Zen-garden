@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+Date: 04. 28. 2025
+  Bugfixes:
+    - Tree-seed tile restricitons
+  Features:
+    - Alien Biomes compatibility: More seeds! (Beta)
+    - Startup option: Move artificial-tiles to Landscaping (default-true)
+---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 04. 23. 2025
   Features:

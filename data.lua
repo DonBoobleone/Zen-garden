@@ -5,17 +5,19 @@ require("__zen-garden__/prototypes/item-groups")
 --Entity
 require("__zen-garden__/prototypes/entity/zen-garden")
 --Tile
-require("__zen-garden__/prototypes/tile/tiles")
+--require("__zen-garden__/prototypes/tile/tiles")
 --Item
-require("__zen-garden__/prototypes/item")
+--require("__zen-garden__/prototypes/item")
 --Recipe
-require("__zen-garden__/prototypes/recipe")
+--require("__zen-garden__/prototypes/recipe")
 --Technology
-require("__zen-garden__/prototypes/technology")
+--require("__zen-garden__/prototypes/technology")
 
 -----------------
 -- Standalone Options
 -----------------
+require("__zen-garden__/prototypes/standalone/composting")
 require("__zen-garden__/prototypes/standalone/zen-seed")
+require("__zen-garden__/prototypes/standalone/alien-seeds")
 require("__zen-garden__/prototypes/standalone/zen-tree")
 require("__zen-garden__/prototypes/standalone/charcoal-burning")

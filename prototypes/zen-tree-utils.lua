@@ -23,20 +23,9 @@ local tile_restrictions = {
     "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
 }
 
--- Alien Biomes Compatibility
-if mods["alien-biomes"] then
-    -- List of chosen tree types from alien biomes
-    local ab_tree_types = { "baobab", "conifer", "mangrove", "oaktapus", "palm", "pear", "scarecrow", "specter",}
-    local ab_tree_data = require("__alien-biomes__/prototypes/entity/tree-data")
-    local ab_tile_restrictions = alien_biomes.list_tiles(alien_biomes.require_tag(alien_biomes.all_tiles(), { "grass", "dirt" }))
-    for _, tile in pairs(ab_tile_restrictions) do
-        table.insert(tile_restrictions, tile)
-    end
-end
-
-
 -- List of all tree types for Zen garden
 local all_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood", "willow" }
+local base_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood", "willow" }
 
 -- Define the order for tree types with juniper first
 local ordered_tree_types = { "juniper" }
@@ -59,65 +48,109 @@ local tree_definitions = {
         variation_index = 1,
         tint = colors.forest_green,
         seed_name = "tree-seed-pine",
-        icon = "__base__/graphics/icons/tree-01.png"
+        icons = {{icon = "__base__/graphics/icons/tree-01.png", icon_size = 64}}
     },
     birch = {
         base_tree = "tree-02",
         variation_index = 1,
         tint = colors.pale_green,
         seed_name = "tree-seed-birch",
-        icon = "__base__/graphics/icons/tree-02.png"
+        icons = {{icon = "__base__/graphics/icons/tree-02.png", icon_size = 64}}
     },
     acacia = {
         base_tree = "tree-03",
         variation_index = 1,
         tint = colors.olive_green,
         seed_name = "tree-seed-acacia",
-        icon = "__base__/graphics/icons/tree-03.png"
+        icons = {{icon = "__base__/graphics/icons/tree-03.png", icon_size = 64}}
     },
     elm = {
         base_tree = "tree-04",
         variation_index = 1,
         tint = colors.deep_green,
         seed_name = "tree-seed-elm",
-        icon = "__base__/graphics/icons/tree-04.png"
+        icons = {{icon = "__base__/graphics/icons/tree-04.png", icon_size = 64}}
     },
     maple = {
         base_tree = "tree-05",
         variation_index = 1,
         tint = colors.orange,
         seed_name = "tree-seed-maple",
-        icon = "__base__/graphics/icons/tree-05.png"
+        icons = {{icon = "__base__/graphics/icons/tree-05.png", icon_size = 64}}
     },
     willow = {
         base_tree = "tree-06",
         variation_index = 1,
         tint = colors.pale_green,
         seed_name = "tree-seed-willow",
-        icon = "__base__/graphics/icons/tree-06.png"
+        icons = {{icon = "__base__/graphics/icons/tree-06.png", icon_size = 64}}
     },
     oak = {
         base_tree = "tree-07",
         variation_index = 1,
         tint = colors.brown,
         seed_name = "tree-seed-oak",
-        icon = "__base__/graphics/icons/tree-07.png"
+        icons = {{icon = "__base__/graphics/icons/tree-07.png", icon_size = 64}}
     },
     juniper = {
         base_tree = "tree-08",
         variation_index = 1,
         tint = colors.lime_green,
         seed_name = "tree-seed", -- Exception: uses generic seed
-        icon = "__base__/graphics/icons/tree-08.png"
+        icons = {{icon = "__base__/graphics/icons/tree-08.png", icon_size = 64}}
     },
     redwood = {
         base_tree = "tree-09",
         variation_index = 4,
         tint = colors.red,
         seed_name = "tree-seed-redwood",
-        icon = "__base__/graphics/icons/tree-09.png"
+        icons = {{icon = "__base__/graphics/icons/tree-09.png", icon_size = 64, tint = colors.red}}
     }
 }
+
+-- Alien Biomes Compatibility
+local ab_tree_types = {}
+local ab_tile_restrictions = {}
+if mods["alien-biomes"] and settings.startup["zen-seeds-enabled"].value then
+    -- Instead of names change to .model /Handpick form tree data.
+    -- local ab_tree_models = {"cherry",  } - these are redundant as well, base mdoels are numbered 02, 08 etc
+    local ab_types = { "wetland", "grassland", "dryland",  "palm"} -- "snow", "volcanic", "desert",
+    ab_tile_restrictions = alien_biomes.list_tiles(alien_biomes.require_tag(alien_biomes.all_tiles(), {"grass", "dirt"}))
+    -- merge tile_restrictions here
+    for _, tile in ipairs(ab_tile_restrictions) do
+        table.insert(tile_restrictions, tile)
+    end
+    for _, ab_tree_type in ipairs(ab_types) do
+        for tree_name, tree_proto in pairs(data.raw["tree"]) do
+            if string.find(tree_name, ab_tree_type, 1, true) then
+                local tint = (tree_proto.icons and tree_proto.icons[2] and tree_proto.icons[2].tint) or colors.forest_green
+                tree_definitions[tree_name] = {
+                    base_tree = tree_name,
+                    variation_index = 1,
+                    tint = tint,
+                    seed_name = "tree-seed-" .. ab_tree_type,
+                    icons = tree_proto.icons or {
+                        {icon = "__alien-biomes-graphics__/graphics/icons/" .. tree_name .. "-trunk.png", icon_size = 64},
+                        {icon = "__alien-biomes-graphics__/graphics/icons/" .. tree_name .. "-leaves.png", icon_size = 64, tint = tint}
+                    }
+                }
+                table.insert(all_tree_types, tree_name)
+                table.insert(ab_tree_types, tree_name)
+                table.insert(ordered_tree_types, tree_name)
+                tree_order_indices[tree_name] = #ordered_tree_types
+            end
+        end
+    end
+end
+
+-- Standardize icons for base game trees
+for tree_type, def in pairs(tree_definitions) do
+    if not def.icons then
+        def.icons = {{icon = def.icon, icon_size = 64}}
+        -- Remove the icon field to avoid redundancy
+        def.icon = nil
+    end
+end
 
 -- Pre-generate tree variations
 for tree_type, def in pairs(tree_definitions) do
@@ -195,6 +228,8 @@ return {
     colors = colors,
     tile_restrictions = tile_restrictions,
     all_tree_types = all_tree_types,
+    base_tree_types = base_tree_types,
+    ab_tree_types = ab_tree_types,
     tree_definitions = tree_definitions,
     tree_order_indices = tree_order_indices,
     item_sounds = item_sounds,

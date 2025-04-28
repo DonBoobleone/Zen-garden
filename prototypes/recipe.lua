@@ -19,7 +19,7 @@ data:extend(
             { type = "item", name = "compost", amount = 1 }
         },
         allow_productivity = true,
-        subgroup = "gardening-tiles",
+        subgroup = "basic-gardening",
         order = "a[compost]-a[wood]"
     },
     {
@@ -40,7 +40,7 @@ data:extend(
             { type = "item", name = "compost", amount = 1 }
         },
         allow_productivity = true,
-        subgroup = "gardening-tiles",
+        subgroup = "basic-gardening",
         order = "a[compost]-b[spoilage]"
     },
     {

@@ -1,6 +1,6 @@
 local util = require("util")
 local zen_utils = require("__zen-garden__/prototypes/zen-tree-utils")
-local all_tree_types = zen_utils.all_tree_types
+local all_tree_types = zen_utils.base_tree_types
 local tree_definitions = zen_utils.tree_definitions
 
 -- Define planting box layers
@@ -89,12 +89,17 @@ local function create_zen_tree_item(tree_type)
     local def = tree_definitions[tree_type]
     local order_index = zen_utils.tree_order_indices[tree_type]
     local order_letter = string.char(string.byte("a") + order_index - 1)
+    -- Copy the first icon layer and adjust its properties
+    local tree_icon = util.copy(def.icons[1])
+    tree_icon.scale = (tree_icon.scale or 1) * 0.65  -- Apply scale, defaulting to 1 if not present
+    tree_icon.shift = {0, -14}                        -- Set shift
+    tree_icon.tint = def.tint                         -- Apply the tree's tint
     return {
         type = "item",
         name = "zen-tree-" .. tree_type,
         icons = {
-            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5,  shift = { 0, 8 } },
-            { icon = def.icon,                                   icon_size = 64, scale = 0.65, shift = { 0, -14 }, tint = def.tint }
+            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5, shift = {0, 8} },
+            tree_icon
         },
         subgroup = "gardening",
         order = "a[zen-tree]-" .. order_letter .. "[" .. tree_type .. "]",
