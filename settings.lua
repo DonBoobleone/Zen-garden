@@ -20,7 +20,7 @@ data:extend(
         setting_type = "startup",
         default_value = false,
         order = "c",
-        localised_description = {"", "Will be forced if 'Zen-seeds' are disabled.."}
+        localised_description = {"", "Zen-trees will use basic tree-seed\nWill be forced if 'Zen-seeds' are disabled."}
     },
     {
         type = "bool-setting",

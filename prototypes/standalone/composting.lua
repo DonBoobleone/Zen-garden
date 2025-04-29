@@ -127,6 +127,29 @@ local composting_recipes =
     }
 }
 
+local effects =
+{
+    {
+        type = "unlock-recipe",
+        recipe = "crude-wood-processing"
+    }
+}
+
+if settings.startup["zen-seeds-enabled"].value then
+    local primitive_effects =
+    {
+        {
+            type = "unlock-recipe",
+            recipe = "crude-wood-processing"
+        },
+        {
+            type = "unlock-recipe",
+            recipe = "primitive-wood-processing"
+        }
+    }
+    effects = primitive_effects
+end
+
 local composting_technologies =
 {
     {
@@ -134,13 +157,7 @@ local composting_technologies =
         name = "basic-gardening",
         icon = "__zen-garden__/graphics/technology/landscaping.png",
         icon_size = 256,
-        effects =
-        {
-            {
-                type = "unlock-recipe",
-                recipe = "crude-wood-processing"
-            }
-        },
+        effects = effects,
         prerequisites = nil,
         research_trigger =
         {
