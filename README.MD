@@ -5,10 +5,10 @@ This mod adds:
 Tile: Artificial Grass
 - Spoils from Compost
 - Can be used as landfill
-- Supports all nauvis tree for planting
+- Supports all Nauvis tree for planting
 
 Various useful cosmetics.
-- 7 Different type of tree-seeds, extending your basic tree-seed selection
+- 8 Different type of tree-seeds, extending your basic tree-seed selection
 - A portable/blueprintable Zen-tree for each seed. They consume pollution.
 - Gear-garden. Consumes pollution for water/electricity.
 
@@ -21,10 +21,15 @@ Recipes:
 - Compost from wood/spoilage
 - Charcoal burning recipe (Optional): Smelt Wooden chests into coal
 
-![Screenshot](screenshot.png)
+Compatibility:
+- Alien biomes (beta)
+- Plant any alien biome tree
+- Craft any alien biomes Zen-tree
 
 Planned Features:
 - Startup options for tree types
+- Alien Biomes tree-type support
 - Graphics update, especially for Zen Garden
 - Add Gleba fruit recipe's to Zen Garden (Optional)
-- Move Terrain tiles to landscaping (optional)
+- Move Terrain tiles to landscaping (Optional)
+- Splitting the mod into standalone parts (Drop in the comments if this sounds good)

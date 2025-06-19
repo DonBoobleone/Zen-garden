@@ -68,7 +68,7 @@ local composting_recipes =
             { icon = "__base__/graphics/icons/wood.png",          icon_size = 64,  scale = 0.25,  shift = { 8, 8 } }
         },
         ingredients = {
-            { type = "item",  name = "wood",  amount = 100 },
+            { type = "item",  name = "wood",  amount = 50 },
             { type = "fluid", name = "water", amount = 1000 }
         },
         results = {
@@ -89,7 +89,7 @@ local composting_recipes =
             { icon = "__space-age__/graphics/icons/spoilage.png", icon_size = 64,  scale = 0.25,  shift = { 8, 8 } }
         },
         ingredients = {
-            { type = "item",  name = "spoilage", amount = 200 },
+            { type = "item",  name = "spoilage", amount = 100 },
             { type = "fluid", name = "water",    amount = 1000 }
         },
         results = {

@@ -1,8 +1,8 @@
 local util = require("util")
 
 -- Define planting box layers
-local planting_box_shift = util.by_pixel(0, 12)
-local planting_box_scale = 0.48
+local planting_box_shift = util.by_pixel(0, 9)
+local planting_box_scale = 0.33
 local planting_box_layer = {
     filename = "__zen-garden__/graphics/entity/planting-box/planting-box.png",
     priority = "extra-high",
@@ -52,7 +52,8 @@ end
 if not settings.startup["zen-trees-enabled"].value then return end
 
 -- Determine whether to use the basic recipe
-local use_basic_recipe = settings.startup["force-basic-zen-tree-recipe"].value or not settings.startup["zen-seeds-enabled"].value
+local use_basic_recipe = settings.startup["force-basic-zen-tree-recipe"].value or
+not settings.startup["zen-seeds-enabled"].value
 
 -- Base trees
 local base_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood", "willow" }
@@ -73,63 +74,63 @@ local tree_definitions = {
         variation_index = 1,
         tint = { r = 131 / 255, g = 242 / 255, b = 90 / 255, a = 1 },
         seed_name = "tree-seed-pine",
-        icons = {{icon = "__base__/graphics/icons/tree-01.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64 } }
     },
     birch = {
         base_tree = "tree-02",
         variation_index = 1,
         tint = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },
         seed_name = "tree-seed-birch",
-        icons = {{icon = "__base__/graphics/icons/tree-02.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-02.png", icon_size = 64 } }
     },
     acacia = {
         base_tree = "tree-03",
         variation_index = 1,
         tint = { r = 156 / 255, g = 255 / 255, b = 224 / 255, a = 1 },
         seed_name = "tree-seed-acacia",
-        icons = {{icon = "__base__/graphics/icons/tree-03.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-03.png", icon_size = 64 } }
     },
     elm = {
         base_tree = "tree-04",
         variation_index = 1,
         tint = { r = 107 / 255, g = 224 / 255, b = 108 / 255, a = 1 },
         seed_name = "tree-seed-elm",
-        icons = {{icon = "__base__/graphics/icons/tree-04.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-04.png", icon_size = 64 } }
     },
     maple = {
         base_tree = "tree-05",
         variation_index = 1,
         tint = { r = 255 / 255, g = 153 / 255, b = 51 / 255, a = 1 },
         seed_name = "tree-seed-maple",
-        icons = {{icon = "__base__/graphics/icons/tree-05.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-05.png", icon_size = 64 } }
     },
     oak = {
         base_tree = "tree-07",
         variation_index = 1,
         tint = { r = 153 / 255, g = 102 / 255, b = 51 / 255, a = 1 },
         seed_name = "tree-seed-oak",
-        icons = {{icon = "__base__/graphics/icons/tree-07.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-07.png", icon_size = 64 } }
     },
     juniper = {
         base_tree = "tree-08",
         variation_index = 1,
         tint = { r = 192 / 255, g = 255 / 255, b = 97 / 255, a = 1 },
         seed_name = "tree-seed",
-        icons = {{icon = "__base__/graphics/icons/tree-08.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-08.png", icon_size = 64 } }
     },
     redwood = {
         base_tree = "tree-09",
         variation_index = 4,
         tint = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 },
         seed_name = "tree-seed-redwood",
-        icons = {{icon = "__base__/graphics/icons/tree-09.png", icon_size = 64, tint = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 }}}
+        icons = { { icon = "__base__/graphics/icons/tree-09.png", icon_size = 64, tint = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 } } }
     },
     willow = {
         base_tree = "tree-06",
         variation_index = 1,
         tint = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },
         seed_name = "tree-seed-willow",
-        icons = {{icon = "__base__/graphics/icons/tree-06.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-06.png", icon_size = 64 } }
     }
 }
 
@@ -171,8 +172,8 @@ local function create_base_zen_tree_entity(tree_type)
         fast_replaceable_group = "zen-tree",
         emissions_per_second = { pollution = -0.001 },
         resistances = { { type = "fire", percent = -50 } },
-        collision_box = { { -1.2, -1.2 }, { 1.2, 1.2 } },
-        selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
+        collision_box = { { -0.9, -0.9 }, { 0.9, 0.9 } },
+        selection_box = { { -1, -1 }, { 1, 1 } },
         animations = { layers = tree_layers }
     }
 end
@@ -184,13 +185,13 @@ local function create_base_zen_tree_item(tree_type)
     local order_letter = string.char(string.byte("a") + order_index - 1)
     local tree_icon = util.copy(def.icons[1])
     tree_icon.scale = (tree_icon.scale or 1) * 0.65
-    tree_icon.shift = {0, -14}
+    tree_icon.shift = { 0, -14 }
     tree_icon.tint = def.tint
     return {
         type = "item",
         name = "zen-tree-" .. tree_type,
         icons = {
-            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5, shift = {0, 8} },
+            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5, shift = { 0, 8 } },
             tree_icon
         },
         subgroup = "gardening",
@@ -211,9 +212,9 @@ local function create_base_zen_tree_recipe(tree_type)
         energy_required = 1,
         enabled = false,
         ingredients = {
-            { type = "item", name = "wooden-chest", amount = 1 },
+            { type = "item", name = "wooden-chest",     amount = 1 },
             { type = "item", name = "artificial-grass", amount = 1 },
-            { type = "item", name = seed_name, amount = 1 }
+            { type = "item", name = seed_name,          amount = 1 }
         },
         results = { { type = "item", name = "zen-tree-" .. tree_type, amount = 1 } }
     }
@@ -247,7 +248,7 @@ local base_technology = {
             count = 50,
             ingredients = {
                 { "automation-science-pack", 1 },
-                { "logistic-science-pack", 1 }
+                { "logistic-science-pack",   1 }
             },
             time = 30
         }
@@ -290,8 +291,8 @@ if mods["alien-biomes"] then
             fast_replaceable_group = "zen-tree",
             emissions_per_second = { pollution = -0.001 },
             resistances = { { type = "fire", percent = -50 } },
-            collision_box = { { -1.2, -1.2 }, { 1.2, 1.2 } },
-            selection_box = { { -1.5, -1.5 }, { 1.5, 1.5 } },
+            collision_box = { { -0.9, -0.9 }, { 0.9, 0.9 } },
+            selection_box = { { -1, -1 }, { 1, 1 } },
             animations = { layers = tree_layers },
             localised_name = { "entity-name.zen-tree", { "alien-biomes." .. treedata.locale }, { "alien-biomes." .. tree_models[treedata.model].locale } }
         }
@@ -305,9 +306,9 @@ if mods["alien-biomes"] then
             return nil
         end
         local item_icons = {
-            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5, shift = {0, 8} },
-            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png", icon_size = 64, scale = 0.65, shift = {0, -14} },
-            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-leaves.png", icon_size = 64, scale = 0.65, shift = {0, -14}, tint = treedata.colors[1] }
+            { icon = "__base__/graphics/icons/wooden-chest.png",                                                icon_size = 64, scale = 0.5,  shift = { 0, 8 } },
+            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png",  icon_size = 64, scale = 0.65, shift = { 0, -14 } },
+            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-leaves.png", icon_size = 64, scale = 0.65, shift = { 0, -14 }, tint = treedata.colors[1] }
         }
         return {
             type = "item",
@@ -324,7 +325,8 @@ if mods["alien-biomes"] then
     -- Function to create alien zen tree recipe
     local function create_alien_zen_tree_recipe(treedata)
         local model_data = tree_models[treedata.model]
-        local specific_seed_name = string.lower(treedata.locale) .. "-" .. string.lower(model_data.locale) .. "-tree-seed"
+        local specific_seed_name = string.lower(treedata.locale) ..
+        "-" .. string.lower(model_data.locale) .. "-tree-seed"
         local seed_name = use_basic_recipe and "tree-seed" or specific_seed_name
         return {
             type = "recipe",
@@ -333,9 +335,9 @@ if mods["alien-biomes"] then
             energy_required = 1,
             enabled = false,
             ingredients = {
-                { type = "item", name = "wooden-chest", amount = 1 },
+                { type = "item", name = "wooden-chest",     amount = 1 },
                 { type = "item", name = "artificial-grass", amount = 1 },
-                { type = "item", name = seed_name, amount = 1 }
+                { type = "item", name = seed_name,          amount = 1 }
             },
             results = { { type = "item", name = "zen-tree-" .. treedata.name, amount = 1 } }
         }
@@ -384,7 +386,7 @@ if mods["alien-biomes"] then
                 name = "alien-zen-gardening-" .. biome_type,
                 localised_name = { "technology-name.alien-zen-gardening", { "technology-name.biome-" .. biome_type } },
                 icons = {
-                    { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-trunk.png", icon_size = 64, scale = 1, shift = { -8, -4 } },
+                    { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-trunk.png",  icon_size = 64, scale = 1, shift = { -8, -4 } },
                     { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-leaves.png", icon_size = 64, scale = 1, shift = { -8, -4 }, tint = rep_treedata.colors[1] }
                 },
                 effects = {},
@@ -393,7 +395,7 @@ if mods["alien-biomes"] then
                     count = 100,
                     ingredients = {
                         { "automation-science-pack", 1 },
-                        { "logistic-science-pack", 1 },
+                        { "logistic-science-pack",   1 },
                     },
                     time = 30
                 }
