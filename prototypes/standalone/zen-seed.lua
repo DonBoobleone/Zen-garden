@@ -310,33 +310,12 @@ end
 local crude_recipe = util.table.deepcopy(common_recipe_properties)
 crude_recipe.name = "crude-wood-processing"
 crude_recipe.icon = "__base__/graphics/icons/tree-02-stump.png"
-crude_recipe.subgroup = "basic-gardening"
+crude_recipe.subgroup = "wood-processing"
 crude_recipe.order = "a[crude-wood-processing]"
 crude_recipe.energy_required = 2
 crude_recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
 crude_recipe.results = { { type = "item", name = "tree-seed", amount = 1, probability = 0.8 } }
 data:extend({ crude_recipe })
-
--- Create primitive recipe
-local all_seed_names = { "tree-seed" }
-for _, tree_type in ipairs(all_tree_types) do
-    if tree_type ~= "juniper" then
-        table.insert(all_seed_names, "tree-seed-" .. tree_type)
-    end
-end
-local primitive_results = {}
-for _, seed_name in ipairs(all_seed_names) do
-    table.insert(primitive_results, { type = "item", name = seed_name, amount_min = 1, amount_max = 2 })
-end
-local primitive_recipe = util.table.deepcopy(common_recipe_properties)
-primitive_recipe.name = "primitive-wood-processing"
-primitive_recipe.icon = "__base__/graphics/icons/tree-04-stump.png"
-primitive_recipe.subgroup = "basic-gardening"
-primitive_recipe.order = "b[primitive-wood-processing]"
-primitive_recipe.energy_required = 10
-primitive_recipe.ingredients = { { type = "item", name = "wood", amount = 24 } }
-primitive_recipe.results = primitive_results
-table.insert(new_recipes, primitive_recipe)
 
 -- Create technologies
 local new_technologies = {}

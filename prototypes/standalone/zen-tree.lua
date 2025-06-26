@@ -315,7 +315,7 @@ if mods["alien-biomes"] then
             name = "zen-tree-" .. treedata.name,
             icons = item_icons,
             subgroup = "gardening",
-            order = "b[alien-zen-tree]-" .. treedata.name,
+            order = "b[alien-zen-tree]-" .. treedata.model,
             place_result = "zen-tree-" .. treedata.name,
             stack_size = 50,
             localised_name = { "item-name.zen-tree", { "alien-biomes." .. treedata.locale }, { "alien-biomes." .. model_data.locale } }

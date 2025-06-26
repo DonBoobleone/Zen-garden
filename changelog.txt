@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.8
+Date: 06. 26. 2025
+  Features:
+    - Artificial Grass placement has 50% chance to remove decoratives.
+    - Artificial Grass layer-group changed to ground-artificial for a cleaner grass experience.
+    - Removed primitive wood-processing recipe
+    - Fixed subgroups and ordering for tiles
+    - Fixed Seed and Zen-tree ordering.
+  Balancing:
+    - Artificial Grass now recycles into itself instead of soil-mixing components.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.7
 Date: 06. 19. 2025
   Balancing:

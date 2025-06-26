@@ -11,8 +11,10 @@ artificial_grass.minable = { mining_time = 0.5, result = "artificial-grass" }
 artificial_grass.mined_sound = { filename = "__base__/sound/deconstruct-bricks.ogg", volume = 0.8 }
 artificial_grass.map_color = { r = 55 / 255, g = 69 / 255, b = 11 / 255 }
 artificial_grass.is_foundation = true
+artificial_grass.layer_group = "ground-artificial"
 artificial_grass.subgroup = "gardening-tiles"
 artificial_grass.order = "a[artificial]-d[utility]-a[grass]"
+artificial_grass.decorative_removal_probability = 0.5
 
 data:extend({ artificial_grass })
 
@@ -45,6 +47,7 @@ local composting_items =
         drop_sound = item_sounds.brick_inventory_move,
         stack_size = 100,
         weight = 10 * kg,
+        auto_recycle = true,
         place_as_tile =
         {
             result = "artificial-grass",
@@ -64,8 +67,8 @@ local composting_recipes =
         enabled = false,
         energy_required = 120,
         icons = {
-            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
-            { icon = "__base__/graphics/icons/wood.png",          icon_size = 64,  scale = 0.25,  shift = { 8, 8 } }
+            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 64, scale = 0.5,  shift = { 0, 0 } },
+            { icon = "__base__/graphics/icons/wood.png",          icon_size = 64, scale = 0.25, shift = { 8, 8 } }
         },
         ingredients = {
             { type = "item",  name = "wood",  amount = 50 },
@@ -75,7 +78,7 @@ local composting_recipes =
             { type = "item", name = "compost", amount = 1 }
         },
         allow_productivity = true,
-        subgroup = "basic-gardening",
+        subgroup = "gardening-tiles",
         order = "a[compost]-a[wood]"
     },
     {
@@ -85,8 +88,8 @@ local composting_recipes =
         enabled = false,
         energy_required = 120,
         icons = {
-            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
-            { icon = "__space-age__/graphics/icons/spoilage.png", icon_size = 64,  scale = 0.25,  shift = { 8, 8 } }
+            { icon = "__zen-garden__/graphics/icons/compost.png", icon_size = 64, scale = 0.5,  shift = { 0, 0 } },
+            { icon = "__space-age__/graphics/icons/spoilage.png", icon_size = 64, scale = 0.25, shift = { 8, 8 } }
         },
         ingredients = {
             { type = "item",  name = "spoilage", amount = 100 },
@@ -96,7 +99,7 @@ local composting_recipes =
             { type = "item", name = "compost", amount = 1 }
         },
         allow_productivity = true,
-        subgroup = "basic-gardening",
+        subgroup = "gardening-tiles",
         order = "a[compost]-b[spoilage]"
     },
     {
@@ -108,47 +111,25 @@ local composting_recipes =
         icons =
         {
             { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.125, shift = { 0, 0 } },
-            { icon = "__space-age__/graphics/icons/nutrients.png",      icon_size = 64,  scale = 0.25,  shift = { 8, 8 } },
-            { icon = "__base__/graphics/icons/landfill.png",      icon_size = 64,  scale = 0.25,  shift = { -8, 8 } }
+            { icon = "__space-age__/graphics/icons/nutrients.png",            icon_size = 64,  scale = 0.25,  shift = { 8, 8 } },
+            { icon = "__base__/graphics/icons/landfill.png",                  icon_size = 64,  scale = 0.25,  shift = { -8, 8 } }
         },
         ingredients =
         {
-            { type = "item",  name = "artificial-grass", amount = 5 },
-            { type = "item",  name = "landfill", amount = 5 },
-            { type = "item",  name = "nutrients", amount = 50 }
+            { type = "item", name = "artificial-grass", amount = 5 },
+            { type = "item", name = "landfill",         amount = 5 },
+            { type = "item", name = "nutrients",        amount = 50 }
         },
         results =
         {
             { type = "item", name = "artificial-grass", amount = 10 }
         },
+        auto_recycle = false,
         allow_productivity = false,
         subgroup = "gardening-tiles",
-        order = "a[compost]-c[breeding]"
+        order = "a[artificial-grass]-b[breeding]"
     }
 }
-
-local effects =
-{
-    {
-        type = "unlock-recipe",
-        recipe = "crude-wood-processing"
-    }
-}
-
-if settings.startup["zen-seeds-enabled"].value then
-    local primitive_effects =
-    {
-        {
-            type = "unlock-recipe",
-            recipe = "crude-wood-processing"
-        },
-        {
-            type = "unlock-recipe",
-            recipe = "primitive-wood-processing"
-        }
-    }
-    effects = primitive_effects
-end
 
 local composting_technologies =
 {
@@ -157,7 +138,13 @@ local composting_technologies =
         name = "basic-gardening",
         icon = "__zen-garden__/graphics/technology/landscaping.png",
         icon_size = 256,
-        effects = effects,
+        effects =
+        {
+            {
+                type = "unlock-recipe",
+                recipe = "crude-wood-processing"
+            }
+        },
         prerequisites = nil,
         research_trigger =
         {
@@ -200,8 +187,8 @@ local composting_technologies =
         icons =
         {
             { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.25, shift = { 0, 0 } },
-            { icon = "__space-age__/graphics/icons/nutrients.png",      icon_size = 64,  scale = 0.5,  shift = { 16, 16 } },
-            { icon = "__base__/graphics/icons/landfill.png",      icon_size = 64,  scale = 0.5,  shift = { -16, 16 } }
+            { icon = "__space-age__/graphics/icons/nutrients.png",            icon_size = 64,  scale = 0.5,  shift = { 16, 16 } },
+            { icon = "__base__/graphics/icons/landfill.png",                  icon_size = 64,  scale = 0.5,  shift = { -16, 16 } }
         },
         effects =
         {
@@ -215,11 +202,11 @@ local composting_technologies =
             count = 100,
             ingredients =
             {
-                {"automation-science-pack", 1},
-                {"logistic-science-pack", 1},
-                {"chemical-science-pack", 1},
-                {"space-science-pack", 1},
-                {"agricultural-science-pack", 1}
+                { "automation-science-pack",   1 },
+                { "logistic-science-pack",     1 },
+                { "chemical-science-pack",     1 },
+                { "space-science-pack",        1 },
+                { "agricultural-science-pack", 1 }
             },
             time = 60
         }
