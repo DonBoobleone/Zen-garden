@@ -8,7 +8,7 @@ Tile: Artificial Grass
 - Supports all Nauvis tree for planting
 
 Various useful cosmetics.
-- 8 Different type of tree-seeds, extending your basic tree-seed selection
+- 9 Different type of tree-seeds, extending your basic tree-seed selection
 - A portable/blueprintable Zen-tree for each seed. They consume pollution.
 - Gear-garden. Consumes pollution for water/electricity.
 
@@ -22,14 +22,10 @@ Recipes:
 - Charcoal burning recipe (Optional): Smelt Wooden chests into coal
 
 Compatibility:
-- Alien biomes (beta)
+- Alien biomes
 - Plant any alien biome tree
 - Craft any alien biomes Zen-tree
 
 Planned Features:
-- Startup options for tree types
-- Alien Biomes tree-type support
 - Graphics update, especially for Zen Garden
-- Add Gleba fruit recipe's to Zen Garden (Optional)
-- Move Terrain tiles to landscaping (Optional)
 - Splitting the mod into standalone parts (Drop in the comments if this sounds good)

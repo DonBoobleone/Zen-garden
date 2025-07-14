@@ -1,5 +1,5 @@
-data:extend(
-{
+-- settings.lua
+data:extend({
     {
         type = "bool-setting",
         name = "zen-seeds-enabled",

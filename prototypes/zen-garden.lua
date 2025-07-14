@@ -1,10 +1,11 @@
-local util = require("util")
-local zen_utils = require("__zen-garden__/prototypes/zen-tree-utils")
-local tree_definitions = zen_utils.tree_definitions
-local colors = zen_utils.colors
-local create_zen_garden_graphics = zen_utils.create_zen_garden_graphics
+if not settings.startup["zen-garden-enabled"].value then return end
 
--- **Common Pipe Layers Definition**
+local utils = require("__zen-garden__/prototypes/zen-utils")
+local util = require("util")
+local colors = utils.colors
+local create_zen_garden_graphics = utils.create_zen_garden_graphics
+local tree_definitions = utils.tree_definitions
+
 local pipe_to_ground_pictures = data.raw["pipe-to-ground"]["pipe-to-ground"].pictures
 
 local pipe_layers_back = {
@@ -36,20 +37,22 @@ local pipe_shifts = {
     }
 }
 
-local common_fluid_boxes = {
+local common_fluid_boxes =
+{
     {
         production_type = "input",
         pipe_covers = pipecoverspictures(),
         volume = 500,
-        pipe_connections = {
+        pipe_connections =
+        {
             { flow_direction = "input-output", direction = defines.direction.north, position = { -1.5, -3.5 } },
             { flow_direction = "input-output", direction = defines.direction.north, position = { 1.5, -3.5 } },
             { flow_direction = "input-output", direction = defines.direction.south, position = { -1.5, 3.5 } },
             { flow_direction = "input-output", direction = defines.direction.south, position = { 1.5, 3.5 } },
             { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, -1.5 } },
             { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, 1.5 } },
-            { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, -1.5 } },
-            { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, 1.5 } }
+            { flow_direction = "input-output", direction = defines.direction.west, position = { -3.5, -1.5 } },
+            { flow_direction = "input-output", direction = defines.direction.west, position = { -3.5, 1.5 } }
         },
         secondary_draw_orders = { north = -1 }
     }
@@ -58,7 +61,6 @@ local common_fluid_boxes = {
 for i, layer in ipairs(pipe_layers_back) do layer.shift = pipe_shifts.back[i] end
 for i, layer in ipairs(pipe_layers_front) do layer.shift = pipe_shifts.front[i] end
 
--- **Dome Layers for Zen Garden**
 local dome_shift = 12
 local dome_scale = 0.98
 
@@ -107,7 +109,6 @@ local water_features_layer_shifted = {
     shift = util.by_pixel(0, -2.5 * dome_shift)
 }
 
--- **Water Features Layer**
 local water_features_layer = {
     filename = "__zen-garden__/graphics/entity/fountain.png",
     priority = "extra-high",
@@ -119,7 +120,6 @@ local water_features_layer = {
     shift = util.by_pixel(0, 0)
 }
 
--- **Tree Generation Utilities**
 local stretch_factor = 0.8
 
 local function stretch(position)
@@ -159,7 +159,6 @@ local function generate_teeth(radius, teeth_size)
     return positions
 end
 
--- Centralized function to generate tree ring positions
 local function generate_tree_rings(radii, tree_counts)
     local positions = {}
     for i, radius in ipairs(radii) do
@@ -174,13 +173,12 @@ local function generate_tree_rings(radii, tree_counts)
     return stretched_positions
 end
 
--- Function to create tree table from positions
-local function create_tree_table(positions, tree_type, tint, scale)
+local function create_tree_table(positions, tree_variation, tint, scale)
     local trees = {}
     for _, pos in ipairs(positions) do
         table.insert(trees, {
             position = pos,
-            tree_type = tree_type,
+            tree_type = tree_variation,
             tint = tint,
             scale = scale
         })
@@ -188,7 +186,6 @@ local function create_tree_table(positions, tree_type, tint, scale)
     return trees
 end
 
--- **Gear Garden Tree Generation**
 local function generate_gear_trees()
     local ring_positions = generate_tree_rings({ 1.3, 1.6, 2.1 }, { 8, 16, 32 })
     for _, pos in ipairs(generate_teeth(2.5, 0.38)) do
@@ -199,7 +196,6 @@ end
 
 local gear_tree_layers = create_zen_garden_graphics(generate_gear_trees()).layers
 
--- **Zen Garden Tree Generation**
 local function generate_zen_trees()
     local ring_positions = generate_tree_rings({ 1.3, 1.6, 2.1 }, { 8, 16, 32 })
     return create_tree_table(ring_positions, tree_definitions["pine"].variation, colors.forest_green, 0.33)
@@ -207,7 +203,6 @@ end
 
 local zen_tree_layers = create_zen_garden_graphics(generate_zen_trees()).layers
 
--- **Shift Adjustment Function**
 local function adjust_layers_shift(layers, shift_vector)
     for _, layer in ipairs(layers) do
         if layer.shift then
@@ -219,30 +214,25 @@ local function adjust_layers_shift(layers, shift_vector)
     end
 end
 
--- **Combine Layers for Zen Garden**
 local zen_all_layers = {}
 for _, layer in ipairs(pipe_layers_back) do table.insert(zen_all_layers, layer) end
 table.insert(zen_all_layers, dome_back)
 table.insert(zen_all_layers, dome_back_shadow)
 table.insert(zen_all_layers, water_features_layer_shifted)
 
--- Apply shift adjustment to Zen Garden layers
 adjust_layers_shift(zen_tree_layers, util.by_pixel(0, -2.5 * dome_shift))
 
 for _, layer in ipairs(zen_tree_layers) do table.insert(zen_all_layers, layer) end
 table.insert(zen_all_layers, dome_front)
 for _, layer in ipairs(pipe_layers_front) do table.insert(zen_all_layers, layer) end
 
--- **Combine Layers for Gear Garden**
 local gear_all_layers = {}
 for _, layer in ipairs(pipe_layers_back) do table.insert(gear_all_layers, layer) end
 table.insert(gear_all_layers, water_features_layer)
 for _, layer in ipairs(gear_tree_layers) do table.insert(gear_all_layers, layer) end
 for _, layer in ipairs(pipe_layers_front) do table.insert(gear_all_layers, layer) end
 
-local entities =
-{
-    -- **Zen Garden Entity**
+local entities = {
     {
         type = "assembling-machine",
         name = "zen-garden",
@@ -286,7 +276,6 @@ local entities =
         module_slots = 4,
         allowed_effects = { "consumption", "speed", "productivity", "pollution", "quality" }
     },
-    -- **Gear Garden Entity**
     {
         type = "assembling-machine",
         name = "gear-garden",
@@ -299,8 +288,7 @@ local entities =
         dying_explosion = "assembling-machine-3-explosion",
         icon_draw_specification = { shift = { 0, -0.3 } },
         alert_icon_shift = util.by_pixel(0, -12),
-        surface_conditions =
-        {
+        surface_conditions = {
             {
                 property = "pressure",
                 min = 1000,
@@ -341,8 +329,7 @@ local entities =
     }
 }
 
-local recipes =
-{
+local recipes = {
     {
         type = "recipe",
         name = "zen-garden",
@@ -352,7 +339,7 @@ local recipes =
         ingredients = {
             { type = "item", name = "artificial-grass",      amount = 100 },
             { type = "item", name = "low-density-structure", amount = 50 },
-            { type = "item", name = "tree-seed",             amount = 20 }, -- Alternately use gear garden?
+            { type = "item", name = "tree-seed",             amount = 20 },
             { type = "item", name = "electric-engine-unit",  amount = 20 },
             { type = "item", name = "processing-unit",       amount = 20 }
         },
@@ -382,7 +369,6 @@ local recipes =
         },
         results = { { type = "item", name = "gear-garden", amount = 1 } }
     },
-    -- Hidden Recipe
     {
         type = "recipe",
         name = "water-the-plants",
@@ -401,8 +387,7 @@ local recipes =
     }
 }
 
-local technologies =
-{
+local technologies = {
     {
         type = "technology",
         name = "gear-gardening",
@@ -445,8 +430,7 @@ local technologies =
     }
 }
 
-local items =
-{
+local items = {
     {
         type = "item",
         name = "gear-garden",
@@ -471,9 +455,7 @@ local items =
     }
 }
 
-if settings.startup["zen-garden-enabled"].value then
-    data:extend(entities)
-    data:extend(items)
-    data:extend(recipes)
-    data:extend(technologies)
-end
+data:extend(entities)
+data:extend(items)
+data:extend(recipes)
+data:extend(technologies)

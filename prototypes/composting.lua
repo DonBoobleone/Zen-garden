@@ -3,8 +3,6 @@ local item_sounds = require("__base__.prototypes.item_sounds")
 local seconds = 60
 local minutes = 60 * seconds
 
-
--- Create artificial-grass based on grass-1
 local artificial_grass = util.table.deepcopy(data.raw["tile"]["grass-1"])
 artificial_grass.name = "artificial-grass"
 artificial_grass.minable = { mining_time = 0.5, result = "artificial-grass" }
@@ -18,8 +16,7 @@ artificial_grass.decorative_removal_probability = 0.5
 
 data:extend({ artificial_grass })
 
-local composting_items =
-{
+local composting_items = {
     {
         type = "item",
         name = "compost",
@@ -48,8 +45,7 @@ local composting_items =
         stack_size = 100,
         weight = 10 * kg,
         auto_recycle = true,
-        place_as_tile =
-        {
+        place_as_tile = {
             result = "artificial-grass",
             condition_size = 1,
             condition = { layers = {} }
@@ -57,9 +53,7 @@ local composting_items =
     }
 }
 
-local composting_recipes =
-{
-    -- Composting
+local composting_recipes = {
     {
         type = "recipe",
         name = "compost-from-wood",
@@ -108,20 +102,17 @@ local composting_recipes =
         category = "crafting",
         enabled = false,
         energy_required = 10,
-        icons =
-        {
+        icons = {
             { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.125, shift = { 0, 0 } },
             { icon = "__space-age__/graphics/icons/nutrients.png",            icon_size = 64,  scale = 0.25,  shift = { 8, 8 } },
             { icon = "__base__/graphics/icons/landfill.png",                  icon_size = 64,  scale = 0.25,  shift = { -8, 8 } }
         },
-        ingredients =
-        {
+        ingredients = {
             { type = "item", name = "artificial-grass", amount = 5 },
             { type = "item", name = "landfill",         amount = 5 },
             { type = "item", name = "nutrients",        amount = 50 }
         },
-        results =
-        {
+        results = {
             { type = "item", name = "artificial-grass", amount = 10 }
         },
         auto_recycle = false,
@@ -131,23 +122,20 @@ local composting_recipes =
     }
 }
 
-local composting_technologies =
-{
+local composting_technologies = {
     {
         type = "technology",
         name = "basic-gardening",
         icon = "__zen-garden__/graphics/technology/landscaping.png",
         icon_size = 256,
-        effects =
-        {
+        effects = {
             {
                 type = "unlock-recipe",
                 recipe = "crude-wood-processing"
             }
         },
         prerequisites = nil,
-        research_trigger =
-        {
+        research_trigger = {
             type = "craft-item",
             item = "wooden-chest",
             count = 50
@@ -158,8 +146,7 @@ local composting_technologies =
         name = "composting",
         icon = "__zen-garden__/graphics/technology/compost.png",
         icon_size = 256,
-        effects =
-        {
+        effects = {
             {
                 type = "unlock-recipe",
                 recipe = "compost-from-wood"
@@ -170,11 +157,9 @@ local composting_technologies =
             }
         },
         prerequisites = { "basic-gardening", "automation-2" },
-        unit =
-        {
+        unit = {
             count = 100,
-            ingredients =
-            {
+            ingredients = {
                 { "automation-science-pack", 1 },
                 { "logistic-science-pack",   1 }
             },
@@ -184,14 +169,12 @@ local composting_technologies =
     {
         type = "technology",
         name = "soil-mixing",
-        icons =
-        {
+        icons = {
             { icon = "__space-age__/graphics/technology/artificial-soil.png", icon_size = 256, scale = 0.25, shift = { 0, 0 } },
             { icon = "__space-age__/graphics/icons/nutrients.png",            icon_size = 64,  scale = 0.5,  shift = { 16, 16 } },
             { icon = "__base__/graphics/icons/landfill.png",                  icon_size = 64,  scale = 0.5,  shift = { -16, 16 } }
         },
-        effects =
-        {
+        effects = {
             {
                 type = "unlock-recipe",
                 recipe = "soil-mixing"
@@ -200,8 +183,7 @@ local composting_technologies =
         prerequisites = { "composting", "artificial-soil" },
         unit = {
             count = 100,
-            ingredients =
-            {
+            ingredients = {
                 { "automation-science-pack",   1 },
                 { "logistic-science-pack",     1 },
                 { "chemical-science-pack",     1 },

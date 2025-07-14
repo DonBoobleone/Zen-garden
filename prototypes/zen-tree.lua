@@ -1,6 +1,16 @@
-local util = require("util")
+-- prototypes/zen-tree.lua
+if not settings.startup["zen-trees-enabled"].value then return end
 
--- Define planting box layers
+local utils = require("__zen-garden__/prototypes/zen-utils")
+local util = require("util")
+local tree_definitions = utils.tree_definitions
+local ordered_tree_types = utils.ordered_tree_types
+local tree_order_indices = utils.tree_order_indices
+local base_tree_types = utils.base_tree_types
+local all_tree_types = utils.all_tree_types
+
+local use_basic_recipe = settings.startup["force-basic-zen-tree-recipe"].value or not settings.startup["zen-seeds-enabled"].value
+
 local planting_box_shift = util.by_pixel(0, 9)
 local planting_box_scale = 0.33
 local planting_box_layer = {
@@ -25,7 +35,6 @@ local planting_box_layer_shadow = {
     draw_as_shadow = true
 }
 
--- Function to create zen tree layers with tint
 local function create_zen_tree_layers(variation, tint)
     local layers = {}
     if variation.shadow then
@@ -48,105 +57,6 @@ local function create_zen_tree_layers(variation, tint)
     return layers
 end
 
--- Check if zen-trees are enabled
-if not settings.startup["zen-trees-enabled"].value then return end
-
--- Determine whether to use the basic recipe
-local use_basic_recipe = settings.startup["force-basic-zen-tree-recipe"].value or
-not settings.startup["zen-seeds-enabled"].value
-
--- Base trees
-local base_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood", "willow" }
-local ordered_tree_types = { "juniper" }
-for _, tree_type in ipairs(base_tree_types) do
-    if tree_type ~= "juniper" then
-        table.insert(ordered_tree_types, tree_type)
-    end
-end
-local tree_order_indices = {}
-for index, tree_type in ipairs(ordered_tree_types) do
-    tree_order_indices[tree_type] = index
-end
-
-local tree_definitions = {
-    pine = {
-        base_tree = "tree-01",
-        variation_index = 1,
-        tint = { r = 131 / 255, g = 242 / 255, b = 90 / 255, a = 1 },
-        seed_name = "tree-seed-pine",
-        icons = { { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64 } }
-    },
-    birch = {
-        base_tree = "tree-02",
-        variation_index = 1,
-        tint = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },
-        seed_name = "tree-seed-birch",
-        icons = { { icon = "__base__/graphics/icons/tree-02.png", icon_size = 64 } }
-    },
-    acacia = {
-        base_tree = "tree-03",
-        variation_index = 1,
-        tint = { r = 156 / 255, g = 255 / 255, b = 224 / 255, a = 1 },
-        seed_name = "tree-seed-acacia",
-        icons = { { icon = "__base__/graphics/icons/tree-03.png", icon_size = 64 } }
-    },
-    elm = {
-        base_tree = "tree-04",
-        variation_index = 1,
-        tint = { r = 107 / 255, g = 224 / 255, b = 108 / 255, a = 1 },
-        seed_name = "tree-seed-elm",
-        icons = { { icon = "__base__/graphics/icons/tree-04.png", icon_size = 64 } }
-    },
-    maple = {
-        base_tree = "tree-05",
-        variation_index = 1,
-        tint = { r = 255 / 255, g = 153 / 255, b = 51 / 255, a = 1 },
-        seed_name = "tree-seed-maple",
-        icons = { { icon = "__base__/graphics/icons/tree-05.png", icon_size = 64 } }
-    },
-    oak = {
-        base_tree = "tree-07",
-        variation_index = 1,
-        tint = { r = 153 / 255, g = 102 / 255, b = 51 / 255, a = 1 },
-        seed_name = "tree-seed-oak",
-        icons = { { icon = "__base__/graphics/icons/tree-07.png", icon_size = 64 } }
-    },
-    juniper = {
-        base_tree = "tree-08",
-        variation_index = 1,
-        tint = { r = 192 / 255, g = 255 / 255, b = 97 / 255, a = 1 },
-        seed_name = "tree-seed",
-        icons = { { icon = "__base__/graphics/icons/tree-08.png", icon_size = 64 } }
-    },
-    redwood = {
-        base_tree = "tree-09",
-        variation_index = 4,
-        tint = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 },
-        seed_name = "tree-seed-redwood",
-        icons = { { icon = "__base__/graphics/icons/tree-09.png", icon_size = 64, tint = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 } } }
-    },
-    willow = {
-        base_tree = "tree-06",
-        variation_index = 1,
-        tint = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },
-        seed_name = "tree-seed-willow",
-        icons = { { icon = "__base__/graphics/icons/tree-06.png", icon_size = 64 } }
-    }
-}
-
--- Generate tree variations
-for tree_type, def in pairs(tree_definitions) do
-    local variation = util.table.deepcopy(data.raw["tree"][def.base_tree].variations[def.variation_index])
-    for _, component in pairs({ "leaves", "shadow", "trunk" }) do
-        if variation[component] and variation[component].frame_count then
-            variation[component].frame_count = 1
-        end
-    end
-    variation.normal = nil
-    def.variation = variation
-end
-
--- Function to create base zen tree entity
 local function create_base_zen_tree_entity(tree_type)
     local def = tree_definitions[tree_type]
     local tree_layers = create_zen_tree_layers(def.variation, def.tint)
@@ -178,7 +88,6 @@ local function create_base_zen_tree_entity(tree_type)
     }
 end
 
--- Function to create base zen tree item
 local function create_base_zen_tree_item(tree_type)
     local def = tree_definitions[tree_type]
     local order_index = tree_order_indices[tree_type]
@@ -201,7 +110,6 @@ local function create_base_zen_tree_item(tree_type)
     }
 end
 
--- Function to create base zen tree recipe
 local function create_base_zen_tree_recipe(tree_type)
     local def = tree_definitions[tree_type]
     local seed_name = use_basic_recipe and "tree-seed" or def.seed_name
@@ -220,7 +128,6 @@ local function create_base_zen_tree_recipe(tree_type)
     }
 end
 
--- Generate base tree prototypes
 local base_entities = {}
 local base_items = {}
 local base_recipes = {}
@@ -230,43 +137,40 @@ for _, tree_type in ipairs(base_tree_types) do
     table.insert(base_recipes, create_base_zen_tree_recipe(tree_type))
 end
 
--- Base technology
 local base_effects = {}
 for _, tree_type in ipairs(base_tree_types) do
     table.insert(base_effects, { type = "unlock-recipe", recipe = "zen-tree-" .. tree_type })
 end
 
 local base_technology = {
-    {
-        type = "technology",
-        name = "zen-gardening",
-        icon = "__zen-garden__/graphics/technology/zen-gardening.png",
-        icon_size = 256,
-        effects = base_effects,
-        prerequisites = { "composting", "automation-2" },
-        unit = {
-            count = 50,
-            ingredients = {
-                { "automation-science-pack", 1 },
-                { "logistic-science-pack",   1 }
-            },
-            time = 30
-        }
+    type = "technology",
+    name = "zen-gardening",
+    icon = "__zen-garden__/graphics/technology/zen-gardening.png",
+    icon_size = 256,
+    effects = base_effects,
+    prerequisites = { "composting", "automation-2" },
+    unit = {
+        count = 50,
+        ingredients = {
+            { "automation-science-pack", 1 },
+            { "logistic-science-pack",   1 }
+        },
+        time = 30
     }
 }
 
--- Alien trees if mod is present
+data:extend(base_entities)
+data:extend(base_items)
+data:extend(base_recipes)
+data:extend({ base_technology })
+
 if mods["alien-biomes"] then
     local trees_data = require('__alien-biomes__/prototypes/entity/tree-data')
     local tree_models = require('__alien-biomes__/prototypes/entity/tree-models')
 
-    -- Function to create alien zen tree entity
     local function create_alien_zen_tree_entity(treedata)
         local tree = data.raw["tree"][treedata.name]
-        if not tree then
-            log("Tree entity not found: " .. treedata.name)
-            return nil
-        end
+        if not tree then return nil end
         local variation = tree.variations[1]
         local tree_layers = create_zen_tree_layers(variation, treedata.colors[1])
         local extra_layers = { planting_box_layer_shadow, planting_box_layer }
@@ -298,13 +202,9 @@ if mods["alien-biomes"] then
         }
     end
 
-    -- Function to create alien zen tree item
     local function create_alien_zen_tree_item(treedata)
         local model_data = tree_models[treedata.model]
-        if not model_data then
-            log("Model data not found for tree: " .. treedata.name)
-            return nil
-        end
+        if not model_data then return nil end
         local item_icons = {
             { icon = "__base__/graphics/icons/wooden-chest.png",                                                icon_size = 64, scale = 0.5,  shift = { 0, 8 } },
             { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png",  icon_size = 64, scale = 0.65, shift = { 0, -14 } },
@@ -322,11 +222,9 @@ if mods["alien-biomes"] then
         }
     end
 
-    -- Function to create alien zen tree recipe
     local function create_alien_zen_tree_recipe(treedata)
         local model_data = tree_models[treedata.model]
-        local specific_seed_name = string.lower(treedata.locale) ..
-        "-" .. string.lower(model_data.locale) .. "-tree-seed"
+        local specific_seed_name = string.lower(treedata.locale) .. "-" .. string.lower(model_data.locale) .. "-tree-seed"
         local seed_name = use_basic_recipe and "tree-seed" or specific_seed_name
         return {
             type = "recipe",
@@ -343,7 +241,6 @@ if mods["alien-biomes"] then
         }
     end
 
-    -- Generate alien tree prototypes
     local alien_entities = {}
     local alien_items = {}
     local alien_recipes = {}
@@ -375,7 +272,6 @@ if mods["alien-biomes"] then
         end
     end
 
-    -- Create technologies for each biome
     local alien_technologies = {}
     for biome_type, recipes in pairs(recipes_by_biome) do
         local rep_treedata = representative_tree_by_biome[biome_type]
@@ -390,7 +286,7 @@ if mods["alien-biomes"] then
                     { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-leaves.png", icon_size = 64, scale = 1, shift = { -8, -4 }, tint = rep_treedata.colors[1] }
                 },
                 effects = {},
-                prerequisites = { "zen-gardening", },
+                prerequisites = { "zen-gardening" },
                 unit = {
                     count = 100,
                     ingredients = {
@@ -407,15 +303,8 @@ if mods["alien-biomes"] then
         end
     end
 
-    -- Extend data with alien prototypes
     data:extend(alien_entities)
     data:extend(alien_items)
     data:extend(alien_recipes)
     data:extend(alien_technologies)
 end
-
--- Extend data with base prototypes
-data:extend(base_entities)
-data:extend(base_items)
-data:extend(base_recipes)
-data:extend(base_technology)
