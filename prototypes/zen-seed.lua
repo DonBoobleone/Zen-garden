@@ -151,19 +151,9 @@ for _, tree_type in ipairs(base_tree_types) do
     end
 end
 
-local crude_recipe = util.table.deepcopy(common_recipe_properties)
-crude_recipe.name = "crude-wood-processing"
-crude_recipe.icon = "__base__/graphics/icons/tree-02-stump.png"
-crude_recipe.subgroup = "wood-processing"
-crude_recipe.order = "a[crude-wood-processing]"
-crude_recipe.energy_required = 2
-crude_recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
-crude_recipe.results = { { type = "item", name = "tree-seed", amount = 1, probability = 0.8 } }
-
 data:extend(new_plants)
 data:extend(new_items)
 data:extend(new_recipes)
-data:extend({ crude_recipe })
 data:extend(new_technologies)
 
 if mods["alien-biomes"] then

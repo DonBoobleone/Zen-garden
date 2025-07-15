@@ -53,6 +53,30 @@ local composting_items = {
     }
 }
 
+local common_recipe_properties = {
+    type = "recipe",
+    category = "organic-or-assembling",
+    subgroup = "wood-processing",
+    enabled = false,
+    allow_productivity = true,
+    auto_recycle = false,
+    crafting_machine_tint = {
+        primary = { r = 0.442, g = 0.205, b = 0.090, a = 1.000 },
+        secondary = { r = 1.000, g = 0.500, b = 0.000, a = 1.000 }
+    }
+}
+
+local crude_recipe = util.table.deepcopy(common_recipe_properties)
+crude_recipe.name = "crude-wood-processing"
+crude_recipe.icon = "__base__/graphics/icons/tree-02-stump.png"
+crude_recipe.subgroup = "wood-processing"
+crude_recipe.order = "a[crude-wood-processing]"
+crude_recipe.energy_required = 2
+crude_recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
+crude_recipe.results = { { type = "item", name = "tree-seed", amount = 1, probability = 0.8 } }
+
+data:extend({ crude_recipe })
+
 local composting_recipes = {
     {
         type = "recipe",
