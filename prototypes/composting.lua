@@ -3,6 +3,57 @@ local item_sounds = require("__base__.prototypes.item_sounds")
 local seconds = 60
 local minutes = 60 * seconds
 
+-- collision layer for grass
+local collision_layer = {
+    type = "collision-layer",
+    name = "artificial_grass_exclusion"
+}
+
+local special_water_tiles = {
+    "oil-ocean-shallow",
+    "oil-ocean-deep",
+    "ammoniacal-ocean",
+    "ammoniacal-ocean-2",
+    "brash-ice"
+}
+
+local aquilo_tiles = {
+    "ice-smooth",
+    "ice-rough",
+    "dust-patchy",
+    "snow-patchy",
+    "dust-lumpy",
+    "snow-lumpy",
+    "dust-crests",
+    "snow-crests",
+    "dust-flat",
+    "snow-flat",
+
+}
+
+data:extend({ collision_layer })
+
+-- Function to add artificial_grass_exclusion to a tile's collision_mask.layers
+local function add_collision_layer(tile_name)
+    local tile = data.raw.tile[tile_name]
+    if tile then
+        tile.collision_mask = tile.collision_mask or {}
+        tile.collision_mask.layers = tile.collision_mask.layers or {}
+        tile.collision_mask.layers.artificial_grass_exclusion = true
+    end
+end
+
+-- Apply artificial_grass_exclusion to special_water_tiles
+for _, tile_name in pairs(special_water_tiles) do
+    add_collision_layer(tile_name)
+end
+
+-- Apply artificial_grass_exclusion to aquilo_tiles
+for _, tile_name in pairs(aquilo_tiles) do
+    add_collision_layer(tile_name)
+end
+
+-- Tile definition
 local artificial_grass = util.table.deepcopy(data.raw["tile"]["grass-1"])
 artificial_grass.name = "artificial-grass"
 artificial_grass.minable = { mining_time = 0.5, result = "artificial-grass" }
@@ -13,6 +64,7 @@ artificial_grass.layer_group = "ground-artificial"
 artificial_grass.subgroup = "gardening-tiles"
 artificial_grass.order = "a[artificial]-d[utility]-a[grass]"
 artificial_grass.decorative_removal_probability = 0.5
+artificial_grass.collision_mask = data.raw["tile"]["landfill"].collision_mask
 
 data:extend({ artificial_grass })
 
@@ -45,10 +97,12 @@ local composting_items = {
         stack_size = 100,
         weight = 10 * kg,
         auto_recycle = true,
-        place_as_tile = {
+        default_import_location = "nauvis",
+        place_as_tile =
+        {
             result = "artificial-grass",
             condition_size = 1,
-            condition = { layers = {} }
+            condition = { layers = { lava_tile = true, artificial_grass_exclusion = true } },
         }
     }
 }
