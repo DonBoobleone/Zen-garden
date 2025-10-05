@@ -31,16 +31,23 @@ data:extend({
     },
     {
         type = "bool-setting",
-        name = "charcoal-burning-enabled",
+        name = "zen-tower-enabled",
         setting_type = "startup",
         default_value = true,
         order = "d"
     },
     {
         type = "bool-setting",
+        name = "charcoal-burning-enabled",
+        setting_type = "startup",
+        default_value = true,
+        order = "e"
+    },
+    {
+        type = "bool-setting",
         name = "move-artificial-tiles",
         setting_type = "startup",
         default_value = true,
-        order = "d"
+        order = "f"
     }
 })

@@ -7,6 +7,9 @@ Tile: Artificial Grass
 - Can be used as landfill
 - Supports all Nauvis tree for planting
 
+Early Building: Zen Tower
+- A compact agricultural tower for Nauvis
+
 Various useful cosmetics.
 - 9 Different type of tree-seeds, extending your basic tree-seed selection
 - A portable/blueprintable Zen-tree for each seed. They consume pollution.

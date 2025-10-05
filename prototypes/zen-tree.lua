@@ -61,6 +61,8 @@ local function create_base_zen_tree_entity(tree_type)
     local def = tree_definitions[tree_type]
     local tree_layers = create_zen_tree_layers(def.variation, def.tint)
     local extra_layers = { planting_box_layer_shadow, planting_box_layer }
+    local tree_icon = util.copy(def.icons[1])
+
     for _, layer in ipairs(tree_layers) do
         layer.shift = {
             layer.shift[1] - planting_box_shift[1],
@@ -70,10 +72,14 @@ local function create_base_zen_tree_entity(tree_type)
     for i, layer in ipairs(extra_layers) do
         table.insert(tree_layers, i, layer)
     end
-    return {
+    return
+    {
         type = "simple-entity-with-owner",
         name = "zen-tree-" .. tree_type,
-        icon = "__zen-garden__/graphics/icons/zen-garden.png",
+        icons = {
+            { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5, shift = { 0, 8 } },
+            tree_icon
+        },
         icon_size = 64,
         flags = { "placeable-neutral", "placeable-player", "player-creation" },
         minable = { mining_time = 0.2, result = "zen-tree-" .. tree_type },
@@ -174,6 +180,15 @@ if mods["alien-biomes"] then
         local variation = tree.variations[1]
         local tree_layers = create_zen_tree_layers(variation, treedata.colors[1])
         local extra_layers = { planting_box_layer_shadow, planting_box_layer }
+        -- Icon prep
+        local model_data = tree_models[treedata.model]
+        if not model_data then return nil end
+        local item_icons = {
+            { icon = "__base__/graphics/icons/wooden-chest.png",                                                icon_size = 64, scale = 0.5,  shift = { 0, 8 } },
+            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png",  icon_size = 64, scale = 0.65, shift = { 0, -14 } },
+            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-leaves.png", icon_size = 64, scale = 0.65, shift = { 0, -14 }, tint = treedata.colors[1] }
+        }
+
         for _, layer in ipairs(tree_layers) do
             layer.shift = {
                 layer.shift[1] - planting_box_shift[1],
@@ -183,10 +198,11 @@ if mods["alien-biomes"] then
         for i, layer in ipairs(extra_layers) do
             table.insert(tree_layers, i, layer)
         end
-        return {
+        return
+        {
             type = "simple-entity-with-owner",
             name = "zen-tree-" .. treedata.name,
-            icon = "__zen-garden__/graphics/icons/zen-garden.png",
+            icons = item_icons,
             icon_size = 64,
             flags = { "placeable-neutral", "placeable-player", "player-creation" },
             minable = { mining_time = 0.2, result = "zen-tree-" .. treedata.name },
