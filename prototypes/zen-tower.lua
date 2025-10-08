@@ -1,131 +1,190 @@
 -- prototypes/zen-tower.lua
 if not settings.startup["zen-tower-enabled"].value then return end
-
 local util = require("util")
 
-local zen_tower_graphics =
-{
-    animation =
-    {
-        layers =
-        {
-            util.sprite_load("__space-age__/graphics/entity/agricultural-tower/agricultural-tower-base",
-                {
-                    priority = "high",
-                    animation_speed = 0.25,
-                    frame_count = 64,
-                    scale = 0.3333 -- 0.5 * 2/3
-                }),
-            util.sprite_load("__space-age__/graphics/entity/agricultural-tower/agricultural-tower-base-shadow",
-                {
-                    priority = "high",
-                    frame_count = 1,
-                    repeat_count = 64,
-                    draw_as_shadow = true,
-                    scale = 0.3333 -- 0.5 * 2/3
-                })
-        }
-    },
-    recipe_not_set_tint = { primary = { r = 0.6, g = 0.6, b = 0.5, a = 1 }, secondary = { r = 0.6, g = 0.6, b = 0.5, a = 1 } },
-    working_visualisations =
-    {
-        {
-            always_draw = true,
-            fog_mask = { rect = { { -20, -20 }, { 20, -1.8333 } }, falloff = 1 }, -- rect scaled by 2/3 (30 * 2/3 = 20, 2.75 * 2/3 = 1.8333)
-            animation = util.sprite_load(
-                "__space-age__/graphics/entity/agricultural-tower/agricultural-tower-base",
-                {
-                    frame_count = 1,
-                    scale = 0.3333 -- 0.5 * 2/3
-                }),
-        },
-        {
-            always_draw = true,
-            apply_recipe_tint = "primary",
-            animation = util.sprite_load(
-                "__space-age__/graphics/entity/agricultural-tower/agricultural-tower-base-plant-mask",
-                {
-                    priority = "high",
-                    frame_count = 64,
-                    animation_speed = 0.25,
-                    tint_as_overlay = true,
-                    scale = 0.3333 -- 0.5 * 2/3
-                }),
-        },
-        {
-            apply_recipe_tint = "secondary",
-            effect = "flicker",
-            fadeout = true,
-            animation = util.sprite_load(
-                "__space-age__/graphics/entity/agricultural-tower/agricultural-tower-base-light",
-                {
-                    priority = "high",
-                    frame_count = 64,
-                    animation_speed = 0.25,
-                    blend_mode = "additive",
-                    scale = 0.3333 -- 0.5 * 2/3
-                }),
-        },
-        {
-            effect = "flicker",
-            fadeout = true,
-            light = { intensity = 1.0, size = 4, shift = { -0.3, -0.1667 }, color = { r = 1, g = 1, b = 1 } } -- size 6 * 2/3 = 4, shift (-0.45 * 2/3, -0.25 * 2/3)
-        },
-        {
-            apply_recipe_tint = "secondary",
-            effect = "flicker",
-            fadeout = true,
-            light = { intensity = 1.0, size = 10.6667, shift = { -0.8, -0.3333 }, color = { r = 1, g = 1, b = 1 } } -- size 16 * 2/3 = 10.6667, shift (-1.2 * 2/3, -0.5 * 2/3)
-        }
-    },
-    water_reflection =
-    {
-        pictures =
-        {
-            filename = "__space-age__/graphics/entity/agricultural-tower/agricultural-tower-base-reflection.png",
-            priority = "extra-high",
-            width = 24,
-            height = 36,
-            shift = util.by_pixel(0, 13.3333), -- 20 * 2/3 = 13.3333
-            variation_count = 1,
-            scale = 3.3333                     -- 5 * 2/3
-        },
-        rotate = false,
-        orientation_to_variation = false
-    }
-}
+function create_scaled_agricultural_tower_graphics_set(scale)
+    local graphics_set = util.table.deepcopy(data.raw["agricultural-tower"]["agricultural-tower"].graphics_set)
 
+    -- Check if graphics_set exists
+    if not graphics_set then
+        return nil
+    end
+
+    -- Scale animation layers
+    for _, layer in pairs(graphics_set.animation.layers) do
+        if layer.scale then
+            layer.scale = layer.scale * scale
+        end
+    end
+
+    -- Scale working visualisations
+    for _, vis in pairs(graphics_set.working_visualisations) do
+        -- Scale fog mask
+        if vis.fog_mask and vis.fog_mask.rect then
+            for i, point in pairs(vis.fog_mask.rect) do
+                vis.fog_mask.rect[i] = { point[1] * scale, point[2] * scale }
+            end
+        end
+
+        -- Scale animation in visualisations
+        if vis.animation and vis.animation.scale then
+            vis.animation.scale = vis.animation.scale * scale
+        end
+
+        -- Scale light properties
+        if vis.light then
+            vis.light.size = vis.light.size * scale
+            if vis.light.shift then
+                vis.light.shift = { vis.light.shift[1] * scale, vis.light.shift[2] * scale }
+            end
+        end
+    end
+
+    -- Scale water reflection
+    if graphics_set.water_reflection and graphics_set.water_reflection.pictures then
+        graphics_set.water_reflection.pictures.scale = graphics_set.water_reflection.pictures.scale * scale
+        if graphics_set.water_reflection.pictures.shift then
+            graphics_set.water_reflection.pictures.shift = util.by_pixel(
+                graphics_set.water_reflection.pictures.shift[1] * scale,
+                graphics_set.water_reflection.pictures.shift[2] * scale
+            )
+        end
+    end
+
+    return graphics_set
+end
+
+function create_scaled_agricultural_tower_crane(scale)
+    local crane = util.table.deepcopy(data.raw["agricultural-tower"]["agricultural-tower"].crane)
+
+    -- Check if crane exists
+    if not crane then
+        return nil
+    end
+
+    -- Scale origin
+    if crane.origin then
+        crane.origin = {
+            crane.origin[1] * scale,
+            crane.origin[2] * scale,
+            crane.origin[3] * scale
+        }
+    end
+
+    -- Scale shadow direction
+    if crane.shadow_direction then
+        crane.shadow_direction = {
+            crane.shadow_direction[1] * scale,
+            crane.shadow_direction[2] * scale,
+            crane.shadow_direction[3] * scale
+        }
+    end
+
+    -- Scale parts
+    for _, part in pairs(crane.parts) do
+        -- Scale sprite scales
+        if part.rotated_sprite and part.rotated_sprite.scale then
+            part.rotated_sprite.scale = part.rotated_sprite.scale * scale
+        end
+        if part.rotated_sprite_shadow and part.rotated_sprite_shadow.scale then
+            part.rotated_sprite_shadow.scale = part.rotated_sprite_shadow.scale * scale
+        end
+        if part.rotated_sprite_reflection and part.rotated_sprite_reflection.scale then
+            part.rotated_sprite_reflection.scale = part.rotated_sprite_reflection.scale * scale
+        end
+        if part.sprite and part.sprite.scale then
+            part.sprite.scale = part.sprite.scale * scale
+        end
+        if part.sprite_shadow and part.sprite_shadow.scale then
+            part.sprite_shadow.scale = part.sprite_shadow.scale * scale
+        end
+        if part.sprite_reflection and part.sprite_reflection.scale then
+            part.sprite_reflection.scale = part.sprite_reflection.scale * scale
+        end
+
+        -- Scale relative position
+        if part.relative_position then
+            part.relative_position = {
+                part.relative_position[1] * scale,
+                part.relative_position[2] * scale,
+                part.relative_position[3] * scale
+            }
+        end
+
+        -- Scale static length
+        if part.static_length then
+            part.static_length = {
+                part.static_length[1] * scale,
+                part.static_length[2] * scale,
+                part.static_length[3] * scale
+            }
+        end
+
+        -- Scale extendable length
+        if part.extendable_length then
+            part.extendable_length = {
+                part.extendable_length[1] * scale,
+                part.extendable_length[2] * scale,
+                part.extendable_length[3] * scale
+            }
+        end
+
+        -- Scale static length grappler
+        if part.static_length_grappler then
+            part.static_length_grappler = {
+                part.static_length_grappler[1] * scale,
+                part.static_length_grappler[2] * scale,
+                part.static_length_grappler[3] * scale
+            }
+        end
+
+        -- Scale extendable length grappler
+        if part.extendable_length_grappler then
+            part.extendable_length_grappler = {
+                part.extendable_length_grappler[1] * scale,
+                part.extendable_length_grappler[2] * scale,
+                part.extendable_length_grappler[3] * scale
+            }
+        end
+    end
+
+    return crane
+end
+
+-- Zen-Tower
 local zen_tower_entity = util.table.deepcopy(data.raw["agricultural-tower"]["agricultural-tower"])
+local zen_tower_scale = 2/3
 
 zen_tower_entity.name = "zen-tower"
-zen_tower_entity.icon = "__space-age__/graphics/icons/agricultural-tower.png"
-zen_tower_entity.minable = { mining_time = 0.5, result = "zen-tower" }
+zen_tower_entity.icon = "__zen-garden__/graphics/icons/zen-tower.png"
+zen_tower_entity.minable = { mining_time = 0.2, result = "zen-tower" }
 zen_tower_entity.fast_replaceable_group = nil
-zen_tower_entity.corpse = "big-remnants"
+zen_tower_entity.corpse = "small-remnants"
 zen_tower_entity.input_inventory_size = 2
 zen_tower_entity.output_inventory_size = 1
 zen_tower_entity.radius = 3
 zen_tower_entity.growth_grid_tile_size = 2
 zen_tower_entity.growth_area_radius = 0.45
 zen_tower_entity.random_growth_offset = 0.1
+zen_tower_entity.randomize_planting_tile = false
 zen_tower_entity.collision_box = { { -0.9, -0.9 }, { 0.9, 0.9 } }
 zen_tower_entity.selection_box = { { -1, -1 }, { 1, 1 } }
-zen_tower_entity.surface_conditions =
-{
+zen_tower_entity.surface_conditions = {
     {
         property = "pressure",
         min = 1000,
-        max = 1000
+        max = 1000 -- Nauvis only
     }
 }
-zen_tower_entity.energy_source =
-{
+zen_tower_entity.energy_source = {
     type = "electric",
     usage_priority = "secondary-input",
     emissions_per_minute = { pollution = -5 }
 }
-zen_tower_entity.graphics_set = zen_tower_graphics
-zen_tower_entity.crane = require("prototypes.zen-crane")
+zen_tower_entity.drawing_box_vertical_extension = zen_tower_entity.drawing_box_vertical_extension * zen_tower_scale
+
+zen_tower_entity.graphics_set = create_scaled_agricultural_tower_graphics_set(zen_tower_scale)
+zen_tower_entity.crane = create_scaled_agricultural_tower_crane(zen_tower_scale)
 
 local zen_tower_item =
 {
@@ -134,7 +193,7 @@ local zen_tower_item =
     icon = "__zen-garden__/graphics/icons/zen-tower.png",
     icon_size = 64,
     subgroup = "advanced-gardening",
-    order = "a[zen-tower]",
+    order = "a[zen-tower-mk1]",
     place_result = "zen-tower",
     stack_size = 10,
     weight = 100 * kg
@@ -183,6 +242,113 @@ data:extend({ zen_tower_item })
 data:extend({ zen_tower_recipe })
 data:extend({ zen_tower_technology })
 
+-- Zen-Tower-MK2
+-- Universal 6x6 agricultural tower, Compact 2x2 grid, 30x30 coverage
+local zen_tower_mk2_entity = util.table.deepcopy(data.raw["agricultural-tower"]["agricultural-tower"])
+local zen_tower_mk2_scale = 4/3
+
+zen_tower_mk2_entity.name = "zen-tower-mk2"
+zen_tower_mk2_entity.icon = "__zen-garden__/graphics/icons/zen-tower-mk2.png"
+zen_tower_mk2_entity.minable = { mining_time = 0.5, result = "zen-tower-mk2" }
+zen_tower_mk2_entity.fast_replaceable_group = nil
+zen_tower_mk2_entity.corpse = "big-remnants"
+zen_tower_mk2_entity.input_inventory_size = 5
+zen_tower_mk2_entity.output_inventory_size = 3
+zen_tower_mk2_entity.radius = 6
+zen_tower_mk2_entity.growth_grid_tile_size = 2
+zen_tower_mk2_entity.growth_area_radius = 0.45
+zen_tower_mk2_entity.random_growth_offset = 0.1
+zen_tower_mk2_entity.randomize_planting_tile = false
+zen_tower_mk2_entity.collision_box = { { -2.7, -2.7 }, { 2.7, 2.7 } }
+zen_tower_mk2_entity.selection_box = { { -3.0, -3.0 }, { 3.0, 3.0 } }
+zen_tower_mk2_entity.surface_conditions = {
+    {
+        property = "pressure",
+        min = 1000,
+        max = 2000
+    }
+}
+zen_tower_mk2_entity.energy_source = {
+    type = "electric",
+    usage_priority = "secondary-input",
+    emissions_per_minute = { pollution = -10, spores = 10 }
+}
+zen_tower_mk2_entity.heating_energy = "200kW"
+zen_tower_mk2_entity.energy_usage = "800kW"
+zen_tower_mk2_entity.crane_energy_usage = "200kW"
+
+zen_tower_mk2_entity.graphics_set = create_scaled_agricultural_tower_graphics_set(zen_tower_mk2_scale)
+zen_tower_mk2_entity.crane = create_scaled_agricultural_tower_crane(zen_tower_mk2_scale)
+
+local zen_tower_mk2_item =
+{
+    type = "item",
+    name = "zen-tower-mk2",
+    icons = {
+        { icon = "__zen-garden__/graphics/icons/zen-tower.png", icon_size = 64, scale = 1, shift = { -8, -8 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture.png",  icon_size = 256, scale = 0.2, shift = { 16, -24 } }
+    },
+    subgroup = "advanced-gardening",
+    order = "a[zen-tower-mk2]",
+    place_result = "zen-tower-mk2",
+    stack_size = 2,
+    weight = 500 * kg
+}
+
+local zen_tower_mk2_recipe =
+{
+    type = "recipe",
+    name = "zen-tower-mk2",
+    category = "crafting",
+    energy_required = 10,
+    enabled = false,
+    ingredients = {
+        { type = "item", name = "agricultural-tower",   amount = 2 },
+        { type = "item", name = "zen-tower",            amount = 4 },
+        { type = "item", name = "processing-unit",      amount = 20 },
+        { type = "item", name = "electric-engine-unit", amount = 10 },
+    },
+    results = { { type = "item", name = "zen-tower-mk2", amount = 1 } }
+}
+
+local zen_tower_mk2_technology =
+{
+    type = "technology",
+    name = "zen-agriculture",
+
+    icons = {
+        --{ icon = "__zen-garden__/graphics/technology/zen-agriculture.png",  icon_size = 256, scale = 0.5, shift = { -24, -24 } },
+        { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.5, shift = { 24, -24 } },
+        { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.5, shift = { -24, 24 } }
+    },
+    effects = {
+        {
+            type = "unlock-recipe",
+            recipe = "zen-tower-mk2"
+        }
+    },
+    prerequisites = { "zen-tower" },
+    unit = {
+        count = 500,
+        ingredients = {
+            { "automation-science-pack",   1 },
+            { "logistic-science-pack",     1 },
+            { "chemical-science-pack",     1 },
+            { "production-science-pack",   1 },
+            { "space-science-pack",        1 },
+            { "agricultural-science-pack", 1 }
+        },
+        time = 45
+    }
+}
+
+
+data:extend({ zen_tower_mk2_entity })
+data:extend({ zen_tower_mk2_item })
+data:extend({ zen_tower_mk2_recipe })
+data:extend({ zen_tower_mk2_technology })
+
+
 -- base game copy for educational purposes
 --[[ local agricultural_tower =
 {
@@ -207,8 +373,8 @@ data:extend({ zen_tower_technology })
             height = 10
         },
         radius = 3,
-        crane = require("__space-age__.prototypes.entity.agricultural-tower-crane"), -- IMPORTANT
-        planting_procedure_points =                                                  -- ???????
+        crane = require("__space-age__.prototypes.entity.agricultural-tower-crane"),
+        planting_procedure_points =                                                  
         {
             { 0.0,        0.0,        0.75 },
             { 0.0,        0.0,        0.0 },
