@@ -161,7 +161,7 @@ zen_tower_entity.minable = { mining_time = 0.2, result = "zen-tower" }
 zen_tower_entity.fast_replaceable_group = nil
 zen_tower_entity.corpse = "small-remnants"
 zen_tower_entity.input_inventory_size = 2
-zen_tower_entity.output_inventory_size = 1
+zen_tower_entity.output_inventory_size = 2
 zen_tower_entity.radius = 3
 zen_tower_entity.growth_grid_tile_size = 2
 zen_tower_entity.growth_area_radius = 0.45
