@@ -10,6 +10,11 @@ local all_tree_types = utils.all_tree_types
 local base_tree_types = utils.base_tree_types
 local item_sounds = utils.item_sounds
 
+local surface_conditions = { { property = "pressure", min = 1000, max = 1000 } } -- Nauvis only
+if settings.startup["invasive-forestry"].value then
+    surface_conditions = { { property = "pressure", min = 1000, max = 2000 } } -- Adds Gleba
+end
+
 local plant_overrides = {
     type = "plant",
     flags = { "placeable-neutral", "placeable-off-grid", "breaths-air" },
@@ -26,7 +31,7 @@ local plant_overrides = {
         results = { { type = "item", name = "wood", amount = 4 } }
     },
     growth_ticks = 10 * 60 * 60, -- 10 minutes
-    surface_conditions = { { property = "pressure", min = 1000, max = 1000 } },
+    surface_conditions = surface_conditions,
     autoplace = {
         probability_expression = 0,
         tile_restriction = tile_restrictions
@@ -40,6 +45,7 @@ local common_recipe_properties = {
     enabled = false,
     allow_productivity = true,
     auto_recycle = false,
+    surface_conditions = nil, --{ { property = "pressure", min = 1000, max = 2000 } },
     crafting_machine_tint = {
         primary = { r = 0.442, g = 0.205, b = 0.090, a = 1.000 },
         secondary = { r = 1.000, g = 0.500, b = 0.000, a = 1.000 }

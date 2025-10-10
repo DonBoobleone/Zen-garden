@@ -1,8 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+Date: 10. 10. 2025
+  Bugfixes:
+    - Fixed artificial-grass placement restricitons, now only whitelisted to Nauvis and Gleba tiles (invasive-forestry).
+  Balancing:
+    - All wood-processing is now craftable on any sruface, planting restrictions are based on tiles.
+    - Added option for invasive-forestry so Artificial-grass and Nauvis trees can be planted on Gleba (default = true)
+---------------------------------------------------------------------------------------------------
 Version: 0.2.3
-Date: 10. 06. 2025
+Date: 10. 08. 2025
   Major Features:
-    - Added zen-tower-mk2, a universal 5x5 agricultural tower, with bigger radius and compact planting.
+    - Added zen-tower-mk2, a universal 6x6 agricultural tower, with bigger radius and compact planting.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.2
 Date: 10. 06. 2025

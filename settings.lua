@@ -49,5 +49,13 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "f"
+    },
+    {
+        type = "bool-setting",
+        name = "invasive-forestry",
+        setting_type = "startup",
+        default_value = true,
+        order = "g",
+        localised_description = {"", "Nauvis trees can be planted on gleba if artificial grass is present"}
     }
 })

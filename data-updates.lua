@@ -12,6 +12,10 @@ end
 
 data.raw.recipe["wood-processing"].subgroup = "wood-processing"
 data.raw.recipe["wood-processing"].order = "a[wood-processing]-a[base]"
+data.raw.recipe["wood-processing"].surface_conditions = nil -- allow processing on any surface
+if settings.startup["invasive-forestry"].value then
+    data.raw.plant["tree-plant"].surface_conditions = { { property = "pressure", min = 1000, max = 2000 } } -- Adds Gleba
+end
 
 data.raw.item["tree-seed"].subgroup = "seeds"
 data.raw.item["tree-seed"].order = "a[base]"
