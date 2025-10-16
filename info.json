@@ -1,9 +1,10 @@
 {
   "name": "zen-garden",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "title": "Zen Garden",
   "author": "Don Boobleone",
   "factorio_version": "2.0",
-  "dependencies": ["base >= 2.0", "space-age >= 2.0", "? alien-biomes"],
-  "description": "Create artificial grass-tiles from compost.\nPlant any tree with a fresh seed selection. (optional)\nCraft decoratives with pollution filtering. (optional)\nZen-tower - Early agricultural tower for Nauvis and zen-tower-MK2 late-game and Gleba (optional)\nZen-garden - Wood production on any surface. (optional)\nCharcoal burning recipe. (optional)"
+  "dependencies": ["base >= 2.0.69", "space-age >= 2.0.69", "? alien-biomes"],
+  "description": "Create artificial grass-tiles from compost.\nPlant any tree with a fresh seed selection. (optional)\nCraft decoratives with pollution filtering. (optional)\nZen-tower - Early agricultural tower for Nauvis and zen-tower-MK2 late-game and Gleba (optional)\nZen-garden - Wood production on any surface. (optional)\nCharcoal burning recipe. (optional)",
+  "spoiling_required": true
 }

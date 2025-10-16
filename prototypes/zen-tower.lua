@@ -151,9 +151,71 @@ function create_scaled_agricultural_tower_crane(scale)
     return crane
 end
 
+function shift_graphics_set(graphics_set, tile_x, tile_y)
+    if not graphics_set then
+        return
+    end
+
+    -- Shift animation layers
+    for _, layer in pairs(graphics_set.animation.layers) do
+        if layer.shift then
+            layer.shift[1] = layer.shift[1] + tile_x
+            layer.shift[2] = layer.shift[2] + tile_y
+        end
+    end
+
+    -- Shift working visualisations
+    for _, vis in pairs(graphics_set.working_visualisations) do
+        if vis.fog_mask and vis.fog_mask.rect then
+            for _, point in pairs(vis.fog_mask.rect) do
+                point[1] = point[1] + tile_x
+                point[2] = point[2] + tile_y
+            end
+        end
+
+        if vis.animation and vis.animation.shift then
+            vis.animation.shift[1] = vis.animation.shift[1] + tile_x
+            vis.animation.shift[2] = vis.animation.shift[2] + tile_y
+        end
+
+        if vis.light and vis.light.shift then
+            vis.light.shift[1] = vis.light.shift[1] + tile_x
+            vis.light.shift[2] = vis.light.shift[2] + tile_y
+        end
+    end
+
+    -- Shift water reflection
+    if graphics_set.water_reflection and graphics_set.water_reflection.pictures and graphics_set.water_reflection.pictures.shift then
+        graphics_set.water_reflection.pictures.shift[1] = graphics_set.water_reflection.pictures.shift[1] + tile_x
+        graphics_set.water_reflection.pictures.shift[2] = graphics_set.water_reflection.pictures.shift[2] + tile_y
+    end
+end
+
+function merge_graphics_sets(main, extension)
+    if not main or not extension then
+        return main
+    end
+
+    local merged = util.table.deepcopy(main)
+
+    -- Merge animation layers
+    for _, layer in pairs(extension.animation.layers) do
+        table.insert(merged.animation.layers, util.table.deepcopy(layer))
+    end
+
+    -- Merge working visualisations
+    for _, vis in pairs(extension.working_visualisations) do
+        table.insert(merged.working_visualisations, util.table.deepcopy(vis))
+    end
+
+    -- Keep other fields from main (e.g., water_reflection, recipe_not_set_tint)
+
+    return merged
+end
+
 -- Zen-Tower
 local zen_tower_entity = util.table.deepcopy(data.raw["agricultural-tower"]["agricultural-tower"])
-local zen_tower_scale = 2/3
+local zen_tower_scale = 2 / 3
 
 zen_tower_entity.name = "zen-tower"
 zen_tower_entity.icon = "__zen-garden__/graphics/icons/zen-tower.png"
@@ -245,13 +307,13 @@ data:extend({ zen_tower_technology })
 -- Zen-Tower-MK2
 -- Universal 6x6 agricultural tower, Compact 2x2 grid, 30x30 coverage
 local zen_tower_mk2_entity = util.table.deepcopy(data.raw["agricultural-tower"]["agricultural-tower"])
-local zen_tower_mk2_scale = 4/3
+local zen_tower_mk2_scale = 4 / 3
 
 zen_tower_mk2_entity.name = "zen-tower-mk2"
 zen_tower_mk2_entity.icon = "__zen-garden__/graphics/icons/zen-tower-mk2.png"
 zen_tower_mk2_entity.minable = { mining_time = 0.5, result = "zen-tower-mk2" }
 zen_tower_mk2_entity.fast_replaceable_group = nil
-zen_tower_mk2_entity.corpse = "big-remnants"
+zen_tower_mk2_entity.corpse = "agricultural-tower-remnants"
 zen_tower_mk2_entity.input_inventory_size = 5
 zen_tower_mk2_entity.output_inventory_size = 3
 zen_tower_mk2_entity.radius = 6
@@ -276,8 +338,45 @@ zen_tower_mk2_entity.energy_source = {
 zen_tower_mk2_entity.heating_energy = "200kW"
 zen_tower_mk2_entity.energy_usage = "800kW"
 zen_tower_mk2_entity.crane_energy_usage = "200kW"
+zen_tower_mk2_entity.drawing_box_vertical_extension = zen_tower_mk2_entity.drawing_box_vertical_extension * zen_tower_mk2_scale
 
-zen_tower_mk2_entity.graphics_set = create_scaled_agricultural_tower_graphics_set(zen_tower_mk2_scale)
+-- Create graphics sets for each position
+local nw_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
+shift_graphics_set(nw_graphics, -1.5, -1.5) -- Northwest corner
+local ne_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
+shift_graphics_set(ne_graphics, 1.5, -1.5) -- Northeast corner
+local sw_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
+shift_graphics_set(sw_graphics, -1.5, 1.5) -- Southwest corner
+local se_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
+shift_graphics_set(se_graphics, 1.5, 1.5) -- Southeast corner
+local center_graphics = create_scaled_agricultural_tower_graphics_set(zen_tower_mk2_scale) -- Center mk2 tower
+
+-- Initialize merged graphics set with center's water reflection
+local merged = {
+    animation = { layers = {} },
+    working_visualisations = {},
+    water_reflection = util.table.deepcopy(center_graphics.water_reflection),
+    recipe_not_set_tint = util.table.deepcopy(center_graphics.recipe_not_set_tint)
+}
+
+-- Append animation layers and working visualisations in specified order: NW, NE, Center, SW, SE
+local function append_layers(source_graphics, target_graphics)
+    for _, layer in pairs(source_graphics.animation.layers) do
+        table.insert(target_graphics.animation.layers, util.table.deepcopy(layer))
+    end
+    for _, vis in pairs(source_graphics.working_visualisations) do
+        table.insert(target_graphics.working_visualisations, util.table.deepcopy(vis))
+    end
+end
+
+append_layers(nw_graphics, merged)
+--append_layers(ne_graphics, merged)
+append_layers(center_graphics, merged)
+--append_layers(sw_graphics, merged) -- animation layer render order is still making problem like this
+append_layers(se_graphics, merged)
+
+-- Assign merged graphics set to entity
+zen_tower_mk2_entity.graphics_set = merged
 zen_tower_mk2_entity.crane = create_scaled_agricultural_tower_crane(zen_tower_mk2_scale)
 
 local zen_tower_mk2_item =
@@ -285,8 +384,8 @@ local zen_tower_mk2_item =
     type = "item",
     name = "zen-tower-mk2",
     icons = {
-        { icon = "__zen-garden__/graphics/icons/zen-tower.png", icon_size = 64, scale = 1, shift = { -8, -8 } },
-        { icon = "__zen-garden__/graphics/technology/zen-agriculture.png",  icon_size = 256, scale = 0.2, shift = { 16, -24 } }
+        { icon = "__zen-garden__/graphics/icons/zen-tower.png",            icon_size = 64,  scale = 1,   shift = { -8, -8 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture.png", icon_size = 256, scale = 0.2, shift = { 16, -24 } }
     },
     subgroup = "advanced-gardening",
     order = "a[zen-tower-mk2]",
@@ -374,7 +473,7 @@ data:extend({ zen_tower_mk2_technology })
         },
         radius = 3,
         crane = require("__space-age__.prototypes.entity.agricultural-tower-crane"),
-        planting_procedure_points =                                                  
+        planting_procedure_points =
         {
             { 0.0,        0.0,        0.75 },
             { 0.0,        0.0,        0.0 },
@@ -405,7 +504,7 @@ data:extend({ zen_tower_mk2_technology })
                 volume = 0.7,
                 audible_distance_modifier = 0.7,
             },
-            max_sounds_per_prototype = 4,
+            max_sounds_per_type = 4,
             fade_in_ticks = 4,
             fade_out_ticks = 20
         },

@@ -1,25 +1,17 @@
-local utils = require("__zen-garden__/prototypes/zen-utils")
-local tile_restrictions = utils.tile_restrictions
-
-data.raw.plant["tree-plant"].autoplace.tile_restriction = tile_restrictions
-
-for _, plant in pairs(data.raw.plant) do
-    if plant.name:find("tree-plant", 1, true) then
-        plant.autoplace = plant.autoplace or {}
-        plant.autoplace.tile_restriction = tile_restrictions
-    end
-end
-
 data.raw.recipe["wood-processing"].subgroup = "wood-processing"
 data.raw.recipe["wood-processing"].order = "a[wood-processing]-a[base]"
 data.raw.recipe["wood-processing"].surface_conditions = nil -- allow processing on any surface
+
+-- Inasive Forsetry Setting
 if settings.startup["invasive-forestry"].value then
     data.raw.plant["tree-plant"].surface_conditions = { { property = "pressure", min = 1000, max = 2000 } } -- Adds Gleba
 end
 
+-- Seed placement
 data.raw.item["tree-seed"].subgroup = "seeds"
 data.raw.item["tree-seed"].order = "a[base]"
 
+-- Move artificial tiles settings
 if settings.startup["move-artificial-tiles"].value then
     data.raw["item-subgroup"]["terrain"].group = "landscaping"
 

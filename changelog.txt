@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.6
+Date: . 2025
+  Minor Features:
+    - Updated spoilage flag in info.json
+  Compatibility:
+    - Quickfix for Farm Quality Plants compatibility
+  Graphics:
+    - Updated zen-tower-mk2 graphics to better match 6x6 size.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.5
 Date: 10. 10. 2025
   Compatibility:
