@@ -57,5 +57,14 @@ data:extend({
         default_value = true,
         order = "g",
         localised_description = {"", "Nauvis trees can be planted on gleba if artificial grass is present"}
+    },
+    {
+        type = "bool-setting",
+        name = "fuel-pollution-overhaul",
+        setting_type = "startup",
+        default_value = true,
+        order = "h",
+        localised_description = {"", "Wood has 50% pollution as fuel"}
     }
+    
 })

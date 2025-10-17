@@ -208,8 +208,6 @@ function merge_graphics_sets(main, extension)
         table.insert(merged.working_visualisations, util.table.deepcopy(vis))
     end
 
-    -- Keep other fields from main (e.g., water_reflection, recipe_not_set_tint)
-
     return merged
 end
 
@@ -426,7 +424,7 @@ local zen_tower_mk2_technology =
             recipe = "zen-tower-mk2"
         }
     },
-    prerequisites = { "zen-tower" },
+    prerequisites = { "zen-tower", "agricultural-science-pack" },
     unit = {
         count = 500,
         ingredients = {

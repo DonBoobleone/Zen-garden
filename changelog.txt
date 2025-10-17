@@ -1,6 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.7
+Date: 10. 16. 2025
+  Optimizations:
+    - Fixed Zen-tower-mk2 technology locale and prerequisites
+  Features:
+    - Wood now pollutes 50% less when used as fuel and coal pollutes 50% more (optional, default=true)
+---------------------------------------------------------------------------------------------------
 Version: 0.2.6
-Date: . 2025
+Date: 10. 16. 2025
   Minor Features:
     - Updated spoilage flag in info.json
   Compatibility:

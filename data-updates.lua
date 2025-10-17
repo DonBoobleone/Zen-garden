@@ -27,3 +27,13 @@ if settings.startup["move-artificial-tiles"].value then
         end
     end
 end
+
+-- Fuel Emission override
+
+if settings.startup["fuel-pollution-overhaul"].value then
+    data.raw.item["wood"].fuel_emissions_multiplier = 0.5 -- decrease wood to 50%
+    data.raw.item["coal"].fuel_emissions_multiplier = 1.5 -- increase coal to 150%
+    -- solid fuel can stay 100%
+    -- decrease rocket fuel to 80% ??
+    -- decrease nuclear fuel to 10% ??
+end
