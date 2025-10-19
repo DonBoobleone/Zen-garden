@@ -1,10 +1,10 @@
 {
   "name": "zen-garden",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "title": "Zen Garden",
   "author": "Don Boobleone",
   "factorio_version": "2.0",
   "dependencies": ["base >= 2.0.69", "space-age >= 2.0.69", "? alien-biomes"],
-  "description": "Craft artificial grass tiles that consume pollution and support all tree seeds. Build Zen Towers for compact wood production on Nauvis and Gleba, or Zen Gardens for any surface. Plant diverse trees with 28 unique seeds and create pollution-filtering decoratives.",
+  "description": "Compost wood or spoilage into artificial grass tiles that consume pollution and support all tree seeds.\nBuild Zen Towers for compact wood production on Nauvis and Gleba, or Zen Gardens for any surface.\nPlant diverse trees with 28 unique seeds and create pollution-filtering decoratives.",
   "spoiling_required": true
 }

@@ -1,6 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.8
+Date: 10. 20. 2025
+  Graphics:
+    - Updated icons: Zen-garden
+    - Updated techs: Zen-garden, Charcoal-burning
+  Balancing:
+    - Combined base tree seeding variations into a single technology.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.7
-Date: 10. 16. 2025
+Date: 10. 17. 2025
   Optimizations:
     - Fixed Zen-tower-mk2 technology locale and prerequisites
   Features:

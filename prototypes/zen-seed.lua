@@ -12,7 +12,7 @@ local item_sounds = utils.item_sounds
 
 local surface_conditions = { { property = "pressure", min = 1000, max = 1000 } } -- Nauvis only
 if settings.startup["invasive-forestry"].value then
-    surface_conditions = { { property = "pressure", min = 1000, max = 2000 } } -- Adds Gleba
+    surface_conditions = { { property = "pressure", min = 1000, max = 2000 } }   -- Adds Gleba
 end
 
 local plant_overrides = {
@@ -116,18 +116,36 @@ local function create_specific_recipe(tree_type)
     return recipe
 end
 
-local function create_technology(tree_type)
+local function gather_recipes_to_unlock(tree_type)
     local def = tree_definitions[tree_type]
-    local tech_name = "tree-seeding-" .. tree_type
     local recipe_name = "wood-processing-" .. tree_type
-    return {
+    local recipe = { type = "unlock-recipe", recipe = recipe_name }
+    return recipe
+end
+
+local new_plants = {}
+local new_items = {}
+local new_recipes = {}
+local unlock_effects = {}
+
+for _, tree_type in ipairs(base_tree_types) do
+    if tree_type ~= "juniper" then
+        table.insert(new_plants, create_seed_plant(tree_type))
+        table.insert(new_items, create_seed_item(tree_type))
+        table.insert(new_recipes, create_specific_recipe(tree_type))
+        table.insert(unlock_effects, gather_recipes_to_unlock(tree_type))
+    end
+end
+
+local new_technologies = {
+    {
         type = "technology",
-        name = tech_name,
+        name = "tree-seeding-selection",
         icons = {
-            { icon = def.icons[1].icon,                                   icon_size = def.icons[1].icon_size, scale = 1,    shift = { -8, -4 } },
-            { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256,                    scale = 0.25, shift = { 16, 16 } }
+            { icon = tree_definitions["pine"].icons[1].icon,              icon_size = tree_definitions["pine"].icons[1].icon_size, scale = 1,    shift = { -8, -4 } },
+            { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256,                                         scale = 0.25, shift = { 16, 16 } }
         },
-        effects = { { type = "unlock-recipe", recipe = recipe_name } },
+        effects = unlock_effects,
         prerequisites = { "tree-seeding" },
         unit = {
             count = 50,
@@ -141,27 +159,13 @@ local function create_technology(tree_type)
             time = 60
         }
     }
-end
-
-local new_plants = {}
-local new_items = {}
-local new_recipes = {}
-local new_technologies = {}
-
-for _, tree_type in ipairs(base_tree_types) do
-    if tree_type ~= "juniper" then
-        table.insert(new_plants, create_seed_plant(tree_type))
-        table.insert(new_items, create_seed_item(tree_type))
-        table.insert(new_recipes, create_specific_recipe(tree_type))
-        table.insert(new_technologies, create_technology(tree_type))
-    end
-end
-
+}
 data:extend(new_plants)
 data:extend(new_items)
 data:extend(new_recipes)
 data:extend(new_technologies)
 
+-- Alien Biomes compatibility
 if mods["alien-biomes"] then
     local trees_data = require('__alien-biomes__/prototypes/entity/tree-data')
     local tree_models = require('__alien-biomes__/prototypes/entity/tree-models')
@@ -203,7 +207,8 @@ if mods["alien-biomes"] then
                     end
                     table.insert(recipes_by_biome[biome_type], recipe_name)
 
-                    local seed_name = string.lower(treedata.locale) .. "-" .. string.lower(model_data.locale) .. "-tree-seed"
+                    local seed_name = string.lower(treedata.locale) ..
+                    "-" .. string.lower(model_data.locale) .. "-tree-seed"
                     local seed_item = {
                         type = "item",
                         name = seed_name,
@@ -260,9 +265,9 @@ if mods["alien-biomes"] then
                 localised_name = { "technology-name.tree-seeding",
                     { "technology-name.biome-" .. biome_type } },
                 icons = {
-                    { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-trunk.png",  icon_size = 64, scale = 1, shift = { -8, -4 }},
-                    { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-leaves.png", icon_size = 64, scale = 1, shift = { -8, -4 }, tint = rep_treedata.colors[1] },
-                    { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.25, shift = { 16, 6 } }
+                    { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-trunk.png",  icon_size = 64,  scale = 1,    shift = { -8, -4 } },
+                    { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-leaves.png", icon_size = 64,  scale = 1,    shift = { -8, -4 }, tint = rep_treedata.colors[1] },
+                    { icon = "__space-age__/graphics/technology/agriculture.png",                                           icon_size = 256, scale = 0.25, shift = { 16, 6 } }
                 },
                 effects = {},
                 prerequisites = { "tree-seeding" },

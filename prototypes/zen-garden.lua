@@ -237,7 +237,6 @@ local entities = {
         type = "assembling-machine",
         name = "zen-garden",
         icon = "__zen-garden__/graphics/icons/zen-garden.png",
-        icon_size = 64,
         flags = { "placeable-neutral", "placeable-player", "player-creation" },
         minable = { mining_time = 1, result = "zen-garden" },
         max_health = 1000,
@@ -411,7 +410,7 @@ local technologies = {
         type = "technology",
         name = "space-gardening",
         icon = "__zen-garden__/graphics/technology/space-garden.png",
-        icon_size = 512,
+        icon_size = 256,
         effects = {
             { type = "unlock-recipe", recipe = "zen-garden" },
             { type = "unlock-recipe", recipe = "zen-wood" }
@@ -435,7 +434,6 @@ local items = {
         type = "item",
         name = "gear-garden",
         icon = "__zen-garden__/graphics/icons/favourite.png",
-        icon_size = 64,
         subgroup = "advanced-gardening",
         order = "b[gear-garden]",
         place_result = "gear-garden",
@@ -446,7 +444,6 @@ local items = {
         type = "item",
         name = "zen-garden",
         icon = "__zen-garden__/graphics/icons/zen-garden.png",
-        icon_size = 64,
         subgroup = "advanced-gardening",
         order = "b[zen-garden]",
         place_result = "zen-garden",
