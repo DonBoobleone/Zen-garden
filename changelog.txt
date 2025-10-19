@@ -1,6 +1,14 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.2.8
+Version: 0.2.9
 Date: 10. 20. 2025
+  Balancing:
+    - Increased technology price for Zen-tower-mk2 from 500 -> 2500, Time: 45 -> 60 and added utility-science-pack to the mix.
+  Graphics:
+    - Updated icons: Zen-tower, Zen-tower-mk2
+    - Updated techs: Zen-tower, Zen-agriculture
+---------------------------------------------------------------------------------------------------
+Version: 0.2.8
+Date: 10. 19. 2025
   Graphics:
     - Updated icons: Zen-garden
     - Updated techs: Zen-garden, Charcoal-burning

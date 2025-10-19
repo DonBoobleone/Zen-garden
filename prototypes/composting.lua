@@ -36,13 +36,13 @@ local function create_list_of_nauvis_and_gleba_tiles()
     end
     
     if settings.startup["invasive-forestry"].value then
-        -- Gleba land tiles (dynamic search by subgroup for mod compatibility)
+        -- Gleba land tiles (dynamic search by subgroup)
         for name, tile in pairs(data.raw.tile) do
             if tile.subgroup == "gleba-tiles" then
                 table.insert(tile_condition, name)
             end
         end
-        -- Gleba water tiles (dynamic search by subgroup, if any mods add more)
+        -- Gleba water tiles (dynamic search by subgroup)
         for name, tile in pairs(data.raw.tile) do
             if tile.subgroup == "gleba-water-tiles" then
                 table.insert(tile_condition, name)

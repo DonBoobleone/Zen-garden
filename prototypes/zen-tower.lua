@@ -250,8 +250,10 @@ local zen_tower_item =
 {
     type = "item",
     name = "zen-tower",
-    icon = "__zen-garden__/graphics/icons/zen-tower.png",
-    icon_size = 64,
+    icons = {
+        { icon = "__space-age__/graphics/icons/agricultural-tower.png",    icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -12, 8 } }
+    },
     subgroup = "advanced-gardening",
     order = "a[zen-tower-mk1]",
     place_result = "zen-tower",
@@ -278,7 +280,7 @@ local zen_tower_technology =
 {
     type = "technology",
     name = "zen-tower",
-    icon = "__zen-garden__/graphics/technology/zen-tower.png",
+    icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png",
     icon_size = 256,
     effects = {
         {
@@ -382,8 +384,9 @@ local zen_tower_mk2_item =
     type = "item",
     name = "zen-tower-mk2",
     icons = {
-        { icon = "__zen-garden__/graphics/icons/zen-tower.png",            icon_size = 64,  scale = 1,   shift = { -8, -8 } },
-        { icon = "__zen-garden__/graphics/technology/zen-agriculture.png", icon_size = 256, scale = 0.2, shift = { 16, -24 } }
+        { icon = "__space-age__/graphics/icons/agricultural-tower.png",    icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -14, 6 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -8, 8 } }
     },
     subgroup = "advanced-gardening",
     order = "a[zen-tower-mk2]",
@@ -414,9 +417,9 @@ local zen_tower_mk2_technology =
     name = "zen-agriculture",
 
     icons = {
-        --{ icon = "__zen-garden__/graphics/technology/zen-agriculture.png",  icon_size = 256, scale = 0.5, shift = { -24, -24 } },
         { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.5, shift = { 24, -24 } },
-        { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.5, shift = { -24, 24 } }
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png",  icon_size = 256, scale = 0.25, shift = { -32, 14 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png",  icon_size = 256, scale = 0.25, shift = { -12, 18 } }
     },
     effects = {
         {
@@ -426,19 +429,19 @@ local zen_tower_mk2_technology =
     },
     prerequisites = { "zen-tower", "agricultural-science-pack" },
     unit = {
-        count = 500,
+        count = 2500,
         ingredients = {
             { "automation-science-pack",   1 },
             { "logistic-science-pack",     1 },
             { "chemical-science-pack",     1 },
             { "production-science-pack",   1 },
+            { "utility-science-pack",      1 },
             { "space-science-pack",        1 },
             { "agricultural-science-pack", 1 }
         },
-        time = 45
+        time = 60
     }
 }
-
 
 data:extend({ zen_tower_mk2_entity })
 data:extend({ zen_tower_mk2_item })
