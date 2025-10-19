@@ -6,6 +6,8 @@ Date: 10. 20. 2025
   Graphics:
     - Updated icons: Zen-tower, Zen-tower-mk2
     - Updated techs: Zen-tower, Zen-agriculture
+  Info:
+    - Updated some options description.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.8
 Date: 10. 19. 2025

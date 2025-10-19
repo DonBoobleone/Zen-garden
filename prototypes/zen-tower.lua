@@ -216,7 +216,11 @@ local zen_tower_entity = util.table.deepcopy(data.raw["agricultural-tower"]["agr
 local zen_tower_scale = 2 / 3
 
 zen_tower_entity.name = "zen-tower"
-zen_tower_entity.icon = "__zen-garden__/graphics/icons/zen-tower.png"
+zen_tower_entity.icon = nil
+zen_tower_entity.icons ={
+    { icon = "__space-age__/graphics/icons/agricultural-tower.png",         icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
+    { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -12, 8 } }
+}
 zen_tower_entity.minable = { mining_time = 0.2, result = "zen-tower" }
 zen_tower_entity.fast_replaceable_group = nil
 zen_tower_entity.corpse = "small-remnants"
@@ -251,7 +255,7 @@ local zen_tower_item =
     type = "item",
     name = "zen-tower",
     icons = {
-        { icon = "__space-age__/graphics/icons/agricultural-tower.png",    icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
+        { icon = "__space-age__/graphics/icons/agricultural-tower.png",         icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
         { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -12, 8 } }
     },
     subgroup = "advanced-gardening",
@@ -310,7 +314,12 @@ local zen_tower_mk2_entity = util.table.deepcopy(data.raw["agricultural-tower"][
 local zen_tower_mk2_scale = 4 / 3
 
 zen_tower_mk2_entity.name = "zen-tower-mk2"
-zen_tower_mk2_entity.icon = "__zen-garden__/graphics/icons/zen-tower-mk2.png"
+zen_tower_mk2_entity.icon = nil
+zen_tower_mk2_entity.icons = {
+        { icon = "__space-age__/graphics/icons/agricultural-tower.png",         icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -14, 6 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -8, 8 } }
+    }
 zen_tower_mk2_entity.minable = { mining_time = 0.5, result = "zen-tower-mk2" }
 zen_tower_mk2_entity.fast_replaceable_group = nil
 zen_tower_mk2_entity.corpse = "agricultural-tower-remnants"
@@ -338,17 +347,18 @@ zen_tower_mk2_entity.energy_source = {
 zen_tower_mk2_entity.heating_energy = "200kW"
 zen_tower_mk2_entity.energy_usage = "800kW"
 zen_tower_mk2_entity.crane_energy_usage = "200kW"
-zen_tower_mk2_entity.drawing_box_vertical_extension = zen_tower_mk2_entity.drawing_box_vertical_extension * zen_tower_mk2_scale
+zen_tower_mk2_entity.drawing_box_vertical_extension = zen_tower_mk2_entity.drawing_box_vertical_extension *
+zen_tower_mk2_scale
 
 -- Create graphics sets for each position
 local nw_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
-shift_graphics_set(nw_graphics, -1.5, -1.5) -- Northwest corner
+shift_graphics_set(nw_graphics, -1.5, -1.5)                                                -- Northwest corner
 local ne_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
-shift_graphics_set(ne_graphics, 1.5, -1.5) -- Northeast corner
+shift_graphics_set(ne_graphics, 1.5, -1.5)                                                 -- Northeast corner
 local sw_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
-shift_graphics_set(sw_graphics, -1.5, 1.5) -- Southwest corner
+shift_graphics_set(sw_graphics, -1.5, 1.5)                                                 -- Southwest corner
 local se_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
-shift_graphics_set(se_graphics, 1.5, 1.5) -- Southeast corner
+shift_graphics_set(se_graphics, 1.5, 1.5)                                                  -- Southeast corner
 local center_graphics = create_scaled_agricultural_tower_graphics_set(zen_tower_mk2_scale) -- Center mk2 tower
 
 -- Initialize merged graphics set with center's water reflection
@@ -384,7 +394,7 @@ local zen_tower_mk2_item =
     type = "item",
     name = "zen-tower-mk2",
     icons = {
-        { icon = "__space-age__/graphics/icons/agricultural-tower.png",    icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
+        { icon = "__space-age__/graphics/icons/agricultural-tower.png",         icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
         { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -14, 6 } },
         { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -8, 8 } }
     },
@@ -417,9 +427,9 @@ local zen_tower_mk2_technology =
     name = "zen-agriculture",
 
     icons = {
-        { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256, scale = 0.5, shift = { 24, -24 } },
-        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png",  icon_size = 256, scale = 0.25, shift = { -32, 14 } },
-        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png",  icon_size = 256, scale = 0.25, shift = { -12, 18 } }
+        { icon = "__space-age__/graphics/technology/agriculture.png",           icon_size = 256, scale = 0.5,  shift = { 24, -24 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.25, shift = { -32, 14 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.25, shift = { -12, 18 } }
     },
     effects = {
         {

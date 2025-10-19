@@ -5,7 +5,8 @@ data:extend({
         name = "zen-seeds-enabled",
         setting_type = "startup",
         default_value = true,
-        order = "a"
+        order = "a",
+        localised_description = {"", "Creates a seed for each tree."}
     },
     {
         type = "bool-setting",
@@ -13,6 +14,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "b",
+        localised_description = {"", "A portable planting box version of each tree"}
     },
     {
         type = "bool-setting",
@@ -34,7 +36,8 @@ data:extend({
         name = "zen-tower-enabled",
         setting_type = "startup",
         default_value = true,
-        order = "d"
+        order = "d",
+        localised_description = {"", "Alternative agricultural tower mk1/mk2"}
     },
     {
         type = "bool-setting",
@@ -48,7 +51,8 @@ data:extend({
         name = "move-artificial-tiles",
         setting_type = "startup",
         default_value = true,
-        order = "f"
+        order = "f",
+        localised_description = {"", "Bricks and friends move to landscaping tab."}
     },
     {
         type = "bool-setting",
@@ -64,7 +68,6 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "h",
-        localised_description = {"", "Wood has 50% pollution as fuel"}
+        localised_description = {"", "Wood has 50% pollution as fuel, while coal has 150%"}
     }
-    
 })
