@@ -116,7 +116,7 @@ crude_recipe.subgroup = "wood-processing"
 crude_recipe.order = "a[crude-wood-processing]"
 crude_recipe.energy_required = 2
 crude_recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
-crude_recipe.results = { { type = "item", name = "tree-seed", amount = 1, probability = 0.8 } }
+crude_recipe.results = { { type = "item", name = "tree-seed", amount = 1, probability = 0.9 } }
 
 data:extend({ crude_recipe })
 

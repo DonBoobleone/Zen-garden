@@ -245,7 +245,7 @@ local entities = {
         icon_draw_specification = { shift = { 0, -0.3 } },
         alert_icon_shift = util.by_pixel(0, -12),
         resistances = {
-            { type = "fire",   percent = 99 },
+            { type = "fire",   percent = 100 },
             { type = "impact", percent = 80 }
         },
         fluid_boxes = common_fluid_boxes,
@@ -295,7 +295,7 @@ local entities = {
             }
         },
         resistances = {
-            { type = "fire", percent = 99 }
+            { type = "fire", percent = 100 }
         },
         fluid_boxes = common_fluid_boxes,
         fixed_recipe = "water-the-plants",

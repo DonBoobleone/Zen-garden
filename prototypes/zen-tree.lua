@@ -87,7 +87,7 @@ local function create_base_zen_tree_entity(tree_type)
         corpse = "small-remnants",
         fast_replaceable_group = "zen-tree",
         emissions_per_second = { pollution = -0.001 },
-        resistances = { { type = "fire", percent = -50 } },
+        resistances = { },
         collision_box = { { -0.9, -0.9 }, { 0.9, 0.9 } },
         selection_box = { { -1, -1 }, { 1, 1 } },
         animations = { layers = tree_layers }

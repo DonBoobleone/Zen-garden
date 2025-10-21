@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 10. 20. 2025
+  Locale:
+    - Updated fuel pollution overhaul locale
+  Balancing:
+    - Increased Crude wood-processing yield from 0.8 to 0.9
+    - Zen garden and Gear garden is now fire proof.
+    - Zen trees no longer have negative fire resistance.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.9
 Date: 10. 20. 2025
   Balancing:

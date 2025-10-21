@@ -30,6 +30,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "c",
+        localised_description = {"", "Enables the Zen and Gear gardens"}
     },
     {
         type = "bool-setting",
@@ -44,7 +45,8 @@ data:extend({
         name = "charcoal-burning-enabled",
         setting_type = "startup",
         default_value = true,
-        order = "e"
+        order = "e",
+        localised_description = {"", "Allows Wood chests to be smelted into coal."}
     },
     {
         type = "bool-setting",
@@ -60,7 +62,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "g",
-        localised_description = {"", "Nauvis trees can be planted on gleba if artificial grass is present"}
+        localised_description = {"", "Nauvis trees can be planted on Gleba, if artificial grass is present"}
     },
     {
         type = "bool-setting",

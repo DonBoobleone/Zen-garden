@@ -16,7 +16,7 @@ Wood production: - (optional)
 - Zen Garden: A standalone high tier building with a pressure dome, can be placed on any surface. Has 4 module slots.
 
 Seeds: - (optional)
-- Extended seed selection +8 (base game) +20 (alien-biomes-compatible)
+- Extended seed selection +8 (base game) +67 (alien-biomes-compatible)
 
 Cosmetics with pollution filtering capabilities: - (optional)
 - Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible).
