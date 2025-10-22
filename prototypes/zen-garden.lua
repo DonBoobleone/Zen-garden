@@ -308,7 +308,7 @@ local entities = {
             fade_in_ticks = 4,
             fade_out_ticks = 20
         },
-        collision_box = { { -3.9, -3.9 }, { 3.9, 3.9 } },
+        collision_box = { { -3.51, -3.51 }, { 3.51, 3.51 } },
         selection_box = { { -4, -4 }, { 4, 4 } },
         drawing_box_vertical_extension = 0.2,
         fast_replaceable_group = "zen-garden",
@@ -318,8 +318,8 @@ local entities = {
         crafting_categories = { "gardening" },
         crafting_speed = 1,
         energy_source = {
-            type = "electric",
-            usage_priority = "secondary-input",
+            type = "void",
+            ---usage_priority = "secondary-input",
             emissions_per_minute = { pollution = -10 }
         },
         energy_usage = "100kW",
@@ -362,8 +362,8 @@ local recipes = {
         energy_required = 10,
         enabled = false,
         ingredients = {
-            { type = "item", name = "artificial-grass", amount = 32 },
-            { type = "item", name = "tree-seed",        amount = 20 },
+            { type = "item", name = "artificial-grass", amount = 20 },
+            { type = "item", name = "tree-seed",        amount = 10 },
             { type = "item", name = "pipe-to-ground",   amount = 8 },
         },
         results = { { type = "item", name = "gear-garden", amount = 1 } }
@@ -382,7 +382,7 @@ local recipes = {
         },
         results = {},
         hidden = true,
-        enabled = false
+        enabled = true
     }
 }
 
@@ -394,7 +394,7 @@ local technologies = {
         icon_size = 256,
         effects = {
             { type = "unlock-recipe", recipe = "gear-garden" },
-            { type = "unlock-recipe", recipe = "water-the-plants" }
+            --{ type = "unlock-recipe", recipe = "water-the-plants" }
         },
         prerequisites = { "composting" },
         unit = {

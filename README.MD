@@ -21,6 +21,7 @@ Seeds: - (optional)
 Cosmetics with pollution filtering capabilities: - (optional)
 - Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible).
 - Gear-garden. Consumes pollution just have to water the trees.
+= Zen-Bonsai, another decorative that just needs water.
 
 Tweaks:
 - Fuel pollution changed for wood (50%) and coal (150%) - (optional)

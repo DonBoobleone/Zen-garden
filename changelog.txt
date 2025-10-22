@@ -1,6 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.1
+Date: 10. 22. 2025
+  Balancing:
+    - Lowered Gear-garden crafting cost. artificial-grass 32 -> 20, tree-seed 20 -> 10
+    - Gear-garden no longer consumes electricity, only water.
+    - Reduced Gear-garden collision-box so character can squezee through.
+  Features:
+    - New active decorative: Zen-bonsai.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.0
-Date: 10. 20. 2025
+Date: 10. 21. 2025
   Locale:
     - Updated fuel pollution overhaul locale
   Balancing:

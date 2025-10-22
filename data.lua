@@ -1,9 +1,10 @@
 -- data.lua
 require("__zen-garden__/prototypes/categories/recipe-category")
 require("__zen-garden__/prototypes/item-groups")
+require("__zen-garden__/prototypes/composting")
 require("__zen-garden__/prototypes/zen-seed")
 require("__zen-garden__/prototypes/zen-tree")
 require("__zen-garden__/prototypes/zen-tower")
 require("__zen-garden__/prototypes/zen-garden")
-require("__zen-garden__/prototypes/composting")
+require("__zen-garden__/prototypes/zen-bonsai")
 require("__zen-garden__/prototypes/charcoal-burning")
