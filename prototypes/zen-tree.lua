@@ -9,7 +9,8 @@ local tree_order_indices = utils.tree_order_indices
 local base_tree_types = utils.base_tree_types
 local all_tree_types = utils.all_tree_types
 
-local use_basic_recipe = settings.startup["force-basic-zen-tree-recipe"].value or not settings.startup["zen-seeds-enabled"].value
+local use_basic_recipe = settings.startup["force-basic-zen-tree-recipe"].value or
+    not settings.startup["zen-seeds-enabled"].value
 
 local planting_box_shift = util.by_pixel(0, 9)
 local planting_box_scale = 0.33
@@ -57,6 +58,7 @@ local function create_zen_tree_layers(variation, tint)
     return layers
 end
 
+--TODO: Refact into craftingmachineprototype with fixed recipe
 local function create_base_zen_tree_entity(tree_type)
     local def = tree_definitions[tree_type]
     local tree_layers = create_zen_tree_layers(def.variation, def.tint)
@@ -74,7 +76,7 @@ local function create_base_zen_tree_entity(tree_type)
     end
     return
     {
-        type = "simple-entity-with-owner",
+        type = "assembling-machine", --"simple-entity-with-owner",
         name = "zen-tree-" .. tree_type,
         icons = {
             { icon = "__base__/graphics/icons/wooden-chest.png", icon_size = 64, scale = 0.5, shift = { 0, 8 } },
@@ -86,11 +88,29 @@ local function create_base_zen_tree_entity(tree_type)
         max_health = 100,
         corpse = "small-remnants",
         fast_replaceable_group = "zen-tree",
-        emissions_per_second = { pollution = -0.001 },
-        resistances = { },
+        --emissions_per_second = { pollution = -0.001 },
+        resistances = {},
         collision_box = { { -0.9, -0.9 }, { 0.9, 0.9 } },
         selection_box = { { -1, -1 }, { 1, 1 } },
-        animations = { layers = tree_layers }
+        graphics_set = {
+            animation =
+            {
+                layers = tree_layers
+            }
+        },
+        --animations = { layers = tree_layers },
+        crafting_categories = { "gardening" },
+        fixed_recipe = "zen-chi",
+        show_recipe_icon = false,
+        show_recipe_icon_on_map = false,
+        crafting_speed = 1,
+        energy_source = {
+            type = "void",
+            emissions_per_minute = { pollution = -0.06 }
+        },
+        energy_usage = "1kW",
+        module_slots = nil,
+        allowed_effects = {}
     }
 end
 
@@ -137,6 +157,20 @@ end
 local base_entities = {}
 local base_items = {}
 local base_recipes = {}
+local fixed_recipe = {
+    type = "recipe",
+    name = "zen-chi",
+    icons = {
+        { icon = "__zen-garden__/graphics/icons/zen-bonsai.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
+    },
+    category = "gardening",
+    energy_required = 60,
+    ingredients = {},
+    results = {},
+    hidden = true,
+    enabled = true
+}
+
 for _, tree_type in ipairs(base_tree_types) do
     table.insert(base_entities, create_base_zen_tree_entity(tree_type))
     table.insert(base_items, create_base_zen_tree_item(tree_type))
@@ -168,6 +202,7 @@ local base_technology = {
 data:extend(base_entities)
 data:extend(base_items)
 data:extend(base_recipes)
+data:extend({ fixed_recipe })
 data:extend({ base_technology })
 
 if mods["alien-biomes"] then
@@ -200,7 +235,7 @@ if mods["alien-biomes"] then
         end
         return
         {
-            type = "simple-entity-with-owner",
+            type = "assembling-machine",
             name = "zen-tree-" .. treedata.name,
             icons = item_icons,
             icon_size = 64,
@@ -209,11 +244,26 @@ if mods["alien-biomes"] then
             max_health = 100,
             corpse = "small-remnants",
             fast_replaceable_group = "zen-tree",
-            emissions_per_second = { pollution = -0.001 },
             resistances = { { type = "fire", percent = -50 } },
             collision_box = { { -0.9, -0.9 }, { 0.9, 0.9 } },
             selection_box = { { -1, -1 }, { 1, 1 } },
-            animations = { layers = tree_layers },
+            graphics_set = {
+                animation = {
+                    layers = tree_layers
+                }
+            },
+            crafting_categories = { "gardening" },
+            fixed_recipe = "zen-chi",
+            show_recipe_icon = false,
+            show_recipe_icon_on_map = false,
+            crafting_speed = 1,
+            energy_source = {
+                type = "void",
+                emissions_per_minute = { pollution = -0.06 }
+            },
+            energy_usage = "1kW",
+            module_slots = nil,
+            allowed_effects = {},
             localised_name = { "entity-name.zen-tree", { "alien-biomes." .. treedata.locale }, { "alien-biomes." .. tree_models[treedata.model].locale } }
         }
     end
@@ -240,7 +290,8 @@ if mods["alien-biomes"] then
 
     local function create_alien_zen_tree_recipe(treedata)
         local model_data = tree_models[treedata.model]
-        local specific_seed_name = string.lower(treedata.locale) .. "-" .. string.lower(model_data.locale) .. "-tree-seed"
+        local specific_seed_name = string.lower(treedata.locale) ..
+            "-" .. string.lower(model_data.locale) .. "-tree-seed"
         local seed_name = use_basic_recipe and "tree-seed" or specific_seed_name
         return {
             type = "recipe",
