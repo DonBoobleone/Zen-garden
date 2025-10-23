@@ -1,8 +1,6 @@
 local utils = require("__zen-garden__/prototypes/zen-utils")
 local tile_restrictions = utils.tile_restrictions
 
-data.raw.plant["tree-plant"].autoplace.tile_restriction = tile_restrictions
-
 -- Apply tile restrictions to tree-plant autoplace settings
 for _, plant in pairs(data.raw.plant) do
     if plant.name:find("tree-plant", 1, true) then
@@ -15,5 +13,3 @@ for _, plant in pairs(data.raw.plant) do
         end
     end
 end
-
--- TODO: reverse compatibility, if alien-biomes is disabled in a save normal grass won't work anymore.

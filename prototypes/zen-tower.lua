@@ -243,7 +243,7 @@ zen_tower_entity.surface_conditions = {
 zen_tower_entity.energy_source = {
     type = "electric",
     usage_priority = "secondary-input",
-    emissions_per_minute = { pollution = -5 }
+    emissions_per_minute = { pollution = -5 } -- TODO: rebalance to 2-4? base tower is 4
 }
 zen_tower_entity.drawing_box_vertical_extension = zen_tower_entity.drawing_box_vertical_extension * zen_tower_scale
 

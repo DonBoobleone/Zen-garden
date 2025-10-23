@@ -11,6 +11,16 @@ end
 data.raw.item["tree-seed"].subgroup = "seeds"
 data.raw.item["tree-seed"].order = "a[base]"
 
+-- Tile restriction for base tree-seed
+local default_restrictions = {
+    "grass-1", "grass-2", "grass-3", "grass-4",
+    "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
+    "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3",
+    "artificial-grass"
+}
+
+data.raw.plant["tree-plant"].autoplace.tile_restriction = default_restrictions
+
 -- Move artificial tiles settings
 if settings.startup["move-artificial-tiles"].value then
     data.raw["item-subgroup"]["terrain"].group = "landscaping"

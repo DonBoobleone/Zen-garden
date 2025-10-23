@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.3
+Date: 10. 23. 2025
+  Features:
+    - New active decorative: Cherry-bonsai.
+  Graphics:
+    - Fixed south pipe connection for Zen-bonsai.
+  Optimizations:
+    - Changed crude wood processing recipe ordering
+  Bugfixes:
+    - Fixed base tree-seed tile restriction for 'artificial-grass'
+---------------------------------------------------------------------------------------------------
 Version: 0.3.2
 Date: 10. 23. 2025
   Features:
