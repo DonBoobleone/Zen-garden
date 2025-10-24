@@ -51,8 +51,8 @@ local common_fluid_boxes =
             { flow_direction = "input-output", direction = defines.direction.south, position = { 1.5, 3.5 } },
             { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, -1.5 } },
             { flow_direction = "input-output", direction = defines.direction.east,  position = { 3.5, 1.5 } },
-            { flow_direction = "input-output", direction = defines.direction.west, position = { -3.5, -1.5 } },
-            { flow_direction = "input-output", direction = defines.direction.west, position = { -3.5, 1.5 } }
+            { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, -1.5 } },
+            { flow_direction = "input-output", direction = defines.direction.west,  position = { -3.5, 1.5 } }
         },
         secondary_draw_orders = { north = -1 }
     }
@@ -61,8 +61,8 @@ local common_fluid_boxes =
 for i, layer in ipairs(pipe_layers_back) do layer.shift = pipe_shifts.back[i] end
 for i, layer in ipairs(pipe_layers_front) do layer.shift = pipe_shifts.front[i] end
 
-local dome_shift = 12
-local dome_scale = 0.98
+local dome_shift = -24
+local dome_scale = 0.33
 
 local dome_back = {
     filename = "__zen-garden__/graphics/entity/dome/dome-back.png",
@@ -214,18 +214,43 @@ local function adjust_layers_shift(layers, shift_vector)
     end
 end
 
+--Zen Garden Layer assembly
 local zen_all_layers = {}
-for _, layer in ipairs(pipe_layers_back) do table.insert(zen_all_layers, layer) end
-table.insert(zen_all_layers, dome_back)
-table.insert(zen_all_layers, dome_back_shadow)
-table.insert(zen_all_layers, water_features_layer_shifted)
+local zen_garden_layer = {
+    filename = "__zen-garden__/graphics/entity/zen-garden/zen-garden.png",
+    priority = "extra-high",
+    width = 1024,
+    height = 1024,
+    frame_count = 1,
+    line_length = 1,
+    scale = dome_scale,
+    shift = util.by_pixel(0, dome_shift),
+}
+local zen_garden_shadow = {
+    filename = "__zen-garden__/graphics/entity/zen-garden/zen-garden-shadow.png",
+    priority = "extra-high",
+    width = 1024,
+    height = 1024,
+    frame_count = 1,
+    line_length = 1,
+    scale = dome_scale,
+    draw_as_shadow = true,
+    shift = util.by_pixel(0, dome_shift),
+}
+for _, layer in ipairs(pipe_layers_back) do table.insert(zen_all_layers, layer) end -- pipes back
+table.insert(zen_all_layers, zen_garden_layer)
+table.insert(zen_all_layers, zen_garden_shadow)
 
-adjust_layers_shift(zen_tree_layers, util.by_pixel(0, -2.5 * dome_shift))
+--table.insert(zen_all_layers, dome_back)
+--table.insert(zen_all_layers, dome_back_shadow)
+--table.insert(zen_all_layers, water_features_layer_shifted)
+--adjust_layers_shift(zen_tree_layers, util.by_pixel(0, -2.5 * dome_shift))
+--for _, layer in ipairs(zen_tree_layers) do table.insert(zen_all_layers, layer) end
+--table.insert(zen_all_layers, dome_front)
 
-for _, layer in ipairs(zen_tree_layers) do table.insert(zen_all_layers, layer) end
-table.insert(zen_all_layers, dome_front)
-for _, layer in ipairs(pipe_layers_front) do table.insert(zen_all_layers, layer) end
+for _, layer in ipairs(pipe_layers_front) do table.insert(zen_all_layers, layer) end -- pipse front
 
+--Gear Garden Layer assembly
 local gear_all_layers = {}
 for _, layer in ipairs(pipe_layers_back) do table.insert(gear_all_layers, layer) end
 table.insert(gear_all_layers, water_features_layer)
@@ -262,7 +287,7 @@ local entities = {
         graphics_set = {
             animation = { layers = zen_all_layers }
         },
-        crafting_categories = { "advanced-gardening" },
+        crafting_categories = { "gardening", "advanced-gardening" },
         crafting_speed = 1,
         output_inventory_size = 2,
         energy_source = {
@@ -316,10 +341,9 @@ local entities = {
             animation = { layers = gear_all_layers }
         },
         crafting_categories = { "gardening" },
-        crafting_speed = 1,
+        crafting_speed = 10,
         energy_source = {
             type = "void",
-            ---usage_priority = "secondary-input",
             emissions_per_minute = { pollution = -10 }
         },
         energy_usage = "100kW",
