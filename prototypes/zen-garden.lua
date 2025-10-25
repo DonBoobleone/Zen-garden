@@ -61,53 +61,7 @@ local common_fluid_boxes =
 for i, layer in ipairs(pipe_layers_back) do layer.shift = pipe_shifts.back[i] end
 for i, layer in ipairs(pipe_layers_front) do layer.shift = pipe_shifts.front[i] end
 
-local dome_shift = -24
-local dome_scale = 0.33
 
-local dome_back = {
-    filename = "__zen-garden__/graphics/entity/dome/dome-back.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    line_length = 1,
-    scale = dome_scale,
-    shift = util.by_pixel(0, dome_shift)
-}
-
-local dome_back_shadow = {
-    filename = "__zen-garden__/graphics/entity/dome/dome-back-shadow.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    line_length = 1,
-    scale = dome_scale,
-    shift = util.by_pixel(0, dome_shift),
-    draw_as_shadow = true
-}
-
-local dome_front = {
-    filename = "__zen-garden__/graphics/entity/dome/dome-front.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    line_length = 1,
-    scale = dome_scale,
-    shift = util.by_pixel(0, dome_shift)
-}
-
-local water_features_layer_shifted = {
-    filename = "__zen-garden__/graphics/entity/fountain.png",
-    priority = "extra-high",
-    width = 256,
-    height = 256,
-    frame_count = 1,
-    line_length = 1,
-    scale = 0.35,
-    shift = util.by_pixel(0, -2.5 * dome_shift)
-}
 
 local water_features_layer = {
     filename = "__zen-garden__/graphics/entity/fountain.png",
@@ -120,6 +74,7 @@ local water_features_layer = {
     shift = util.by_pixel(0, 0)
 }
 
+-- Gear Garden Graphics description
 local stretch_factor = 0.8
 
 local function stretch(position)
@@ -196,25 +151,11 @@ end
 
 local gear_tree_layers = create_zen_garden_graphics(generate_gear_trees()).layers
 
-local function generate_zen_trees()
-    local ring_positions = generate_tree_rings({ 1.3, 1.6, 2.1 }, { 8, 16, 32 })
-    return create_tree_table(ring_positions, tree_definitions["pine"].variation, colors.forest_green, 0.33)
-end
+-- Zen-garden graphics import settings
+local dome_shift = 0
+local dome_scale = 0.3
 
-local zen_tree_layers = create_zen_garden_graphics(generate_zen_trees()).layers
-
-local function adjust_layers_shift(layers, shift_vector)
-    for _, layer in ipairs(layers) do
-        if layer.shift then
-            layer.shift = {
-                layer.shift[1] + shift_vector[1],
-                layer.shift[2] + shift_vector[2]
-            }
-        end
-    end
-end
-
---Zen Garden Layer assembly
+-- Zen Garden Layer assembly
 local zen_all_layers = {}
 local zen_garden_layer = {
     filename = "__zen-garden__/graphics/entity/zen-garden/zen-garden.png",
@@ -240,13 +181,6 @@ local zen_garden_shadow = {
 for _, layer in ipairs(pipe_layers_back) do table.insert(zen_all_layers, layer) end -- pipes back
 table.insert(zen_all_layers, zen_garden_layer)
 table.insert(zen_all_layers, zen_garden_shadow)
-
---table.insert(zen_all_layers, dome_back)
---table.insert(zen_all_layers, dome_back_shadow)
---table.insert(zen_all_layers, water_features_layer_shifted)
---adjust_layers_shift(zen_tree_layers, util.by_pixel(0, -2.5 * dome_shift))
---for _, layer in ipairs(zen_tree_layers) do table.insert(zen_all_layers, layer) end
---table.insert(zen_all_layers, dome_front)
 
 for _, layer in ipairs(pipe_layers_front) do table.insert(zen_all_layers, layer) end -- pipse front
 
