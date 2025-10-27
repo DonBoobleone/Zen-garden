@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.6
+Date: 10. 27. 2025
+  Bugfixes:
+    - Fixed zen-wood recipe being enabled before research.
+  Balancing:
+    - Composting and soil-mixing is now available in biochambers.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.5
 Date: 10. 25. 2025
   Graphics:

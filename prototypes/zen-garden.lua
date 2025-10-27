@@ -310,6 +310,7 @@ local recipes = {
         },
         category = "advanced-gardening",
         energy_required = 200,
+        enabled = false,
         ingredients = { { type = "fluid", name = "water", amount = 2000 } },
         results = { { type = "item", name = "wood", amount = 100 } }
     },

@@ -27,4 +27,4 @@ Tweaks:
 - Fuel pollution changed for wood (50%) and coal (150%) - (optional)
 
 Work in progress:
-- Zen Garden graphics, all feedback is appriciated, what looked good, what felt wrong?
+- Zen Garden graphics, all feedback is appreciated, what looked good, what felt wrong?

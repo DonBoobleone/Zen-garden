@@ -124,7 +124,7 @@ local composting_recipes = {
     {
         type = "recipe",
         name = "compost-from-wood",
-        category = "crafting-with-fluid",
+        category = "organic-or-assembling",
         enabled = false,
         energy_required = 120,
         icons = {
@@ -145,7 +145,7 @@ local composting_recipes = {
     {
         type = "recipe",
         name = "compost-from-spoilage",
-        category = "crafting-with-fluid",
+        category = "organic-or-assembling",
         enabled = false,
         energy_required = 120,
         icons = {
@@ -166,7 +166,7 @@ local composting_recipes = {
     {
         type = "recipe",
         name = "soil-mixing",
-        category = "crafting",
+        category = "organic-or-assembling",
         enabled = false,
         energy_required = 10,
         icons = {
