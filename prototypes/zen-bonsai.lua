@@ -180,6 +180,11 @@ local cherry_bonsai_entity =
     allowed_effects = {}
 }
 
+local zen_bonsai_seed_item ={}
+local cherry_bonsai_seed_item ={}
+local zen_bonsai_seed_processing_recipe ={}
+local cherry_bonsai_seed_processing_recipe ={}
+
 local zen_bonsai_item = {
     type = "item",
     name = "zen-bonsai",

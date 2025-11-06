@@ -58,10 +58,18 @@ data:extend({
     },
     {
         type = "bool-setting",
-        name = "invasive-forestry",
+        name = "move-tree-seed",
         setting_type = "startup",
         default_value = true,
         order = "g",
+        localised_description = {"", "Tree Seed moves to landscaping tab."}
+    },
+    {
+        type = "bool-setting",
+        name = "invasive-forestry",
+        setting_type = "startup",
+        default_value = true,
+        order = "h",
         localised_description = {"", "Nauvis trees can be planted on Gleba, if artificial grass is present"}
     },
     {
@@ -69,7 +77,7 @@ data:extend({
         name = "fuel-pollution-overhaul",
         setting_type = "startup",
         default_value = true,
-        order = "h",
+        order = "i",
         localised_description = {"", "Wood has 50% pollution as fuel, while coal has 150%"}
     }
 })

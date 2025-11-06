@@ -33,8 +33,16 @@ for _, tile in ipairs(artificial_tile_restrictions) do
 end
 
 if mods["alien-biomes"] then
-    local ab_tile_restrictions = alien_biomes.list_tiles(alien_biomes.require_tag(alien_biomes.all_tiles(), { "grass", "dirt" }))
+    local ab_tile_restrictions = alien_biomes.list_tiles(alien_biomes.require_tag(alien_biomes.all_tiles(),
+        { "grass", "dirt" }))
     for _, tile in ipairs(ab_tile_restrictions) do
+        table.insert(tile_restrictions, tile)
+    end
+end
+
+if mods["lignumis"] then
+    local lignumis_special_tile = { "natural-gold-soil" }
+    for _, tile in ipairs(lignumis_special_tile) do
         table.insert(tile_restrictions, tile)
     end
 end
@@ -49,63 +57,63 @@ local tree_definitions = {
         variation_index = 1,
         tint = colors.forest_green,
         seed_name = "tree-seed-pine",
-        icons = {{icon = "__base__/graphics/icons/tree-01.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-01.png", icon_size = 64 } }
     },
     birch = {
         base_tree = "tree-02",
         variation_index = 1,
         tint = colors.pale_green,
         seed_name = "tree-seed-birch",
-        icons = {{icon = "__base__/graphics/icons/tree-02.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-02.png", icon_size = 64 } }
     },
     acacia = {
         base_tree = "tree-03",
         variation_index = 1,
         tint = colors.olive_green,
         seed_name = "tree-seed-acacia",
-        icons = {{icon = "__base__/graphics/icons/tree-03.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-03.png", icon_size = 64 } }
     },
     elm = {
         base_tree = "tree-04",
         variation_index = 1,
         tint = colors.deep_green,
         seed_name = "tree-seed-elm",
-        icons = {{icon = "__base__/graphics/icons/tree-04.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-04.png", icon_size = 64 } }
     },
     maple = {
         base_tree = "tree-05",
         variation_index = 1,
         tint = colors.orange,
         seed_name = "tree-seed-maple",
-        icons = {{icon = "__base__/graphics/icons/tree-05.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-05.png", icon_size = 64 } }
     },
     willow = {
         base_tree = "tree-06",
         variation_index = 1,
         tint = colors.pale_green,
         seed_name = "tree-seed-willow",
-        icons = {{icon = "__base__/graphics/icons/tree-06.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-06.png", icon_size = 64 } }
     },
     oak = {
         base_tree = "tree-07",
         variation_index = 1,
         tint = colors.brown,
         seed_name = "tree-seed-oak",
-        icons = {{icon = "__base__/graphics/icons/tree-07.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-07.png", icon_size = 64 } }
     },
     juniper = {
         base_tree = "tree-08",
         variation_index = 1,
         tint = colors.lime_green,
         seed_name = "tree-seed", -- Exception: uses generic seed
-        icons = {{icon = "__base__/graphics/icons/tree-08.png", icon_size = 64}}
+        icons = { { icon = "__base__/graphics/icons/tree-08.png", icon_size = 64 } }
     },
     redwood = {
         base_tree = "tree-09",
         variation_index = 4,
         tint = colors.red,
         seed_name = "tree-seed-redwood",
-        icons = {{icon = "__base__/graphics/icons/tree-09.png", icon_size = 64, tint = colors.red}}
+        icons = { { icon = "__base__/graphics/icons/tree-09.png", icon_size = 64, tint = colors.red } }
     }
 }
 
@@ -123,8 +131,8 @@ if mods["alien-biomes"] and settings.startup["zen-seeds-enabled"].value then
                     tint = tint,
                     seed_name = string.lower(treedata.locale) .. "-" .. string.lower(model_data.locale) .. "-tree-seed",
                     icons = {
-                        {icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png", icon_size = 64},
-                        {icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-leaves.png", icon_size = 64, tint = tint}
+                        { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png",  icon_size = 64 },
+                        { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-leaves.png", icon_size = 64, tint = tint }
                     }
                 }
                 table.insert(all_tree_types, treedata.name)

@@ -12,7 +12,7 @@ local item_sounds = utils.item_sounds
 
 local surface_conditions = { { property = "pressure", min = 1000, max = 1000 } } -- Nauvis only
 if settings.startup["invasive-forestry"].value then
-    surface_conditions = { { property = "pressure", min = 1000, max = 2000 } }   -- Adds Gleba
+    surface_conditions = { { property = "pressure", min = 800, max = 2000 } }   -- Adds Gleba
 end
 
 local plant_overrides = {

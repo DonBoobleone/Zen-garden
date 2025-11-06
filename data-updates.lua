@@ -1,26 +1,33 @@
+local utils = require("__zen-garden__/prototypes/zen-utils")
+local tile_restrictions = utils.tile_restrictions
+
+-- Apply tile restrictions to tree-plant autoplace settings
+for _, plant in pairs(data.raw.plant) do
+    if plant.name:find("tree-plant", 1, true) then
+        -- Ensure autoplace exists and is a table, create if nil -- needed for mod compatibility who nil the value.
+        if plant.autoplace == nil then
+            plant.autoplace = data.raw.plant["tree-plant"].autoplace
+        end
+        if type(plant.autoplace) == "table" then
+            plant.autoplace.tile_restriction = tile_restrictions
+        end
+    end
+end
+
 data.raw.recipe["wood-processing"].subgroup = "wood-processing"
 data.raw.recipe["wood-processing"].order = "a[wood-processing]-a[base]"
 data.raw.recipe["wood-processing"].surface_conditions = nil -- allow processing on any surface
 
 -- Inasive Forsetry Setting
 if settings.startup["invasive-forestry"].value then
-    data.raw.plant["tree-plant"].surface_conditions = { { property = "pressure", min = 1000, max = 2000 } } -- Adds Gleba
+    data.raw.plant["tree-plant"].surface_conditions = { { property = "pressure", min = 800, max = 2000 } } -- Adds Gleba // sub 1000 for Lignumis
 end
 
--- Seed placement
-data.raw.item["tree-seed"].subgroup = "seeds"
-data.raw.item["tree-seed"].order = "a[base]"
-
--- Tile restriction for base tree-seed
-local default_restrictions = {
-    "grass-1", "grass-2", "grass-3", "grass-4",
-    "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
-    "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3",
-    "artificial-grass"
-}
-
-data.raw.plant["tree-plant"].autoplace.tile_restriction = default_restrictions
-
+-- Move tree-seed to landscaping
+if settings.startup["move-tree-seed"].value then
+    data.raw.item["tree-seed"].subgroup = "seeds"
+    data.raw.item["tree-seed"].order = "a[base]"
+end
 -- Move artificial tiles settings
 if settings.startup["move-artificial-tiles"].value then
     data.raw["item-subgroup"]["terrain"].group = "landscaping"
