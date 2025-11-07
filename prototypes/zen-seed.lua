@@ -1,14 +1,14 @@
 if not settings.startup["zen-seeds-enabled"].value then return end
 
-local utils = require("__zen-garden__/prototypes/zen-utils")
+local zen_utils = require("__zen-garden__/prototypes/zen-utils")
 local util = require("util")
-local tree_definitions = utils.tree_definitions
-local tile_restrictions = utils.tile_restrictions
-local ordered_tree_types = utils.ordered_tree_types
-local tree_order_indices = utils.tree_order_indices
-local all_tree_types = utils.all_tree_types
-local base_tree_types = utils.base_tree_types
-local item_sounds = utils.item_sounds
+local tree_definitions = zen_utils.tree_definitions
+local tile_restrictions = zen_utils.tile_restrictions
+local ordered_tree_types = zen_utils.ordered_tree_types
+local tree_order_indices = zen_utils.tree_order_indices
+local all_tree_types = zen_utils.all_tree_types
+local base_tree_types = zen_utils.base_tree_types
+local item_sounds = zen_utils.item_sounds
 
 local surface_conditions = { { property = "pressure", min = 1000, max = 1000 } } -- Nauvis only
 if settings.startup["invasive-forestry"].value then

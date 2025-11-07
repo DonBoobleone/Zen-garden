@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.8
+Date: 11. 07. 2025
+  Features:
+    - Changed Zen Bonsai pipe connection to underground only, and removed extra pipe to ground visuals.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.7
 Date: 11. 06. 2025
   Compatibility:

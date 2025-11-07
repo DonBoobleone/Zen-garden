@@ -1,30 +1,35 @@
 # Zen Garden - A Mod for Factorio Space Age
 
-This mod adds:
-
-Recipes:
+## Recipes
 - Compost from wood or spoilage -> spoils into Artificial-grass
 - Zen-wood: 100 wood for 2000 water, made in Zen-garden
 - Charcoal burning: Smelt Wooden chests into coal - (optional)
 
-Tile:
-- Artificial Grass: Natural grass tile, consumes pollution, can be used instead of landfill, supports all tree-seeds.
+## Artificial Grass
+- Natural grass tile
+- Spoils from compost
+- Consumes pollution
+- Viable instead of landfill (Option: Invasive Forestry - Allows usage on Gleba as well)
 
-Wood production: - (optional)
-- Zen Tower: A small early agricultural tower for Nauvis, plants on a 2x2 compact grid.
-- Zen Tower MK2: A large agricultural tower for both Gleba and Nauvis, plants on a 2x2 compact grid.
-- Zen Garden: A standalone high tier building with a pressure dome, can be placed on any surface. Has 4 module slots.
+## Wood production 
+- Zen Tower: A small early agricultural tower for Nauvis, plants on a 2x2 compact grid - (optional)
+- Zen Tower MK2: A large agricultural tower for both Gleba and Nauvis, plants on a 2x2 compact grid - (optional)
+- Zen Garden: A standalone high tier building with a pressure dome, can be placed on any surface. Has 4 module slots - (optional)
 
-Seeds: - (optional)
-- Extended seed selection +8 (base game) +67 (alien-biomes-compatible)
+## Seeds
+- Extended seed selection +8 - (optional)
+- Alien-biomes-compatibility +70
 
-Cosmetics with pollution filtering capabilities: - (optional)
-- Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible).
-- Gear-garden. Consumes pollution just have to water the trees.
-- Zen-Bonsai / Cherry-Bonsai, decorative that needs water.
+## Cosmetics with pollution filtering capabilities 
+- Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible) - (optional)
+- Zen-Bonsai / Cherry-Bonsai, decorative that needs water - (optional)
+- Gear-garden: Consumes pollution and water - (optional)
 
-Tweaks:
+## Tweaks 
 - Fuel pollution changed for wood (50%) and coal (150%) - (optional)
 
-Work in progress:
-- Zen Garden graphics, all feedback is appreciated, what looked good, what felt wrong?
+## Work in progress
+- Zen Garden graphics.
+
+## If you are still reading this: o/
+Tag me on [X](https://x.com/boobleone) with your best Garden screenshots.

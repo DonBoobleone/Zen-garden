@@ -1,13 +1,13 @@
 -- prototypes/zen-tree.lua
 if not settings.startup["zen-trees-enabled"].value then return end
 
-local utils = require("__zen-garden__/prototypes/zen-utils")
+local zen_utils = require("__zen-garden__/prototypes/zen-utils")
 local util = require("util")
-local tree_definitions = utils.tree_definitions
-local ordered_tree_types = utils.ordered_tree_types
-local tree_order_indices = utils.tree_order_indices
-local base_tree_types = utils.base_tree_types
-local all_tree_types = utils.all_tree_types
+local tree_definitions = zen_utils.tree_definitions
+local ordered_tree_types = zen_utils.ordered_tree_types
+local tree_order_indices = zen_utils.tree_order_indices
+local base_tree_types = zen_utils.base_tree_types
+local all_tree_types = zen_utils.all_tree_types
 
 local use_basic_recipe = settings.startup["force-basic-zen-tree-recipe"].value or
     not settings.startup["zen-seeds-enabled"].value

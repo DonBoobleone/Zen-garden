@@ -1,39 +1,36 @@
---SA copy
+--zen-bonsai-plant.lua
+local zen_utils = require("__zen-garden__/prototypes/zen-utils")
+local util = require("util")
+local tile_restrictions = zen_utils.tile_restrictions
 
-local tree_plant = util.table.deepcopy(data.raw["tree"]["tree-08"])
-tree_plant.type = "plant"
-tree_plant.name = "tree-plant"
-tree_plant.flags = plant_flags
-tree_plant.hidden_in_factoriopedia = false
-tree_plant.factoriopedia_alternative = nil
-tree_plant.map_color = { 0.19, 0.39, 0.19, 0.40 }
-tree_plant.agricultural_tower_tint =
+local bonsai_tree_plant = util.table.deepcopy(data.raw["tree"]["tree-08"])
+bonsai_tree_plant.type = "plant"
+bonsai_tree_plant.name = "tree-plant-bonsai"
+bonsai_tree_plant.flags = { "placeable-neutral", "placeable-off-grid", "breaths-air" }
+bonsai_tree_plant.hidden_in_factoriopedia = false
+bonsai_tree_plant.factoriopedia_alternative = nil
+bonsai_tree_plant.map_color = { 0.39, 0.39, 0.09, 0.40 }
+bonsai_tree_plant.agricultural_tower_tint =
 {
-    primary = { r = 0.7, g = 1.0, b = 0.2, a = 1 },
+    primary = { r = 0.5, g = 1.0, b = 0.2, a = 1 },
     secondary = { r = 0.561, g = 0.613, b = 0.308, a = 1.000 }, -- #8f4f4eff
 }
-tree_plant.minable =
+bonsai_tree_plant.minable =
 {
     mining_particle = "wooden-particle",
     mining_time = 0.5,
-    results = { { type = "item", name = "wood", amount = 4 } },
+    results = { { type = "item", name = "wood", amount = 12 } },                            -- high yield, slower growth time.
 }
-tree_plant.variation_weights = { 1, 1, 1, 1, 1, 1, 1, 1, 0.3, 0.3, 0.0, 0.0 }
-tree_plant.growth_ticks = 10 * minutes
-tree_plant.surface_conditions = { { property = "pressure", min = 1000, max = 1000 } } -- only Nauvis (doesn't work yet)
-tree_plant.autoplace =
+bonsai_tree_plant.variation_weights = { 1, 1, 1, 1, 1, 1, 1, 1, 0.3, 0.3, 0.0, 0.0 }
+bonsai_tree_plant.growth_ticks = 15 * 60 * 60                                               -- 15 min
+bonsai_tree_plant.surface_conditions = { { property = "pressure", min = 100, max = 2900 } } -- to include misc planets if tiles allow it.
+bonsai_tree_plant.autoplace =
 {
     probability_expression = 0,
-    -- required to show agricultural tower plots
-    tile_restriction =
-    {
-        "grass-1", "grass-2", "grass-3", "grass-4",
-        "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
-        "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
-    }
+    tile_restriction = tile_restrictions
 }
 
--- data:extend({ tree_plant })
+-- data:extend({ bonsai_tree_plant })
 
 local ashland_tree_example = {
     type = "tree",
