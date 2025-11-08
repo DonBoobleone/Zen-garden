@@ -9,7 +9,7 @@ local common_fluid_boxes = {
         pipe_connections = {
             {
                 flow_direction = "input-output",
-                position = { 0, -1 },
+                position = { 0, -0 },
                 direction = defines.direction.north,
                 connection_type = "underground",
                 max_underground_distance = 10,
@@ -17,7 +17,7 @@ local common_fluid_boxes = {
             },
             {
                 flow_direction = "input-output",
-                position = { 0, 1 },
+                position = { 0, 0 },
                 direction = defines.direction.south,
                 connection_type = "underground",
                 max_underground_distance = 10,
@@ -25,7 +25,7 @@ local common_fluid_boxes = {
             },
             {
                 flow_direction = "input-output",
-                position = { -1, 0 },
+                position = { -0, 0 },
                 direction = defines.direction.west,
                 connection_type = "underground",
                 max_underground_distance = 10,
@@ -33,7 +33,7 @@ local common_fluid_boxes = {
             },
             {
                 flow_direction = "input-output",
-                position = { 1, 0 },
+                position = { 0, 0 },
                 direction = defines.direction.east,
                 connection_type = "underground",
                 max_underground_distance = 10,

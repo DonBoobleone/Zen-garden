@@ -19,6 +19,7 @@
 ## Seeds
 - Extended seed selection +8 - (optional)
 - Alien-biomes-compatibility +70
+- Bonsai Seed
 
 ## Cosmetics with pollution filtering capabilities 
 - Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible) - (optional)

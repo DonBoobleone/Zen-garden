@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.10
+Date: 11. 08. 2025
+  Graphics:
+    - Added 8 more tree variations to plantable Bonsai Seed.
+  Optimizations:
+    - Changed Zen and Cherry Bonsai pipe connections. So alt mode visuals should suggest underground-only connection.
+---------------------------------------------------------------------------------------------------
 Version: 0.3.9
 Date: 11. 08. 2025
   Features:
