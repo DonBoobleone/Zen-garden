@@ -43,7 +43,7 @@ local common_fluid_boxes = {
     }
 }
 
--- Zen Bonsai graphics layers (pipes removed)
+-- Zen Bonsai graphics layers
 local zen_bonsai_layer = {
     filename = "__zen-garden__/graphics/entity/zen-bonsai/zen-bonsai.png",
     priority = "extra-high",
