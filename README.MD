@@ -24,6 +24,7 @@
 ## Cosmetics with pollution filtering capabilities 
 - Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible) - (optional)
 - Zen-Bonsai / Cherry-Bonsai, decorative that needs water - (optional)
+![Bonsai](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/bonsai-underground-connection.png) 
 - Gear-garden: Consumes pollution and water - (optional)
 
 ## Tweaks 

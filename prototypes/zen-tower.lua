@@ -350,6 +350,9 @@ zen_tower_mk2_entity.crane_energy_usage = "200kW"
 zen_tower_mk2_entity.drawing_box_vertical_extension = zen_tower_mk2_entity.drawing_box_vertical_extension *
 zen_tower_mk2_scale
 
+
+--TODO use better graphics, or remove side towers
+
 -- Create graphics sets for each position
 local nw_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
 shift_graphics_set(nw_graphics, -1.5, -1.5)                                                -- Northwest corner
@@ -437,7 +440,7 @@ local zen_tower_mk2_technology =
             recipe = "zen-tower-mk2"
         }
     },
-    prerequisites = { "zen-tower", "agricultural-science-pack" },
+    prerequisites = { "zen-tower", "cryogenic-science-pack" },
     unit = {
         count = 2500,
         ingredients = {
@@ -447,7 +450,8 @@ local zen_tower_mk2_technology =
             { "production-science-pack",   1 },
             { "utility-science-pack",      1 },
             { "space-science-pack",        1 },
-            { "agricultural-science-pack", 1 }
+            { "agricultural-science-pack", 1 },
+            { "cryogenic-science-pack",    1 }
         },
         time = 60
     }
