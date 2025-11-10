@@ -2,7 +2,8 @@
 
 ## Recipes
 - Compost from wood or spoilage -> spoils into Artificial-grass
-- Zen-wood: 100 wood for 2000 water, made in Zen-garden
+- Zen-wood: 100 wood for 2000 water-  made in Zen-garden
+- Soil mixing: Mix landfill and artificial grass with nutrients to get more artificial grass.
 - Charcoal burning: Smelt Wooden chests into coal - (optional)
 
 ## Artificial Grass
@@ -17,13 +18,14 @@
 - Zen Garden: A standalone high tier building with a pressure dome, can be placed on any surface. Has 4 module slots - (optional)
 
 ## Seeds
-- Extended seed selection +8 - (optional)
-- Alien-biomes-compatibility +70
 - Bonsai Seed
+- Extended seed selection - (optional)
+- Alien-biomes-compatibility
+![Bonsai](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/alien-biomes-selection.png) 
 
 ## Cosmetics with pollution filtering capabilities 
 - Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible) - (optional)
-- Zen-Bonsai / Cherry-Bonsai, decorative that needs water - (optional)
+- Zen-Bonsai / Cherry-Bonsai, decorative that needs water, has a special underground only connection built in. - (optional)
 ![Bonsai](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/bonsai-underground-connection.png) 
 - Gear-garden: Consumes pollution and water - (optional)
 
@@ -32,6 +34,7 @@
 
 ## Work in progress
 - Zen Garden graphics.
+- Zen Tower MK2 graphics
 
-## If you are still reading this: o/
+## If you are still reading this
 Tag me on [X](https://x.com/boobleone) with your best Garden screenshots.
