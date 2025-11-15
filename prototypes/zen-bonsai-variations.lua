@@ -84,7 +84,7 @@ local function create_variation(index)
         }
     }
 end
-local total_variations = 9 -- Increase this to add more variations;
+local total_variations = 11 -- Increase this to add more variations;
 local variations = {}
 for i = 1, total_variations do
     table.insert(variations, create_variation(i))

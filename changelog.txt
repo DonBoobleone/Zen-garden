@@ -3,6 +3,13 @@ Version: 0.4.1
 Date: 11. 15. 2025
   Features:
     - Added optionality to Bonsai Seed. (For real this time)
+  Optimizations:
+    - Changed min pressure for tree-seed 800 -> 900 to remove Fulgora from possible planets.
+    - Changed min pressure for bonsai-seed 100 -> 500 to remove Aquilio from possible planets.
+    - Added basic-gardening to tree seeding selections prerequisites.
+  Graphics:
+    - Added 2 more cherry bonsai tree variations
+    - Fixed colors of cherry bonsai
 ---------------------------------------------------------------------------------------------------
 Version: 0.4.0
 Date: 11. 15. 2025

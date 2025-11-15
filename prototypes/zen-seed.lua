@@ -12,7 +12,7 @@ local item_sounds = zen_utils.item_sounds
 
 local surface_conditions = { { property = "pressure", min = 1000, max = 1000 } } -- Nauvis only
 if settings.startup["invasive-forestry"].value then
-    surface_conditions = { { property = "pressure", min = 800, max = 2000 } }   -- Adds Gleba
+    surface_conditions = { { property = "pressure", min = 900, max = 2000 } }   -- Adds Gleba
 end
 
 local plant_overrides = {
@@ -45,7 +45,7 @@ local common_recipe_properties = {
     enabled = false,
     allow_productivity = true,
     auto_recycle = false,
-    surface_conditions = nil, --{ { property = "pressure", min = 1000, max = 2000 } },
+    surface_conditions = nil, -- included in seeds and tile restricitons
     crafting_machine_tint = {
         primary = { r = 0.442, g = 0.205, b = 0.090, a = 1.000 },
         secondary = { r = 1.000, g = 0.500, b = 0.000, a = 1.000 }
@@ -146,7 +146,7 @@ local new_technologies = {
             { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256,                                         scale = 0.25, shift = { 16, 16 } }
         },
         effects = unlock_effects,
-        prerequisites = { "tree-seeding" },
+        prerequisites = { "basic-gardening", "tree-seeding" },
         unit = {
             count = 50,
             ingredients = {
@@ -270,7 +270,7 @@ if mods["alien-biomes"] then
                     { icon = "__space-age__/graphics/technology/agriculture.png",                                           icon_size = 256, scale = 0.25, shift = { 16, 6 } }
                 },
                 effects = {},
-                prerequisites = { "tree-seeding" },
+                prerequisites = { "basic-gardening", "tree-seeding" },
                 unit = {
                     count = 50,
                     ingredients = {
