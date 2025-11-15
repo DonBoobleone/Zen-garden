@@ -1,4 +1,6 @@
 -- zen-bonsai-plant.lua
+if not settings.startup["bonsai-seed-enabled"].value then return end
+
 local zen_utils = require("__zen-garden__/prototypes/zen-utils")
 local util = require("util")
 local tile_restrictions = zen_utils.tile_restrictions
@@ -91,6 +93,7 @@ local bonsai_tech = {
     localised_description = { "technology-description.zen-bonsai-seeding" },
     order = "z[zen]-a[bonsai]"
 }
+
 data:extend({
     bonsai_tree_plant,
     bonsai_seed,

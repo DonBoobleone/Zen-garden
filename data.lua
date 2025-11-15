@@ -2,7 +2,6 @@
 -- Common files
 require("__zen-garden__/prototypes/categories/recipe-category")
 require("__zen-garden__/prototypes/item-groups")
---require("__zen-garden__/prototypes/composting")
 require("prototypes.tile.artificial-grass")
 require("prototypes.item")
 require("prototypes.recipe")

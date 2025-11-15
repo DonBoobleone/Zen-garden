@@ -18,7 +18,7 @@
 - Zen Garden: A standalone high tier building with a pressure dome, can be placed on any surface. Has 4 module slots - (optional)
 
 ## Seeds
-- Bonsai Seed
+- Bonsai Seed - (optional)
 - Extended seed selection - (optional)
 - Alien-biomes-compatibility
 ![Bonsai](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/alien-biomes-selection.png) 
