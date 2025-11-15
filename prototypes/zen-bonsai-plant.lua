@@ -20,7 +20,7 @@ bonsai_tree_plant.agricultural_tower_tint = {
 bonsai_tree_plant.minable = {
     mining_particle = "wooden-particle",
     mining_time = 0.5,
-    results = { { type = "item", name = "wood", amount = 12 } },
+    results = { { type = "item", name = "wood", amount = 12 } }, -- Idea: add chances for dropping quality wood? (note: agricultural tower output slots = 2, could break if 3 differrent is harvested at once.)
 }
 bonsai_tree_plant.variation_weights = { 0.7, 0.5, 0.5, 0.7, 0.5, 1, 1, 0.7, 0.5 }
 bonsai_tree_plant.growth_ticks = 15 * 60 * 60
@@ -37,7 +37,7 @@ bonsai_tree_plant.variations = require("__zen-garden__/prototypes/zen-bonsai-var
 
 -- Bonsai seed item
 local seed_icons = {
-    { icon = "__zen-garden__/graphics/icons/zen-bonsai.png", icon_size = 64, scale = 0.5,  shift = { 0, 0 } },
+    { icon = "__zen-garden__/graphics/icons/bonsai-tree.png", icon_size = 64, scale = 0.33,  shift = { -4, 4 } },
     { icon = "__space-age__/graphics/icons/tree-seed.png",   icon_size = 64, scale = 0.25, shift = { 4, -4 } }
 }
 local bonsai_seed = util.table.deepcopy(data.raw.item["tree-seed"])

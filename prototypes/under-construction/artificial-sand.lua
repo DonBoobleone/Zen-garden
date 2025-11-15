@@ -1,0 +1,4 @@
+-- copy Sand tile similar to artificial grass
+-- recipe: 50 stone or if item 'sand' exists then 100 sand (maybe 150 have to research sand recipe mods)
+-- should be in the sand-tiles filter of alien-biomes functions
+-- could support all trees, especially bonsai and palm. -> nutrient version, or an artifcial grass soil mixed version would change recipe to 50 stone/ 100 sand +1 artifical grass = 2x artificial-sand

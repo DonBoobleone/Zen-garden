@@ -284,8 +284,12 @@ local zen_tower_technology =
 {
     type = "technology",
     name = "zen-tower",
-    icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png",
-    icon_size = 256,
+    --[[ icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png",
+    icon_size = 256, ]]
+    icons = {
+        { icon = "__space-age__/graphics/icons/agricultural-tower.png",         icon_size = 64,  scale = 0.5,   shift = { 0, 0 } },
+        { icon = "__zen-garden__/graphics/technology/zen-agriculture-glow.png", icon_size = 256, scale = 0.075, shift = { -10, 6 } }
+    },
     effects = {
         {
             type = "unlock-recipe",

@@ -262,7 +262,7 @@ if mods["alien-biomes"] then
             local technology = {
                 type = "technology",
                 name = "tree-seeding-" .. biome_type,
-                localised_name = { "technology-name.tree-seeding",
+                localised_name = { "technology-name.tree-seeding-selections",
                     { "technology-name.biome-" .. biome_type } },
                 icons = {
                     { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. rep_model_data.type_name .. "-trunk.png",  icon_size = 64,  scale = 1,    shift = { -8, -4 } },

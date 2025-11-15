@@ -26,10 +26,26 @@ data:extend({
     },
     {
         type = "bool-setting",
+        name = "bonsai-seed-enabled",
+        setting_type = "startup",
+        default_value = true,
+        order = "d",
+        localised_description = {"", "Enables planting of pollution resistant Bonsai trees"}
+    },
+    {
+        type = "bool-setting",
+        name = "zen-bonsai-decor-enabled",
+        setting_type = "startup",
+        default_value = true,
+        order = "e",
+        localised_description = {"", "Enables planting box version of Bonsai trees"}
+    },
+    {
+        type = "bool-setting",
         name = "zen-garden-enabled",
         setting_type = "startup",
         default_value = true,
-        order = "c",
+        order = "f",
         localised_description = {"", "Enables the Zen and Gear gardens"}
     },
     {
@@ -37,23 +53,23 @@ data:extend({
         name = "zen-tower-enabled",
         setting_type = "startup",
         default_value = true,
-        order = "d",
+        order = "g",
         localised_description = {"", "Alternative agricultural tower mk1/mk2"}
     },
-    {
+    --[[ {
         type = "bool-setting",
-        name = "charcoal-burning-enabled",
+        name = "zen-fountain-enabled",
         setting_type = "startup",
         default_value = true,
-        order = "e",
-        localised_description = {"", "Allows Wood chests to be smelted into coal."}
-    },
+        order = "h",
+        localised_description = {"", "Alternative storage tank"}
+    }, ]]
     {
         type = "bool-setting",
         name = "move-artificial-tiles",
         setting_type = "startup",
         default_value = true,
-        order = "f",
+        order = "i",
         localised_description = {"", "Bricks and friends move to landscaping tab."}
     },
     {
@@ -61,7 +77,7 @@ data:extend({
         name = "move-tree-seed",
         setting_type = "startup",
         default_value = true,
-        order = "g",
+        order = "j",
         localised_description = {"", "Tree Seed moves to landscaping tab."}
     },
     {
@@ -69,15 +85,23 @@ data:extend({
         name = "invasive-forestry",
         setting_type = "startup",
         default_value = true,
-        order = "h",
-        localised_description = {"", "Nauvis trees can be planted on Gleba, if artificial grass is present"}
+        order = "k",
+        localised_description = {"", "Enables artificial grass on Gleba and allows tree-seeds to be planted."}
     },
     {
         type = "bool-setting",
         name = "fuel-pollution-overhaul",
         setting_type = "startup",
         default_value = true,
-        order = "i",
+        order = "l",
         localised_description = {"", "Wood has 50% pollution as fuel, while coal has 150%"}
+    },
+    {
+        type = "bool-setting",
+        name = "charcoal-burning-enabled",
+        setting_type = "startup",
+        default_value = true,
+        order = "m",
+        localised_description = {"", "Allows Wood chests to be smelted into coal."}
     }
 })
