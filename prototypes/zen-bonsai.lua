@@ -1,5 +1,5 @@
--- current prerequisite, uses the: fixed_recipe = "water-the-plants", from zen garden
-if not settings.startup["zen-garden-enabled"].value then return end
+--zen-bonsai.lua
+if not settings.startup["zen-bonsai-decor-enabled"].value then return end
 
 -- Common underground fluid box for 4-way connections
 local common_fluid_boxes = {

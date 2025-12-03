@@ -393,6 +393,40 @@ append_layers(se_graphics, merged)
 zen_tower_mk2_entity.graphics_set = merged
 zen_tower_mk2_entity.crane = create_scaled_agricultural_tower_crane(zen_tower_mk2_scale)
 
+-- Double the crane speeds
+local crane_mk2 = zen_tower_mk2_entity.crane
+if crane_mk2 and crane_mk2.speed then
+    if crane_mk2.speed.arm then
+        if crane_mk2.speed.arm.turn_rate then
+            crane_mk2.speed.arm.turn_rate = crane_mk2.speed.arm.turn_rate * 2
+        else
+            crane_mk2.speed.arm.turn_rate = 0.02  -- Double default (0.01)
+        end
+        if crane_mk2.speed.arm.extension_speed then
+            crane_mk2.speed.arm.extension_speed = crane_mk2.speed.arm.extension_speed * 2
+        else
+            crane_mk2.speed.arm.extension_speed = 0.10  -- Double default (0.05)
+        end
+    end
+    if crane_mk2.speed.grappler then
+        if crane_mk2.speed.grappler.vertical_turn_rate then
+            crane_mk2.speed.grappler.vertical_turn_rate = crane_mk2.speed.grappler.vertical_turn_rate * 2
+        else
+            crane_mk2.speed.grappler.vertical_turn_rate = 0.02  -- Double default (0.01)
+        end
+        if crane_mk2.speed.grappler.horizontal_turn_rate then
+            crane_mk2.speed.grappler.horizontal_turn_rate = crane_mk2.speed.grappler.horizontal_turn_rate * 2
+        else
+            crane_mk2.speed.grappler.horizontal_turn_rate = 0.02  -- Double default (0.01)
+        end
+        if crane_mk2.speed.grappler.extension_speed then
+            crane_mk2.speed.grappler.extension_speed = crane_mk2.speed.grappler.extension_speed * 2
+        else
+            crane_mk2.speed.grappler.extension_speed = 0.02  -- Double default (0.01)
+        end
+    end
+end
+
 local zen_tower_mk2_item =
 {
     type = "item",

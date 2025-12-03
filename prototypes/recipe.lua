@@ -1,4 +1,7 @@
 --recipe.lua
+
+--TODO: move zen-chi, and other fixed recipes here
+
 data:extend({
     {
         type = "recipe",
@@ -82,6 +85,81 @@ data:extend({
         auto_recycle = false,
         allow_productivity = false,
         subgroup = "gardening-tiles",
-        order = "a[artificial-grass]-b[breeding]"
+        order = "a[artificial-grass]-a[breeding]"
+    },
+    {
+        type = "recipe",
+        name = "artificial-grass-conversion-2",
+        category = "crafting",
+        enabled = false,
+        energy_required = 1,
+        icons = {
+            { icon = "__space-age__/graphics/technology/artificial-soil.png",                    icon_size = 256, scale = 0.125, shift = { 0, 0 } },
+            { icon = "__base__/graphics/icons/signal/signal_2.png",                              icon_size = 64,  scale = 0.2,   shift = { 8, -8 } },
+            { icon = "__core__/graphics/icons/technology/constants/constant-movement-speed.png", icon_size = 128, scale = 0.25,  shift = { 4, 8 } },
+        },
+        ingredients = {
+            { type = "item", name = "artificial-grass", amount = 10 },
+        },
+        results = {
+            { type = "item", name = "artificial-grass-2", amount = 10 }
+        },
+        auto_recycle = false,
+        allow_productivity = false,
+        allow_quality = false,
+        subgroup = "gardening-tiles",
+        order = "a[artificial-grass]-c[2]",
+    },
+    {
+        type = "recipe",
+        name = "artificial-grass-conversion-3",
+        category = "crafting",
+        enabled = false,
+        energy_required = 1,
+        icons = {
+            { icon = "__space-age__/graphics/technology/artificial-soil.png",                    icon_size = 256, scale = 0.125, shift = { 0, 0 } },
+            { icon = "__base__/graphics/icons/signal/signal_3.png",                              icon_size = 64,  scale = 0.2,   shift = { 8, -8 } },
+            { icon = "__core__/graphics/icons/technology/constants/constant-movement-speed.png", icon_size = 128, scale = 0.25,  shift = { 4, 8 } },
+        },
+        ingredients = {
+            { type = "item", name = "artificial-grass", amount = 10 },
+        },
+        results = {
+            { type = "item", name = "artificial-grass-3", amount = 10 }
+        },
+        auto_recycle = false,
+        allow_productivity = false,
+        allow_quality = false,
+        subgroup = "gardening-tiles",
+        order = "a[artificial-grass]-c[3]",
+    },
+    {
+        type = "recipe",
+        name = "water-the-plants",
+        icons = {
+            { icon = "__base__/graphics/icons/tree-01.png",     icon_size = 64, scale = 0.25, shift = { -4, -4 } },
+            { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.25, shift = { 4, 4 } }
+        },
+        category = "gardening",
+        energy_required = 60,
+        ingredients = {
+            { type = "fluid", name = "water", amount = 120 }
+        },
+        results = {},
+        hidden = true,
+        enabled = true
+    },
+    {
+        type = "recipe",
+        name = "zen-chi",
+        icons = {
+            { icon = "__zen-garden__/graphics/icons/zen-bonsai.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
+        },
+        category = "gardening",
+        energy_required = 60,
+        ingredients = {},
+        results = {},
+        hidden = true,
+        enabled = true
     }
 })

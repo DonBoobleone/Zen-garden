@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.2
+Date: 12. 03. 2025
+  Compatibility:
+    - Doubled Zen-tower-mk2 grappler speed to support plants with less than 10 min growth time.
+  Graphics:
+    - Artificial-grass render layer reverted to original. So it doesn't dominate tile connections.
+  Optimizations:
+    - lowered decorative removal probability of artificial grass 0.5 -> 0.25
+  Features:
+    - Added artificial-grass variants for grass 2 and 3
+---------------------------------------------------------------------------------------------------
 Version: 0.4.1
 Date: 11. 15. 2025
   Features:

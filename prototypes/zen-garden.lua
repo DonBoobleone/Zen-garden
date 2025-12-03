@@ -221,7 +221,8 @@ local entities = {
         graphics_set = {
             animation = { layers = zen_all_layers }
         },
-        crafting_categories = { "gardening", "advanced-gardening" },
+        crafting_categories = { "advanced-gardening" },
+        additional_categories = {"gardening"},
         crafting_speed = 1,
         output_inventory_size = 2,
         energy_source = {
@@ -326,22 +327,6 @@ local recipes = {
             { type = "item", name = "pipe-to-ground",   amount = 8 },
         },
         results = { { type = "item", name = "gear-garden", amount = 1 } }
-    },
-    {
-        type = "recipe",
-        name = "water-the-plants",
-        icons = {
-            { icon = "__base__/graphics/icons/tree-01.png",     icon_size = 64, scale = 0.25, shift = { -4, -4 } },
-            { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.25, shift = { 4, 4 } }
-        },
-        category = "gardening",
-        energy_required = 60,
-        ingredients = {
-            { type = "fluid", name = "water", amount = 120 }
-        },
-        results = {},
-        hidden = true,
-        enabled = true
     }
 }
 

@@ -7,7 +7,7 @@
 - Charcoal burning: Smelt Wooden chests into coal - (optional)
 
 ## Artificial Grass
-- Natural grass tile
+- Natural grass tile (Now comes with grass-1/2/3 versions)
 - Spoils from compost
 - Consumes pollution
 - Viable instead of landfill (Option: Invasive Forestry - Allows usage on Gleba as well)
@@ -35,6 +35,11 @@
 ## Work in progress
 - Zen Garden graphics.
 - Zen Tower MK2 graphics
+- Bonsai tree graphics
+
+## In the works
+- Zen Grenade (To clear decals)
+- Zen Fountain (decorative storage tank)
 
 ## If you are still reading this
 Tag me on [X](https://x.com/boobleone) with your best Garden screenshots.

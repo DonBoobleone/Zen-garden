@@ -157,19 +157,6 @@ end
 local base_entities = {}
 local base_items = {}
 local base_recipes = {}
-local fixed_recipe = {
-    type = "recipe",
-    name = "zen-chi",
-    icons = {
-        { icon = "__zen-garden__/graphics/icons/zen-bonsai.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
-    },
-    category = "gardening",
-    energy_required = 60,
-    ingredients = {},
-    results = {},
-    hidden = true,
-    enabled = true
-}
 
 for _, tree_type in ipairs(base_tree_types) do
     table.insert(base_entities, create_base_zen_tree_entity(tree_type))
@@ -202,7 +189,6 @@ local base_technology = {
 data:extend(base_entities)
 data:extend(base_items)
 data:extend(base_recipes)
-data:extend({ fixed_recipe })
 data:extend({ base_technology })
 
 if mods["alien-biomes"] then

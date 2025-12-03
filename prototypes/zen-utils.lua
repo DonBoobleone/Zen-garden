@@ -22,7 +22,7 @@ local base_tile_restrictions = {
     "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
 }
 
-local artificial_tile_restrictions = { "artificial-grass" }
+local artificial_tile_restrictions = { "artificial-grass", "artificial-grass-2", "artificial-grass-3" }
 
 local tile_restrictions = {}
 for _, tile in ipairs(base_tile_restrictions) do

@@ -54,6 +54,14 @@ data:extend({
             {
                 type = "unlock-recipe",
                 recipe = "soil-mixing"
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "artificial-grass-conversion-2"
+            },
+            {
+                type = "unlock-recipe",
+                recipe = "artificial-grass-conversion-3"
             }
         },
         prerequisites = { "composting", "artificial-soil" },

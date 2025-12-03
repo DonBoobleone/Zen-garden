@@ -15,3 +15,4 @@ require("__zen-garden__/prototypes/zen-bonsai")
 --require("__zen-garden__/prototypes/zen-fountain") -- under construction
 require("__zen-garden__/prototypes/charcoal-burning")
 require("__zen-garden__/prototypes/zen-bonsai-plant")
+--require("prototypes.standalone.zen-grenade") -- disabled due to decal not destroying bug
