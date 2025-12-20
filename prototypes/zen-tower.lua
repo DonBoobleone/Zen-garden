@@ -296,7 +296,7 @@ local zen_tower_technology =
             recipe = "zen-tower"
         }
     },
-    prerequisites = { "basic-gardening" },
+    prerequisites = { "basic-gardening", "logistic-science-pack" },
     unit = {
         count = 100,
         ingredients = {

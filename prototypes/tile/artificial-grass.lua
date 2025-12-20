@@ -47,6 +47,16 @@ local function create_list_of_nauvis_and_gleba_tiles()
         table.insert(allowed_grass_placement_tiles, "pelagos-sand-3")
     end
 
+    -- Depths of Nauvis compatibility
+    if mods["depths_of_nauvis"] and settings.startup["deep-sea-mechanic"] and settings.startup["deep-sea-mechanic"].value then
+        for i = #allowed_grass_placement_tiles, 1, -1 do
+            local tile_name = allowed_grass_placement_tiles[i]
+            if string.find(tile_name, "deepwater") then
+                table.remove(allowed_grass_placement_tiles, i)
+            end
+        end
+    end
+
     return allowed_grass_placement_tiles
 end
 

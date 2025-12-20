@@ -1,7 +1,7 @@
 --prototypes.standalone.zen-grenade.lua
 local item_sounds = require("__base__.prototypes.item_sounds")
 
--- Holy Zen Grenade (Decal-Only Area Remover)
+-- Holy Zen Grenade (Decal-Only Remover)
 local holy_zen_grenade_item = {
     type = "capsule",
     name = "zen-grenade",
@@ -21,7 +21,7 @@ local holy_zen_grenade_item = {
             activation_type = "throw",
             ammo_category = "grenade",
             cooldown = 60,
-            range = 24,
+            range = 20,
             projectile_creation_distance = 0.1,
             damage_modifier = 0,
             lead_target = false,
@@ -39,13 +39,21 @@ local holy_zen_grenade_item = {
                             entity_name = "explosion-gunshot"
                         },
                         starting_speed_deviation = 0.1,
-                        direction_deviation = 0.6,
+                        direction_deviation = 0.1,
                     }
                 }
             }
         }
     }
 }
+
+--Testing command that destroys decals around player
+
+-- 1. LIST UNIQUE DECAL NAMES & COUNTS around player
+-- /c local p=game.player.position local a={{p.x-4,p.y-4},{p.x+4,p.y+4}} local decals=game.player.surface.find_decoratives_filtered{area=a,from_layer="decals",to_layer="decals"} local names={} for _,decal in pairs(decals) do local n=decal.decorative and decal.decorative.name or "NIL" if n then names[n]=true end end local keylist={} for name in pairs(names) do table.insert(keylist,name) end local out=table.concat(keylist,", ") game.print("Decal names ("..#decals.."): "..out)
+-- Destroy
+-- /c local p=game.player.position local a={{p.x-4,p.y-4},{p.x+4,p.y+4}} game.player.surface.destroy_decoratives{area=a, from_layer="decals", to_layer="decals", exclude_soft=true}
+
 
 -- Projectile
 local holy_zen_grenade_projectile = {
@@ -76,7 +84,9 @@ local holy_zen_grenade_projectile = {
                         include_soft_decoratives = false,
                         include_decals = true,
                         invoke_decorative_trigger = true,
-                        decoratives_with_trigger_only = false
+                        decoratives_with_trigger_only = false,
+                        repeat_count = 1,
+                        probability = 1
                     }
                 }
             }

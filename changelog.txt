@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.3
+Date: 12. 20. 2025
+  Features:
+    - Added Zen Grenade, deals with the craters/sand dunes/biter nest remains, under your grass.
+  Balancing:
+    - Changed Zen Bonsai recipe to match pipe connections, iron-plate (8) -> pipe-to-ground (4)
+    - Added logistic-science-pack as tech prerequisite for Zen Tower.
+  Compatibility:
+    - Added compatibility with Depths of Nauvis mod.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.2
 Date: 12. 03. 2025
   Compatibility:

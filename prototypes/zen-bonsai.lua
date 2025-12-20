@@ -13,7 +13,7 @@ local common_fluid_boxes = {
                 direction = defines.direction.north,
                 connection_type = "underground",
                 max_underground_distance = 10,
-                underground_collision_mask = {layers={lava_tile=true, empty_space=true}}
+                underground_collision_mask = { layers = { lava_tile = true, empty_space = true } }
             },
             {
                 flow_direction = "input-output",
@@ -21,7 +21,7 @@ local common_fluid_boxes = {
                 direction = defines.direction.south,
                 connection_type = "underground",
                 max_underground_distance = 10,
-                underground_collision_mask = {layers={lava_tile=true, empty_space=true}}
+                underground_collision_mask = { layers = { lava_tile = true, empty_space = true } }
             },
             {
                 flow_direction = "input-output",
@@ -29,7 +29,7 @@ local common_fluid_boxes = {
                 direction = defines.direction.west,
                 connection_type = "underground",
                 max_underground_distance = 10,
-                underground_collision_mask = {layers={lava_tile=true, empty_space=true}}
+                underground_collision_mask = { layers = { lava_tile = true, empty_space = true } }
             },
             {
                 flow_direction = "input-output",
@@ -37,7 +37,7 @@ local common_fluid_boxes = {
                 direction = defines.direction.east,
                 connection_type = "underground",
                 max_underground_distance = 10,
-                underground_collision_mask = {layers={lava_tile=true, empty_space=true}}
+                underground_collision_mask = { layers = { lava_tile = true, empty_space = true } }
             }
         }
     }
@@ -177,7 +177,7 @@ local zen_bonsai_item = {
     order = "a[zen-bonsai]",
     place_result = "zen-bonsai",
     stack_size = 20,
-    localised_description = {"item-description.zen-bonsai"}
+    localised_description = { "item-description.zen-bonsai" }
 }
 local cherry_bonsai_item = {
     type = "item",
@@ -187,7 +187,7 @@ local cherry_bonsai_item = {
     order = "a[cherry-bonsai]",
     place_result = "cherry-bonsai",
     stack_size = 20,
-    localised_description = {"item-description.cherry-bonsai"}
+    localised_description = { "item-description.cherry-bonsai" }
 }
 
 local zen_bonsai_recipe = {
@@ -199,7 +199,7 @@ local zen_bonsai_recipe = {
     ingredients = {
         { type = "item", name = "artificial-grass", amount = 3 },
         { type = "item", name = "tree-seed",        amount = 2 },
-        { type = "item", name = "iron-plate",       amount = 8 },
+        { type = "item", name = "pipe-to-ground",   amount = 4 },
     },
     results = { { type = "item", name = "zen-bonsai", amount = 1 } }
 }
@@ -213,7 +213,7 @@ local cherry_bonsai_recipe = {
     ingredients = {
         { type = "item", name = "artificial-grass", amount = 3 },
         { type = "item", name = "tree-seed",        amount = 2 },
-        { type = "item", name = "iron-plate",       amount = 8 },
+        { type = "item", name = "pipe-to-ground",   amount = 4 },
     },
     results = { { type = "item", name = "cherry-bonsai", amount = 1 } }
 }

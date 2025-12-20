@@ -6,7 +6,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "a",
-        localised_description = {"", "Creates a seed for each tree."}
+        localised_description = { "", "Creates a seed for each tree." }
     },
     {
         type = "bool-setting",
@@ -14,7 +14,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "b",
-        localised_description = {"", "A portable planting box version of each tree"}
+        localised_description = { "", "A portable planting box version of each tree" }
     },
     {
         type = "bool-setting",
@@ -22,7 +22,7 @@ data:extend({
         setting_type = "startup",
         default_value = false,
         order = "c",
-        localised_description = {"", "Zen-trees will use basic tree-seed\nWill be forced if 'Zen-seeds' are disabled."}
+        localised_description = { "", "Zen-trees will use basic tree-seed\nWill be forced if 'Zen-seeds' are disabled." }
     },
     {
         type = "bool-setting",
@@ -30,7 +30,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "d",
-        localised_description = {"", "Enables planting of pollution resistant Bonsai trees"}
+        localised_description = { "", "Enables planting of pollution resistant Bonsai trees" }
     },
     {
         type = "bool-setting",
@@ -38,7 +38,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "e",
-        localised_description = {"", "Enables planting box version of Bonsai trees"}
+        localised_description = { "", "Enables planting box version of Bonsai trees" }
     },
     {
         type = "bool-setting",
@@ -46,7 +46,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "f",
-        localised_description = {"", "Enables the Zen and Gear gardens"}
+        localised_description = { "", "Enables the Zen and Gear gardens" }
     },
     {
         type = "bool-setting",
@@ -54,23 +54,23 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "g",
-        localised_description = {"", "Alternative agricultural tower mk1/mk2"}
+        localised_description = { "", "Alternative agricultural tower mk1/mk2" }
     },
-    --[[ {
+    {
         type = "bool-setting",
         name = "zen-fountain-enabled",
         setting_type = "startup",
         default_value = true,
         order = "h",
         localised_description = {"", "Alternative storage tank"}
-    }, ]]
+    },
     {
         type = "bool-setting",
         name = "move-artificial-tiles",
         setting_type = "startup",
         default_value = true,
         order = "i",
-        localised_description = {"", "Bricks and friends move to landscaping tab."}
+        localised_description = { "", "Bricks and friends move to landscaping tab." }
     },
     {
         type = "bool-setting",
@@ -78,7 +78,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "j",
-        localised_description = {"", "Tree Seed moves to landscaping tab."}
+        localised_description = { "", "Tree Seed moves to landscaping tab." }
     },
     {
         type = "bool-setting",
@@ -86,7 +86,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "k",
-        localised_description = {"", "Enables artificial grass on Gleba and allows tree-seeds to be planted."}
+        localised_description = { "", "Enables artificial grass on Gleba and allows tree-seeds to be planted." }
     },
     {
         type = "bool-setting",
@@ -94,7 +94,7 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "l",
-        localised_description = {"", "Wood has 50% pollution as fuel, while coal has 150%"}
+        localised_description = { "", "Wood has 50% pollution as fuel, while coal has 150%" }
     },
     {
         type = "bool-setting",
@@ -102,6 +102,6 @@ data:extend({
         setting_type = "startup",
         default_value = true,
         order = "m",
-        localised_description = {"", "Allows Wood chests to be smelted into coal."}
+        localised_description = { "", "Allows Wood chests to be smelted into coal." }
     }
 })

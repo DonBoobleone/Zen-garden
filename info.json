@@ -1,10 +1,16 @@
 {
   "name": "zen-garden",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "title": "Zen Garden",
   "author": "Don Boobleone",
   "factorio_version": "2.0",
-  "dependencies": ["base >= 2.0.69", "space-age >= 2.0.69", "?alien-biomes"],
+  "dependencies": [
+    "base >= 2.0.69",
+    "space-age >= 2.0.69",
+    "?alien-biomes",
+    "?nauvi-tea",
+    "?Diversitree"
+  ],
   "description": "Compost wood or spoilage into pollution consuming artificial grass tiles. Build Zen Towers for compact wood production on Nauvis or Gleba. Grow wood in Zen Gardens on any surface.",
   "spoiling_required": true
 }

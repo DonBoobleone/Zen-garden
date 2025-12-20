@@ -29,6 +29,9 @@
 ![Bonsai](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/bonsai-underground-connection.png) 
 - Gear-garden: Consumes pollution and water - (optional)
 
+## Cosmetics
+- Zen Grenade - Clears craters/sand-dunes/nest-remains while keeping vegetation intact. (Known issue - Game will only update visuals upon placing artificial tiles in the area or saving and loading the game.Will be fixed in base>=2.1)
+
 ## Tweaks 
 - Fuel pollution changed for wood (50%) and coal (150%) - (optional)
 
@@ -37,9 +40,10 @@
 - Zen Tower MK2 graphics
 - Bonsai tree graphics
 
-## In the works
-- Zen Grenade (To clear decals)
-- Zen Fountain (decorative storage tank)
+## Recommended mods
+- Diversitree (will only affect base tree-seed)
+- Natural Fish Dynamics ( You can make your own fish ponds)
+- Nauvi-Tea (Should work well with artificial-grass and Zen-tower)
 
 ## If you are still reading this
 Tag me on [X](https://x.com/boobleone) with your best Garden screenshots.
