@@ -89,52 +89,6 @@ data:extend({
     },
     {
         type = "recipe",
-        name = "artificial-grass-conversion-2",
-        category = "crafting",
-        enabled = false,
-        energy_required = 1,
-        icons = {
-            { icon = "__space-age__/graphics/technology/artificial-soil.png",                    icon_size = 256, scale = 0.125, shift = { 0, 0 } },
-            { icon = "__base__/graphics/icons/signal/signal_2.png",                              icon_size = 64,  scale = 0.2,   shift = { 8, -8 } },
-            { icon = "__core__/graphics/icons/technology/constants/constant-movement-speed.png", icon_size = 128, scale = 0.25,  shift = { 4, 8 } },
-        },
-        ingredients = {
-            { type = "item", name = "artificial-grass", amount = 10 },
-        },
-        results = {
-            { type = "item", name = "artificial-grass-2", amount = 10 }
-        },
-        auto_recycle = false,
-        allow_productivity = false,
-        allow_quality = false,
-        subgroup = "gardening-tiles",
-        order = "a[artificial-grass]-c[2]",
-    },
-    {
-        type = "recipe",
-        name = "artificial-grass-conversion-3",
-        category = "crafting",
-        enabled = false,
-        energy_required = 1,
-        icons = {
-            { icon = "__space-age__/graphics/technology/artificial-soil.png",                    icon_size = 256, scale = 0.125, shift = { 0, 0 } },
-            { icon = "__base__/graphics/icons/signal/signal_3.png",                              icon_size = 64,  scale = 0.2,   shift = { 8, -8 } },
-            { icon = "__core__/graphics/icons/technology/constants/constant-movement-speed.png", icon_size = 128, scale = 0.25,  shift = { 4, 8 } },
-        },
-        ingredients = {
-            { type = "item", name = "artificial-grass", amount = 10 },
-        },
-        results = {
-            { type = "item", name = "artificial-grass-3", amount = 10 }
-        },
-        auto_recycle = false,
-        allow_productivity = false,
-        allow_quality = false,
-        subgroup = "gardening-tiles",
-        order = "a[artificial-grass]-c[3]",
-    },
-    {
-        type = "recipe",
         name = "water-the-plants",
         icons = {
             { icon = "__base__/graphics/icons/tree-01.png",     icon_size = 64, scale = 0.25, shift = { -4, -4 } },

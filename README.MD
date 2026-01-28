@@ -7,10 +7,12 @@
 - Charcoal burning: Smelt Wooden chests into coal - (optional)
 
 ## Artificial Grass
-- Natural grass tile (Now comes with grass-1/2/3 versions)
+- Natural grass tile
 - Spoils from compost
 - Consumes pollution
 - Viable instead of landfill (Option: Invasive Forestry - Allows usage on Gleba as well)
+- 2 more decorative versions - (optional)
+![Cosmetic variations](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/artificial-grass-variations.png) 
 
 ## Wood production 
 - Zen Tower: A small early agricultural tower for Nauvis, plants on a 2x2 compact grid - (optional)
@@ -21,7 +23,7 @@
 - Bonsai Seed - (optional)
 - Extended seed selection - (optional)
 - Alien-biomes-compatibility
-![Bonsai](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/alien-biomes-selection.png) 
+![Alien-biomes](https://raw.githubusercontent.com/DonBoobleone/Zen-garden/refs/heads/main/readme_images/alien-biomes-selection.png) 
 
 ## Cosmetics with pollution filtering capabilities 
 - Zen-tree in a portable planting box, for each tree type (alien-biomes-compatible) - (optional)

@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.4
+Date: 01. 28. 2026
+  Features:
+    - Added options to enable decorative grass variations 2 and 3
+  Info:
+    - Added description and screenshot to show difference between artificial-grass variations
+  Optimizations:
+    - Lowered artificial-grass mining time 0.5 -> 0.25
+  Bugfixes:
+    - Fixed grass variants to be blueprintable.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.3
 Date: 12. 20. 2025
   Features:

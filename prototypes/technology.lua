@@ -1,3 +1,4 @@
+-- prototypes/technology.lua
 data:extend({
     {
         type = "technology",
@@ -54,14 +55,6 @@ data:extend({
             {
                 type = "unlock-recipe",
                 recipe = "soil-mixing"
-            },
-            {
-                type = "unlock-recipe",
-                recipe = "artificial-grass-conversion-2"
-            },
-            {
-                type = "unlock-recipe",
-                recipe = "artificial-grass-conversion-3"
             }
         },
         prerequisites = { "composting", "artificial-soil" },
@@ -78,3 +71,16 @@ data:extend({
         }
     }
 })
+
+local soil_mixing_tech = data.raw.technology["soil-mixing"]
+
+if settings.startup["enable-extended-grass-selection"] and settings.startup["enable-extended-grass-selection"].value then
+    table.insert(soil_mixing_tech.effects, {
+        type = "unlock-recipe",
+        recipe = "artificial-grass-conversion-2"
+    })
+    table.insert(soil_mixing_tech.effects, {
+        type = "unlock-recipe",
+        recipe = "artificial-grass-conversion-3"
+    })
+end
