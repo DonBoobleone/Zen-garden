@@ -144,6 +144,8 @@ data:extend({
     artificial_grass_item,
 })
 
+-- Grass variants settings
+-- Known issue:removing them in a save replaces tiles with grass-1, if alien biomes is present which removes this tile, the tile_restrictions for seeds will not work
 if settings.startup["enable-extended-grass-selection"] and settings.startup["enable-extended-grass-selection"].value then
     -- Variant 2
     local artificial_grass_2_tile = create_artificial_grass_tile("grass-1", "artificial-grass-2", "-2")
