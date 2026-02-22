@@ -52,6 +52,13 @@ if mods["lignumis"] then
     end
 end
 
+if mods["moon-eneas"] then
+    local eneas_tiles = {"dry-dirt-eneas", "path-dirt-eneas", "main-grass-eneas"}
+    for _, tile in ipairs(eneas_tiles) do
+        table.insert(tile_restrictions, tile)
+    end
+end
+
 local base_tree_types = { "pine", "birch", "acacia", "elm", "maple", "oak", "juniper", "redwood", "willow" }
 local all_tree_types = util.table.deepcopy(base_tree_types)
 local ab_tree_types = {}

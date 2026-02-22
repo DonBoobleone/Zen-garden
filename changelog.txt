@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.5
+Date: 02. 22. 2026
+  Compatibility:
+    - Added compatibility to Eneas
+    - Seeds can be planted on Eneas dirt and grass
+    - Artificial-grass can be placed on Eneas tiles except for "eneas-pavement"
+---------------------------------------------------------------------------------------------------
 Version: 0.4.4
 Date: 01. 28. 2026
   Features:

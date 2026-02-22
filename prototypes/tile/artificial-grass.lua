@@ -46,6 +46,14 @@ local function create_list_of_nauvis_and_gleba_tiles()
     if mods["pelagos"] then
         table.insert(allowed_grass_placement_tiles, "pelagos-sand-3")
     end
+    if mods["moon-eneas"] then
+        table.insert(allowed_grass_placement_tiles, "water-green-eneas")
+        table.insert(allowed_grass_placement_tiles, "deepwater-green-eneas")
+        table.insert(allowed_grass_placement_tiles, "dry-dirt-eneas")
+        table.insert(allowed_grass_placement_tiles, "path-dirt-eneas")
+        table.insert(allowed_grass_placement_tiles, "main-grass-eneas")
+        table.insert(allowed_grass_placement_tiles, "main-sand-eneas")
+    end
 
     -- Depths of Nauvis compatibility
     if mods["depths_of_nauvis"] and settings.startup["deep-sea-mechanic"] and settings.startup["deep-sea-mechanic"].value then
