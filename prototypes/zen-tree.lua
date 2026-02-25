@@ -110,6 +110,7 @@ local function create_base_zen_tree_entity(tree_type)
         },
         energy_usage = "1kW",
         module_slots = nil,
+        bottleneck_ignore = true, -- Bottleneck Lite compat
         allowed_effects = {}
     }
 end
@@ -249,6 +250,7 @@ if mods["alien-biomes"] then
             },
             energy_usage = "1kW",
             module_slots = nil,
+            bottleneck_ignore = true, -- Bottleneck Lite compat
             allowed_effects = {},
             localised_name = { "entity-name.zen-tree", { "alien-biomes." .. treedata.locale }, { "alien-biomes." .. tree_models[treedata.model].locale } }
         }

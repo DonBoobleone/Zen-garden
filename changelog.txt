@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.6
+Date: 02. 26. 2026
+  Compatibility:
+    - Added compatibility to Bottleneck Lite
+    - Zen-tree and Zen-bonsai, Gear-garden will be ignored for bottleneck lite display.
+---------------------------------------------------------------------------------------------------
 Version: 0.4.5
 Date: 02. 22. 2026
   Compatibility:

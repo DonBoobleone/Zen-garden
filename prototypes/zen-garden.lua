@@ -283,6 +283,7 @@ local entities = {
         },
         energy_usage = "100kW",
         module_slots = nil,
+        bottleneck_ignore = true, -- Bottleneck Lite compat
         allowed_effects = {}
     }
 }

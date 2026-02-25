@@ -47,5 +47,13 @@
 - Natural Fish Dynamics ( You can make your own fish ponds)
 - Nauvi-Tea (Should work well with artificial-grass and Zen-tower)
 
+## Compatibility
+- Alien Biomes
+- K2SO
+- Lignumis
+- Pelagos
+- Eneas
+- Bottleneck Lite
+
 ## If you are still reading this
 Tag me on [X](https://x.com/boobleone) with your best Garden screenshots.

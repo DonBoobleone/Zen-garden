@@ -103,6 +103,7 @@ local zen_bonsai_entity = {
     },
     energy_usage = "10kW",
     module_slots = nil,
+    bottleneck_ignore = true, -- Bottleneck Lite compat
     allowed_effects = {}
 }
 
@@ -166,6 +167,7 @@ local cherry_bonsai_entity = {
     },
     energy_usage = "10kW",
     module_slots = nil,
+    bottleneck_ignore = true, -- Bottleneck Lite compat
     allowed_effects = {}
 }
 
