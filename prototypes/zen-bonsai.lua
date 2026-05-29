@@ -1,4 +1,5 @@
 --zen-bonsai.lua
+-- TODO: Render 4 way graphics_set and make it rotatable. 
 if not settings.startup["zen-bonsai-decor-enabled"].value then return end
 
 -- Common underground fluid box for 4-way connections

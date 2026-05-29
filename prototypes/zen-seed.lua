@@ -10,6 +10,15 @@ local all_tree_types = zen_utils.all_tree_types
 local base_tree_types = zen_utils.base_tree_types
 local item_sounds = zen_utils.item_sounds
 
+-- Fallback for Krastorio2-spaced-out (KSO2) which removes the "tree-seeding" technology
+local kso2_mod_name = "Krastorio2-spaced-out"
+local tree_seeding_prerequisites
+if mods[kso2_mod_name] then
+    tree_seeding_prerequisites = { "basic-gardening" }  -- KSO2 removes tree-seeding, so only use basic-gardening
+else
+    tree_seeding_prerequisites = { "basic-gardening", "tree-seeding" }
+end
+
 local surface_conditions = { { property = "pressure", min = 1000, max = 1000 } } -- Nauvis only
 if settings.startup["invasive-forestry"].value then
     surface_conditions = { { property = "pressure", min = 900, max = 2000 } }   -- Adds Gleba
@@ -146,7 +155,7 @@ local new_technologies = {
             { icon = "__space-age__/graphics/technology/agriculture.png", icon_size = 256,                                         scale = 0.25, shift = { 16, 16 } }
         },
         effects = unlock_effects,
-        prerequisites = { "basic-gardening", "tree-seeding" },
+        prerequisites = tree_seeding_prerequisites,
         unit = {
             count = 50,
             ingredients = {
@@ -270,7 +279,7 @@ if mods["alien-biomes"] then
                     { icon = "__space-age__/graphics/technology/agriculture.png",                                           icon_size = 256, scale = 0.25, shift = { 16, 6 } }
                 },
                 effects = {},
-                prerequisites = { "basic-gardening", "tree-seeding" },
+                prerequisites = tree_seeding_prerequisites,
                 unit = {
                     count = 50,
                     ingredients = {

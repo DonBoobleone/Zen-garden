@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.4.7
+Date: 05. 29. 2026
+  Compatibility:
+    - Circumvented a Crash if "Krastorio2-spaced-out" and "Age-of-Production" were active
+---------------------------------------------------------------------------------------------------
 Version: 0.4.6
 Date: 02. 26. 2026
   Compatibility:
