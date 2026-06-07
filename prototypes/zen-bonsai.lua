@@ -1,5 +1,4 @@
---zen-bonsai.lua
--- TODO: Render 4 way graphics_set and make it rotatable. 
+-- zen-bonsai.lua
 if not settings.startup["zen-bonsai-decor-enabled"].value then return end
 
 -- Common underground fluid box for 4-way connections
@@ -44,28 +43,69 @@ local common_fluid_boxes = {
     }
 }
 
--- Zen Bonsai graphics layers
-local zen_bonsai_layer = {
-    filename = "__zen-garden__/graphics/entity/zen-bonsai/zen-bonsai.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    line_length = 1,
-    scale = 0.3,
-}
-local zen_bonsai_shadow = {
-    filename = "__zen-garden__/graphics/entity/zen-bonsai/zen-bonsai-shadow.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    line_length = 1,
-    scale = 0.3,
-    draw_as_shadow = true,
-}
+-- Helper: Create main sprite + shadow layers
+local function create_direction_layers(base_name, direction)
+    local folder = "__zen-garden__/graphics/entity/" .. base_name .. "/"
+    return {
+        {
+            filename = folder .. base_name .. "-" .. direction .. ".png",
+            priority = "extra-high",
+            width = 512,
+            height = 512,
+            frame_count = 1,
+            line_length = 1,
+            scale = 0.3,
+        },
+        {
+            filename = folder .. base_name .. "-" .. direction .. "-shadow.png",
+            priority = "extra-high",
+            width = 512,
+            height = 512,
+            frame_count = 1,
+            line_length = 1,
+            scale = 0.3,
+            draw_as_shadow = true,
+        }
+    }
+end
 
-local zen_bonsai_all_layers = { zen_bonsai_shadow, zen_bonsai_layer }
+-- Helper: Create water reflection with 4 directional variations
+local function create_water_reflection(base_name)
+    local folder = "__zen-garden__/graphics/entity/" .. base_name .. "/"
+    return {
+        pictures = {
+            {
+                filename = folder .. base_name .. "-n-reflection.png",
+                priority = "extra-high",
+                width = 512,
+                height = 512,
+                scale = 0.3,
+            },
+            {
+                filename = folder .. base_name .. "-e-reflection.png",
+                priority = "extra-high",
+                width = 512,
+                height = 512,
+                scale = 0.3,
+            },
+            {
+                filename = folder .. base_name .. "-s-reflection.png",
+                priority = "extra-high",
+                width = 512,
+                height = 512,
+                scale = 0.3,
+            },
+            {
+                filename = folder .. base_name .. "-w-reflection.png",
+                priority = "extra-high",
+                width = 512,
+                height = 512,
+                scale = 0.3,
+            }
+        },
+        orientation_to_variation = true,  -- Maps north=0, east=0.25, etc. to the 4 variations
+    }
+end
 
 -- Zen Bonsai entity
 local zen_bonsai_entity = {
@@ -93,8 +133,12 @@ local zen_bonsai_entity = {
     fast_replaceable_group = "zen-decor",
     graphics_set = {
         animation = {
-            layers = zen_bonsai_all_layers
-        }
+            north = { layers = create_direction_layers("zen-bonsai", "n") },
+            east  = { layers = create_direction_layers("zen-bonsai", "e") },
+            south = { layers = create_direction_layers("zen-bonsai", "s") },
+            west  = { layers = create_direction_layers("zen-bonsai", "w") },
+        },
+        water_reflection = create_water_reflection("zen-bonsai")
     },
     crafting_categories = { "gardening" },
     crafting_speed = 1,
@@ -104,32 +148,9 @@ local zen_bonsai_entity = {
     },
     energy_usage = "10kW",
     module_slots = nil,
-    bottleneck_ignore = true, -- Bottleneck Lite compat
+    bottleneck_ignore = true,
     allowed_effects = {}
 }
-
--- Cherry Bonsai graphics layers (pipes removed)
-local cherry_bonsai_layer = {
-    filename = "__zen-garden__/graphics/entity/cherry-bonsai/cherry-bonsai.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    line_length = 1,
-    scale = 0.3,
-}
-local cherry_bonsai_shadow = {
-    filename = "__zen-garden__/graphics/entity/cherry-bonsai/cherry-bonsai-shadow.png",
-    priority = "extra-high",
-    width = 512,
-    height = 512,
-    frame_count = 1,
-    line_length = 1,
-    scale = 0.3,
-    draw_as_shadow = true,
-}
-
-local cherry_bonsai_all_layers = { cherry_bonsai_shadow, cherry_bonsai_layer }
 
 -- Cherry Bonsai entity
 local cherry_bonsai_entity = {
@@ -157,8 +178,12 @@ local cherry_bonsai_entity = {
     fast_replaceable_group = "zen-decor",
     graphics_set = {
         animation = {
-            layers = cherry_bonsai_all_layers
-        }
+            north = { layers = create_direction_layers("cherry-bonsai", "n") },
+            east  = { layers = create_direction_layers("cherry-bonsai", "e") },
+            south = { layers = create_direction_layers("cherry-bonsai", "s") },
+            west  = { layers = create_direction_layers("cherry-bonsai", "w") },
+        },
+        water_reflection = create_water_reflection("cherry-bonsai")
     },
     crafting_categories = { "gardening" },
     crafting_speed = 1,
@@ -168,7 +193,7 @@ local cherry_bonsai_entity = {
     },
     energy_usage = "10kW",
     module_slots = nil,
-    bottleneck_ignore = true, -- Bottleneck Lite compat
+    bottleneck_ignore = true,
     allowed_effects = {}
 }
 
@@ -182,6 +207,7 @@ local zen_bonsai_item = {
     stack_size = 20,
     localised_description = { "item-description.zen-bonsai" }
 }
+
 local cherry_bonsai_item = {
     type = "item",
     name = "cherry-bonsai",

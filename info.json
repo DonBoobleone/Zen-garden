@@ -1,6 +1,6 @@
 {
   "name": "zen-garden",
-  "version": "0.4.7",
+  "version": "0.5.0",
   "title": "Zen Garden",
   "author": "Don Boobleone",
   "factorio_version": "2.0",
@@ -11,6 +11,6 @@
     "?nauvi-tea",
     "?Diversitree"
   ],
-  "description": "Compost wood or spoilage into pollution consuming artificial grass tiles. Build Zen Towers for compact wood production on Nauvis or Gleba. Grow wood in Zen Gardens on any surface.",
+  "description": "Compost wood or spoilage into pollution consuming artificial grass tiles. Build Zen Towers for compact wood production on Nauvis. Grow wood in Zen Gardens on any surface.",
   "spoiling_required": true
 }
