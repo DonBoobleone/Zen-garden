@@ -1,6 +1,18 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.5.1
+Date: 21. 07. 2026
+  Compatibility:
+    - Rebalanced tree-seed selection technology to support Lignumis
+  Balancing:
+    - tree seeding selection now only costs Automation and logistics science, cost increased from 50 -> 100
+  Features:
+    - Settings menu now shows colored category tags (green Content, yellow GUI/QoL, orange Overhaul, purple Cosmetic)
+    - Added new startup setting: zen-grenade-enabled (default true, Cosmetic category)
+  Other:
+    - Special thanks to cackling fiend for the rich-text coloring technique in mod settings, discovered while checking Lignumis compatibility
+---------------------------------------------------------------------------------------------------
 Version: 0.5.0
-Date: 06. ##. 2026
+Date: 06. 07. 2026
   Graphics:
     - Planting box bonsai now has 4-way sprite and is rotatable.
 ---------------------------------------------------------------------------------------------------

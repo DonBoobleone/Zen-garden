@@ -1,3 +1,5 @@
+if not settings.startup["zen-grenade-enabled"].value then return end
+
 --prototypes.standalone.zen-grenade.lua
 local item_sounds = require("__base__.prototypes.item_sounds")
 

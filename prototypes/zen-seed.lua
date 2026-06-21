@@ -157,13 +157,10 @@ local new_technologies = {
         effects = unlock_effects,
         prerequisites = tree_seeding_prerequisites,
         unit = {
-            count = 50,
+            count = 100,
             ingredients = {
                 { "automation-science-pack",   1 },
-                { "logistic-science-pack",     1 },
-                { "chemical-science-pack",     1 },
-                { "space-science-pack",        1 },
-                { "agricultural-science-pack", 1 }
+                { "logistic-science-pack",     1 }
             },
             time = 60
         }
@@ -281,13 +278,10 @@ if mods["alien-biomes"] then
                 effects = {},
                 prerequisites = tree_seeding_prerequisites,
                 unit = {
-                    count = 50,
+                    count = 100,
                     ingredients = {
                         { "automation-science-pack",   1 },
-                        { "logistic-science-pack",     1 },
-                        { "chemical-science-pack",     1 },
-                        { "space-science-pack",        1 },
-                        { "agricultural-science-pack", 1 }
+                        { "logistic-science-pack",     1 }
                     },
                     time = 60
                 }
