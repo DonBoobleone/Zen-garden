@@ -269,7 +269,7 @@ local zen_tower_recipe =
 {
     type = "recipe",
     name = "zen-tower",
-    category = "crafting",
+    categories = {"crafting"},
     energy_required = 10,
     enabled = false,
     ingredients = {
@@ -447,7 +447,7 @@ local zen_tower_mk2_recipe =
 {
     type = "recipe",
     name = "zen-tower-mk2",
-    category = "crafting",
+    categories = {"crafting"},
     energy_required = 10,
     enabled = false,
     ingredients = {

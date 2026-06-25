@@ -14,9 +14,9 @@ for _, plant in pairs(data.raw.plant) do
     end
 end
 
-data.raw.recipe["wood-processing"].subgroup = "wood-processing"
-data.raw.recipe["wood-processing"].order = "a[wood-processing]-a[base]"
-data.raw.recipe["wood-processing"].surface_conditions = nil -- allow processing on any surface
+data.raw.recipe["tree-seed"].subgroup = "wood-processing"
+data.raw.recipe["tree-seed"].order = "a[tree-seed]-a[base]"
+data.raw.recipe["tree-seed"].surface_conditions = nil -- allow processing on any surface
 
 -- Inasive Forsetry Setting
 if settings.startup["invasive-forestry"].value then

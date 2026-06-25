@@ -25,7 +25,7 @@ local technology = {
 local recipe = {
     type = "recipe",
     name = "charcoal-burning",
-    category = "smelting",
+    categories = {"smelting"},
     energy_required = 16,
     enabled = false,
     ingredients = { { type = "item", name = "wooden-chest", amount = 5 } },

@@ -68,7 +68,7 @@ local bonsai_seed_item = {
 local bonsai_seed_recipe = {
     type = "recipe",
     name = "tree-seed-bonsai",
-    category = "organic-or-assembling",
+    categories = {"organic", "crafting"},
     energy_required = 10,
     ingredients = {
         { type = "item", name = "tree-seed",          amount = 10 },

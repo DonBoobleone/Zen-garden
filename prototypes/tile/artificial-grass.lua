@@ -121,7 +121,7 @@ local function create_artificial_grass_conversion_recipe(to_item, badge_number)
     return {
         type = "recipe",
         name = "artificial-grass-conversion-" .. badge_number,
-        category = "crafting",
+        categories = { "crafting" },
         enabled = false,
         energy_required = 1,
         icons = {

@@ -143,7 +143,7 @@ local function create_base_zen_tree_recipe(tree_type)
     return {
         type = "recipe",
         name = "zen-tree-" .. tree_type,
-        category = "crafting",
+        categories = {"crafting"},
         energy_required = 1,
         enabled = false,
         ingredients = {
@@ -284,7 +284,7 @@ if mods["alien-biomes"] then
         return {
             type = "recipe",
             name = "zen-tree-" .. treedata.name,
-            category = "crafting",
+            categories = {"crafting"},
             energy_required = 1,
             enabled = false,
             ingredients = {

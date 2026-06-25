@@ -7,7 +7,7 @@ data:extend({
         type = "recipe",
         name = "crude-wood-processing",
         icon = "__base__/graphics/icons/tree-02-stump.png",
-        category = "organic-or-assembling",
+        categories = {"organic", "crafting"},
         subgroup = "wood-processing",
         order = "z[crude-wood-processing]",
         enabled = false,
@@ -19,12 +19,12 @@ data:extend({
         },
         energy_required = 2,
         ingredients = { { type = "item", name = "wood", amount = 2 } },
-        results = { { type = "item", name = "tree-seed", amount = 1, probability = 0.9 } }
+        results = { { type = "item", name = "tree-seed", amount = 1, independent_probability = 0.9 } }
     },
     {
         type = "recipe",
         name = "compost-from-wood",
-        category = "organic-or-assembling",
+        categories = {"organic", "crafting-with-fluid"},
         enabled = false,
         energy_required = 120,
         icons = {
@@ -45,7 +45,7 @@ data:extend({
     {
         type = "recipe",
         name = "compost-from-spoilage",
-        category = "organic-or-assembling",
+        categories = {"organic", "crafting-with-fluid"},
         enabled = false,
         energy_required = 120,
         icons = {
@@ -66,7 +66,7 @@ data:extend({
     {
         type = "recipe",
         name = "soil-mixing",
-        category = "organic-or-assembling",
+        categories = {"organic", "crafting"},
         enabled = false,
         energy_required = 10,
         icons = {
@@ -94,7 +94,7 @@ data:extend({
             { icon = "__base__/graphics/icons/tree-01.png",     icon_size = 64, scale = 0.25, shift = { -4, -4 } },
             { icon = "__base__/graphics/icons/fluid/water.png", icon_size = 64, scale = 0.25, shift = { 4, 4 } }
         },
-        category = "gardening",
+        categories = {"gardening"},
         energy_required = 60,
         ingredients = {
             { type = "fluid", name = "water", amount = 120 }
@@ -109,7 +109,7 @@ data:extend({
         icons = {
             { icon = "__zen-garden__/graphics/icons/zen-bonsai.png", icon_size = 64, scale = 0.5, shift = { 0, 0 } },
         },
-        category = "gardening",
+        categories = {"gardening"},
         energy_required = 60,
         ingredients = {},
         results = {},

@@ -221,8 +221,7 @@ local entities = {
         graphics_set = {
             animation = { layers = zen_all_layers }
         },
-        crafting_categories = { "advanced-gardening" },
-        additional_categories = {"gardening"},
+        crafting_categories = { "gardening", "advanced-gardening" },
         crafting_speed = 1,
         output_inventory_size = 2,
         energy_source = {
@@ -292,7 +291,7 @@ local recipes = {
     {
         type = "recipe",
         name = "zen-garden",
-        category = "crafting",
+        categories = {"crafting"},
         energy_required = 10,
         enabled = false,
         ingredients = {
@@ -310,7 +309,7 @@ local recipes = {
         icons = {
             { icon = "__base__/graphics/icons/wood.png", icon_size = 64, scale = 0.5 }
         },
-        category = "advanced-gardening",
+        categories = {"advanced-gardening"},
         energy_required = 200,
         enabled = false,
         ingredients = { { type = "fluid", name = "water", amount = 2000 } },
@@ -319,7 +318,7 @@ local recipes = {
     {
         type = "recipe",
         name = "gear-garden",
-        category = "crafting",
+        categories = {"crafting"},
         energy_required = 10,
         enabled = false,
         ingredients = {

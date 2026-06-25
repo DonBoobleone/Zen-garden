@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.0
+Date: 06. 25. 2026
+  Major Features:
+    - Updated syntax and Info for Factorio 2.1
+---------------------------------------------------------------------------------------------------
 Version: 0.5.1
-Date: 21. 07. 2026
+Date: 06. 21. 2026
   Compatibility:
     - Rebalanced tree-seed selection technology to support Lignumis
   Balancing:

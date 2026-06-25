@@ -49,7 +49,7 @@ local plant_overrides = {
 
 local common_recipe_properties = {
     type = "recipe",
-    category = "organic-or-assembling",
+    categories = {"organic", "crafting"},
     subgroup = "wood-processing",
     enabled = false,
     allow_productivity = true,
@@ -116,9 +116,9 @@ local function create_specific_recipe(tree_type)
     local order_index = tree_order_indices[tree_type]
     local order_letter = string.char(string.byte("a") + order_index - 1)
     local recipe = util.table.deepcopy(common_recipe_properties)
-    recipe.name = "wood-processing-" .. tree_type
+    recipe.name = "tree-seed-" .. tree_type
     recipe.icons = def.icons
-    recipe.order = "a[wood-processing]-" .. order_letter .. "[" .. tree_type .. "]"
+    recipe.order = "a[tree-seed]-" .. order_letter .. "[" .. tree_type .. "]"
     recipe.energy_required = 2
     recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
     recipe.results = { { type = "item", name = "tree-seed-" .. tree_type, amount = 1 } }
@@ -127,7 +127,7 @@ end
 
 local function gather_recipes_to_unlock(tree_type)
     local def = tree_definitions[tree_type]
-    local recipe_name = "wood-processing-" .. tree_type
+    local recipe_name = "tree-seed-" .. tree_type
     local recipe = { type = "unlock-recipe", recipe = recipe_name }
     return recipe
 end
