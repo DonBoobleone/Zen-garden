@@ -13,6 +13,19 @@ for _, td in pairs(trees_data) do
     end
 end
 
+local function get_clean_zen_name(tree_proto, name)
+    if tree_proto and tree_proto.localised_name then
+        if type(tree_proto.localised_name) == "string" then
+            -- trim trailing " Tree" / " tree" so we get clean base-style names
+            -- e.g. "Cactuar Elder Tree" → "Cactuar Elder"
+            return tree_proto.localised_name:gsub("%s*[Tt]ree%s*$", "")
+        else
+            return tree_proto.localised_name
+        end
+    end
+    return name
+end
+
 local planting_box_shift = util.by_pixel(0, 9)
 
 local planting_box_layer = {
@@ -111,10 +124,10 @@ local function create_zen_tree_entity_from_tree(name, tree_proto, treedata, mode
 
     local zen_name = "zen-tree-" .. name
 
-    -- Use nice name if we have treedata, otherwise fall back
+    -- Always produce "Zen Tree - XXX" style (nice path or cleaned fallback)
     local localised_name = (treedata and model_data)
         and { "entity-name.zen-tree", { "alien-biomes." .. treedata.locale }, { "alien-biomes." .. model_data.locale } }
-        or (tree_proto.localised_name or { "entity-name.tree" })
+        or { "entity-name.zen-tree", get_clean_zen_name(tree_proto, name) }
 
     return {
         type = "assembling-machine",
@@ -155,9 +168,10 @@ local function create_zen_tree_item_from_tree(name, tree_proto, treedata, model_
 
     local zen_name = "zen-tree-" .. name
 
+    -- Always produce "Zen Tree - XXX" style (nice path or cleaned fallback)
     local localised_name = (treedata and model_data)
         and { "item-name.zen-tree", { "alien-biomes." .. treedata.locale }, { "alien-biomes." .. model_data.locale } }
-        or (tree_proto.localised_name or { "item-name.tree" })
+        or { "item-name.zen-tree", get_clean_zen_name(tree_proto, name) }
 
     return {
         type = "item",
@@ -173,6 +187,7 @@ end
 
 local function create_zen_tree_recipe(name)
     local zen_name = "zen-tree-" .. name
+    local seed_name = use_basic_recipe and "tree-seed" or ("tree-seed-" .. name)
 
     return {
         type = "recipe",
@@ -183,7 +198,7 @@ local function create_zen_tree_recipe(name)
         ingredients = {
             { type = "item", name = "wooden-chest",     amount = 1 },
             { type = "item", name = "artificial-grass", amount = 1 },
-            { type = "item", name = "tree-seed",        amount = 1 }
+            { type = "item", name = seed_name,          amount = 1 }
         },
         results = { { type = "item", name = zen_name, amount = 1 } }
     }

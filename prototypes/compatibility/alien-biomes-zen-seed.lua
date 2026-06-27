@@ -12,11 +12,13 @@ local tree_models = require('__alien-biomes__/prototypes/entity/tree-models')
 
 local tree_data_lookup = {}
 for _, td in pairs(trees_data) do
-    if td and td.name then tree_data_lookup[td.name] = td end
+    if td and td.name then
+        tree_data_lookup[td.name] = td
+    end
 end
 
 data:extend({
-    { type = "item-subgroup", name = "alien-seeds",           group = "landscaping", order = "x" },
+    { type = "item-subgroup", name = "alien-seeds", group = "landscaping", order = "x" },
     { type = "item-subgroup", name = "alien-wood-processing", group = "landscaping", order = "y" }
 })
 
@@ -62,7 +64,7 @@ local common_recipe_properties = {
 }
 
 local function create_alien_seed_plant(name, tree_proto)
-    if not tree_proto or not tree_proto.variations then
+    if not tree_proto or not tree_proto.variations or not tree_proto.variations[1] then
         return nil
     end
 
@@ -70,7 +72,7 @@ local function create_alien_seed_plant(name, tree_proto)
     new_plant.name = "tree-plant-" .. name
     new_plant.variation_weights = {}
 
-    local variation_count = #new_plant.variations or 0
+    local variation_count = #new_plant.variations
     for i = 1, variation_count do
         new_plant.variation_weights[i] = (i <= variation_count - 2) and 1 or 0
     end
@@ -84,37 +86,40 @@ end
 
 local function create_alien_seed_item(name, treedata, model_data)
     local icons
-    local seed_name
+    local item_name = "tree-seed-" .. name
     local localised_name
 
     if model_data and model_data.type_name then
-        -- Clean Option A naming
-        local tint = (treedata.colors and treedata.colors[1]) or { r = 1, g = 1, b = 1, a = 1 }
+        -- Nice naming + icons (same style as zen-tree)
+        local tint = (treedata.colors and treedata.colors[1]) or {r=1,g=1,b=1,a=1}
         icons = {
-            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png",  icon_size = 64 },
+            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png", icon_size = 64 },
             { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-leaves.png", icon_size = 64, tint = tint },
-            { icon = "__space-age__/graphics/icons/tree-seed.png",                                              icon_size = 64, scale = 0.25, shift = { 6, -6 } }
+            { icon = "__space-age__/graphics/icons/tree-seed.png", icon_size = 64, scale = 0.25, shift = { 6, -6 } }
         }
-        seed_name = string.lower(model_data.locale) .. "-tree-seed"
         localised_name = {
             "item-name.alien-tree-seed",
+            { "alien-biomes." .. treedata.locale },
             { "alien-biomes." .. model_data.locale }
         }
     else
-        -- Fallback
+        -- Fallback (same style as zen-tree) - use pretty tree name if available
         local tree_proto = data.raw["tree"][name]
         if tree_proto and tree_proto.icons then
             icons = util.table.deepcopy(tree_proto.icons)
         else
             return nil
         end
-        seed_name = "tree-seed-" .. name
-        localised_name = { "item-name.tree-seed", name }
+        if tree_proto and tree_proto.localised_name then
+            localised_name = { "item-name.tree-seed", tree_proto.localised_name }
+        else
+            localised_name = { "item-name.tree-seed", name }
+        end
     end
 
     return {
         type = "item",
-        name = seed_name,
+        name = item_name,
         localised_name = localised_name,
         icons = icons,
         subgroup = "alien-seeds",
@@ -132,25 +137,30 @@ local function create_alien_seed_item(name, treedata, model_data)
 end
 
 local function create_alien_seed_recipe(name, treedata, model_data)
-    local seed_name
     local recipe_name = "tree-seed-" .. name
+    local item_name = recipe_name
     local localised_name
-    local icons
+    local icons = nil
 
     if model_data and model_data.type_name then
-        local tint = (treedata.colors and treedata.colors[1]) or { r = 1, g = 1, b = 1, a = 1 }
-        seed_name = string.lower(model_data.locale) .. "-tree-seed"
-        localised_name = {
-            "recipe-name.wood-processing-alien",
-            { "alien-biomes." .. model_data.locale }
-        }
+        local tint = (treedata.colors and treedata.colors[1]) or {r=1,g=1,b=1,a=1}
         icons = {
-            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png",  icon_size = 64 },
+            { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-trunk.png", icon_size = 64 },
             { icon = "__alien-biomes-graphics__/graphics/icons/tree-" .. model_data.type_name .. "-leaves.png", icon_size = 64, tint = tint }
         }
+        localised_name = {
+            "recipe-name.alien-tree-seed",
+            { "alien-biomes." .. treedata.locale },
+            { "alien-biomes." .. model_data.locale }
+        }
     else
-        seed_name = "tree-seed-" .. name
-        localised_name = { "recipe-name.tree-seed", name }
+        -- Fallback (same style as zen-tree) - use pretty tree name if available
+        local tree_proto = data.raw["tree"][name]
+        if tree_proto and tree_proto.localised_name then
+            localised_name = { "recipe-name.tree-seed", tree_proto.localised_name }
+        else
+            localised_name = { "recipe-name.tree-seed", name }
+        end
     end
 
     local recipe = util.table.deepcopy(common_recipe_properties)
@@ -159,7 +169,7 @@ local function create_alien_seed_recipe(name, treedata, model_data)
     if icons then recipe.icons = icons end
     recipe.energy_required = 2
     recipe.ingredients = { { type = "item", name = "wood", amount = 2 } }
-    recipe.results = { { type = "item", name = seed_name, amount = 1 } }
+    recipe.results = { { type = "item", name = item_name, amount = 1 } }
 
     return recipe
 end
@@ -174,15 +184,14 @@ for name, tree_proto in pairs(data.raw.tree) do
     if tree_proto.factoriopedia_alternative
         and name ~= "tree-01"
         and not string.match(name, "^tree%-0[0-9]$") then
+
         local treedata = tree_data_lookup[name]
         local model_data = treedata and tree_models[treedata.model]
 
-        -- Always try plant
-        local plant = create_alien_seed_plant(name, tree_proto)
-        if plant then table.insert(alien_plants, plant) end
+        if treedata then   -- ← Same as working zen-tree
+            local plant = create_alien_seed_plant(name, tree_proto)
+            if plant then table.insert(alien_plants, plant) end
 
-        -- Item + Recipe (with fallback)
-        if treedata then
             local seed_item = create_alien_seed_item(name, treedata, model_data)
             if seed_item then table.insert(alien_items, seed_item) end
 
@@ -214,7 +223,7 @@ if #alien_recipes > 0 then
                 count = 150,
                 ingredients = {
                     { "automation-science-pack", 1 },
-                    { "logistic-science-pack",   1 }
+                    { "logistic-science-pack", 1 }
                 },
                 time = 60
             }

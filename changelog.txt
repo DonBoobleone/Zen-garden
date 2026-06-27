@@ -5,6 +5,9 @@ Date: 06. 27. 2026
     - Fixed a crash with alien-biomes.
   Compatibility:
     - Refactored alien-biomes comaptibility.
+    - Zen-seed and zen-tree now use base or alien-biomes tree's instead of both.
+  Locale:
+    - Cleared up naming of zen-seed and zen-tree
 ---------------------------------------------------------------------------------------------------
 Version: 0.6.0
 Date: 06. 25. 2026
