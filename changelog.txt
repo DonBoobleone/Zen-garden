@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.6.1
+Date: 06. 27. 2026
+  Bugfixes:
+    - Fixed a crash with alien-biomes.
+  Compatibility:
+    - Refactored alien-biomes comaptibility.
+---------------------------------------------------------------------------------------------------
 Version: 0.6.0
 Date: 06. 25. 2026
   Major Features:

@@ -54,3 +54,10 @@ if settings.startup["fuel-pollution-overhaul"].value then
     -- decrease rocket fuel to 80% ??
     -- decrease nuclear fuel to 10% ??
 end
+
+-- COMPATIBILITY
+
+if mods["alien-biomes"] then
+    require("__zen-garden__/prototypes/compatibility/alien-biomes-zen-seed")
+    require("__zen-garden__/prototypes/compatibility/alien-biomes-zen-tree")
+end

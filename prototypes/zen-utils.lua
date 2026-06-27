@@ -1,33 +1,34 @@
+-- prototypes/zen-utils.lua
 local util = require("util")
-local item_sounds = require("__base__.prototypes.item_sounds")
 
 local colors = {
     very_light_green = { r = 252 / 255, g = 255 / 255, b = 133 / 255, a = 1 },
-    lime_green = { r = 192 / 255, g = 255 / 255, b = 97 / 255, a = 1 },
-    pale_green = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },
-    light_green = { r = 191 / 255, g = 255 / 255, b = 111 / 255, a = 1 },
-    forest_green = { r = 131 / 255, g = 242 / 255, b = 90 / 255, a = 1 },
-    olive_green = { r = 156 / 255, g = 255 / 255, b = 224 / 255, a = 1 },
-    yellow_green = { r = 210 / 255, g = 230 / 255, b = 85 / 255, a = 1 },
-    deep_green = { r = 107 / 255, g = 224 / 255, b = 108 / 255, a = 1 },
-    dark_green = { r = 102 / 255, g = 204 / 255, b = 102 / 255, a = 1 },
-    orange = { r = 255 / 255, g = 153 / 255, b = 51 / 255, a = 1 },
-    red = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 },
-    brown = { r = 153 / 255, g = 102 / 255, b = 51 / 255, a = 1 }
+    lime_green       = { r = 192 / 255, g = 255 / 255, b = 97 / 255, a = 1 },
+    pale_green       = { r = 179 / 255, g = 255 / 255, b = 143 / 255, a = 1 },
+    light_green      = { r = 191 / 255, g = 255 / 255, b = 111 / 255, a = 1 },
+    forest_green     = { r = 131 / 255, g = 242 / 255, b = 90 / 255, a = 1 },
+    olive_green      = { r = 156 / 255, g = 255 / 255, b = 224 / 255, a = 1 },
+    yellow_green     = { r = 210 / 255, g = 230 / 255, b = 85 / 255, a = 1 },
+    deep_green       = { r = 107 / 255, g = 224 / 255, b = 108 / 255, a = 1 },
+    dark_green       = { r = 102 / 255, g = 204 / 255, b = 102 / 255, a = 1 },
+    orange           = { r = 255 / 255, g = 153 / 255, b = 51 / 255, a = 1 },
+    red              = { r = 230 / 255, g = 92 / 255, b = 92 / 255, a = 1 },
+    brown            = { r = 153 / 255, g = 102 / 255, b = 51 / 255, a = 1 }
 }
 
+-- TODO: check if I can read this from base instead of hard coded. from data.raw:  tree-plant.tile_restriction
 local base_tile_restrictions = {
     "grass-1", "grass-2", "grass-3", "grass-4",
     "dry-dirt", "dirt-1", "dirt-2", "dirt-3", "dirt-4", "dirt-5", "dirt-6", "dirt-7",
-    "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3"
+    "red-desert-0", "red-desert-1", "red-desert-2", "red-desert-3",
+    "sand-1", "sand-2", "sand-3"
 }
 
-local artificial_tile_restrictions = { "artificial-grass"}
+local artificial_tile_restrictions = { "artificial-grass" }
 if settings.startup["enable-extended-grass-selection"] and settings.startup["enable-extended-grass-selection"].value then
     table.insert(artificial_tile_restrictions, "artificial-grass-2")
     table.insert(artificial_tile_restrictions, "artificial-grass-3")
 end
-
 
 local tile_restrictions = {}
 for _, tile in ipairs(base_tile_restrictions) do
@@ -53,7 +54,7 @@ if mods["lignumis"] then
 end
 
 if mods["moon-eneas"] then
-    local eneas_tiles = {"dry-dirt-eneas", "path-dirt-eneas", "main-grass-eneas"}
+    local eneas_tiles = { "dry-dirt-eneas", "path-dirt-eneas", "main-grass-eneas" }
     for _, tile in ipairs(eneas_tiles) do
         table.insert(tile_restrictions, tile)
     end
@@ -117,7 +118,7 @@ local tree_definitions = {
         base_tree = "tree-08",
         variation_index = 1,
         tint = colors.lime_green,
-        seed_name = "tree-seed", -- Exception: uses generic seed
+        seed_name = "tree-seed-juniper",   -- Fixed: proper dedicated seed name
         icons = { { icon = "__base__/graphics/icons/tree-08.png", icon_size = 64 } }
     },
     redwood = {
@@ -243,7 +244,6 @@ return {
     ordered_tree_types = ordered_tree_types,
     tree_order_indices = tree_order_indices,
     tree_definitions = tree_definitions,
-    item_sounds = item_sounds,
     create_single_zen_tree_layers = create_single_zen_tree_layers,
     create_zen_tree_layers = create_zen_tree_layers,
     create_zen_garden_graphics = create_zen_garden_graphics
