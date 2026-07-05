@@ -354,6 +354,16 @@ zen_tower_mk2_entity.crane_energy_usage = "200kW"
 zen_tower_mk2_entity.drawing_box_vertical_extension = zen_tower_mk2_entity.drawing_box_vertical_extension *
 zen_tower_mk2_scale
 
+-- NEW 2.1 module support (3 slots, quality increases count, beacons disabled)
+zen_tower_mk2_entity.module_slots = 3
+zen_tower_mk2_entity.quality_affects_module_slots = true
+zen_tower_mk2_entity.allowed_effects = {"speed", "productivity", "consumption", "pollution", "quality"}
+zen_tower_mk2_entity.effect_receiver = {
+    uses_module_effects = true,
+    uses_beacon_effects = false,
+    uses_surface_effects = true
+}
+
 -- Create graphics sets for each position
 local nw_graphics = create_scaled_agricultural_tower_graphics_set(1.0)
 shift_graphics_set(nw_graphics, -1.5, -1.5)                                                -- Northwest corner
