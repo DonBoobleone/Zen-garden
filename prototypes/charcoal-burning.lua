@@ -30,7 +30,8 @@ local recipe = {
     enabled = false,
     ingredients = { { type = "item", name = "wooden-chest", amount = 5 } },
     results = { { type = "item", name = "coal", amount = 2 } },
-    allow_productivity = true
+    allow_productivity = true,
+    auto_recycle = false
 }
 
 data:extend({ recipe, technology })
